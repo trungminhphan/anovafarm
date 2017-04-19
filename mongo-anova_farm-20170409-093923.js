@@ -6,6 +6,13 @@ db.getCollection("banle").ensureIndex({
   
 ]);
 
+/** banletrung indexes **/
+db.getCollection("banletrung").ensureIndex({
+  "_id": NumberInt(1)
+},[
+  
+]);
+
 /** danhmucbanle indexes **/
 db.getCollection("danhmucbanle").ensureIndex({
   "_id": NumberInt(1)
@@ -84,6 +91,13 @@ db.getCollection("nongtrai").ensureIndex({
   
 ]);
 
+/** nongtrairauqua indexes **/
+db.getCollection("nongtrairauqua").ensureIndex({
+  "_id": NumberInt(1)
+},[
+  
+]);
+
 /** nongtraitrung indexes **/
 db.getCollection("nongtraitrung").ensureIndex({
   "_id": NumberInt(1)
@@ -113,8 +127,33 @@ db.getCollection("banle").insert({
     "58f2e890d893986c0f00002b",
     "58f2e8d5d893986c0f00002c"
   ],
-  "hienthi": "1",
+  "hienthi": NumberInt(1),
   "date_post": ISODate("2017-04-19T08:27:05.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+
+/** banletrung records **/
+db.getCollection("banletrung").insert({
+  "_id": ObjectId("58f772f67247aebc0f000037"),
+  "id_donggoitrung": ObjectId("58f736e0d89398d40d000041"),
+  "id_dmbanle": [
+    "58f2e890d893986c0f00002b",
+    "58f2e8d5d893986c0f00002c"
+  ],
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T14:23:50.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+db.getCollection("banletrung").insert({
+  "_id": ObjectId("58f774bf7247aec00f000039"),
+  "id_donggoitrung": ObjectId("58f736e0d89398d40d000041"),
+  "id_dmbanle": [
+    "58f2e890d893986c0f00002b"
+  ],
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T14:31:27.0Z"),
   "id_user": ObjectId("58e3072432341cfc09005d7e"),
   "id_congty": ObjectId("58f0801dd89398440b00002b")
 });
@@ -148,6 +187,12 @@ db.getCollection("danhmucnhamay").insert({
   "_id": ObjectId("58f07ffcd89398440b00002a"),
   "ten": "ABC",
   "diachi": "An Giang",
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+db.getCollection("danhmucnhamay").insert({
+  "_id": ObjectId("58f770687247ae140f00002b"),
+  "ten": "EFG",
+  "diachi": "EFG",
   "id_congty": ObjectId("58f0801dd89398440b00002b")
 });
 
@@ -191,12 +236,44 @@ db.getCollection("donggoitrung").insert({
   "quicachdonggoi": "Trứng ",
   "solo": "Trứng ",
   "id_dmnhamay": ObjectId("58f07ffcd89398440b00002a"),
-  "tieuchuan": "111",
-  "sochungnhantieuchuan": "",
+  "tieuchuan": "123456",
+  "sochungnhantieuchuan": "123",
   "ngaydonggoi": ISODate("2017-04-19T00:00:00.0Z"),
   "hansudung": "111",
   "hienthi": NumberInt(1),
-  "date_post": ISODate("2017-04-19T10:07:28.0Z"),
+  "date_post": ISODate("2017-04-19T14:15:56.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+db.getCollection("donggoitrung").insert({
+  "_id": ObjectId("58f76b937247aeac0f00002b"),
+  "id_nongtraitrung": ObjectId("58f72d80d89398e40f00002a"),
+  "tensanpham": "Trứng 2",
+  "quicachdonggoi": "Trứng 2",
+  "solo": "Trứng 2",
+  "id_dmnhamay": ObjectId("58f07ffcd89398440b00002a"),
+  "tieuchuan": "123",
+  "sochungnhantieuchuan": "123",
+  "ngaydonggoi": ISODate("2017-04-19T00:00:00.0Z"),
+  "hansudung": "Trứng 2",
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T14:08:46.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+db.getCollection("donggoitrung").insert({
+  "_id": ObjectId("58f76f7c7247ae140f000029"),
+  "id_nongtraitrung": ObjectId("58f72d80d89398e40f00002a"),
+  "tensanpham": "qqqq",
+  "quicachdonggoi": "qqqq",
+  "solo": "qqq",
+  "id_dmnhamay": ObjectId("58f770687247ae140f00002b"),
+  "tieuchuan": "qqqq",
+  "sochungnhantieuchuan": "qqqq",
+  "ngaydonggoi": ISODate("2017-04-19T00:00:00.0Z"),
+  "hansudung": "qqqq",
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T14:13:21.0Z"),
   "id_user": ObjectId("58e3072432341cfc09005d7e"),
   "id_congty": ObjectId("58f0801dd89398440b00002b")
 });
@@ -257,6 +334,38 @@ db.getCollection("nongtrai").insert({
   "id_congty": ObjectId("58f0801dd89398440b00002b")
 });
 
+/** nongtrairauqua records **/
+db.getCollection("nongtrairauqua").insert({
+  "_id": ObjectId("58f77df57247aea80f000029"),
+  "id_dmnongtrai": ObjectId("58f081fcd89398440b00002c"),
+  "tieuchuan": "VietGAP",
+  "sochungnhantieuchuan": "qqqq",
+  "ngaythuhoach": ISODate("2017-04-19T00:00:00.0Z"),
+  "matruyxuatsanpham": "1234",
+  "soluong": NumberInt(11),
+  "soxevanchuyen": "11",
+  "tentaixe": "11",
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T15:10:45.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+db.getCollection("nongtrairauqua").insert({
+  "_id": ObjectId("58f77e827247aebc0f00003e"),
+  "id_dmnongtrai": ObjectId("58f081fcd89398440b00002c"),
+  "tieuchuan": "wwww",
+  "sochungnhantieuchuan": "ww",
+  "ngaythuhoach": ISODate("2017-04-19T00:00:00.0Z"),
+  "matruyxuatsanpham": "ww",
+  "soluong": NumberInt(11),
+  "soxevanchuyen": "ww",
+  "tentaixe": "11",
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T15:13:06.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
+
 /** nongtraitrung records **/
 db.getCollection("nongtraitrung").insert({
   "_id": ObjectId("58f72d80d89398e40f00002a"),
@@ -274,6 +383,22 @@ db.getCollection("nongtraitrung").insert({
   "id_user": ObjectId("58e3072432341cfc09005d7e"),
   "id_congty": ObjectId("58f0801dd89398440b00002b")
 });
+db.getCollection("nongtraitrung").insert({
+  "_id": ObjectId("58f7700e7247ae140f00002a"),
+  "id_dmnongtrai": ObjectId("58f0820ad89398440b00002d"),
+  "tieuchuan": "11111",
+  "sochungnhantieuchuan": "111",
+  "madan": "111",
+  "soluong": NumberInt(11),
+  "ngaythuhoach": ISODate("2017-04-19T00:00:00.0Z"),
+  "nhamaycungcapthucan": "111",
+  "soxevanchuyen": "11",
+  "tentaixe": "11",
+  "hienthi": NumberInt(1),
+  "date_post": ISODate("2017-04-19T14:11:26.0Z"),
+  "id_user": ObjectId("58e3072432341cfc09005d7e"),
+  "id_congty": ObjectId("58f0801dd89398440b00002b")
+});
 
 /** sessions records **/
 db.getCollection("sessions").insert({
@@ -283,129 +408,19 @@ db.getCollection("sessions").insert({
   "timedout_at": NumberInt(1492602869),
   "expired_at": NumberInt(1492625813)
 });
-
-/** system.indexes records **/
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.sessions"
+db.getCollection("sessions").insert({
+  "_id": ObjectId("58f73f4b400ae1085de232ad"),
+  "session_id": "lmfjkhgrsmsh8glndokv29opq5",
+  "data": "user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"58f0801dd89398440b00002b\";roles|i:31;",
+  "timedout_at": NumberInt(1492604725),
+  "expired_at": NumberInt(1492634603)
 });
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.banle"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.nhamay"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.nongtrai"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.users"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.fs.chunks"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "unique": true,
-  "key": {
-    "files_id": NumberInt(1),
-    "n": NumberInt(1)
-  },
-  "name": "files_id_1_n_1",
-  "ns": "anova_farm.fs.chunks"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.fs.files"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.donggoi"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.danhmucnhamay"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.danhmuccongty"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.danhmucnongtrai"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.danhmucbanle"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.nongtraitrung"
-});
-db.getCollection("system.indexes").insert({
-  "v": NumberInt(1),
-  "key": {
-    "_id": NumberInt(1)
-  },
-  "name": "_id_",
-  "ns": "anova_farm.donggoitrung"
+db.getCollection("sessions").insert({
+  "_id": ObjectId("58f76929400ae1085de232ae"),
+  "session_id": "ji7rke29uopht47sjc65g2ai45",
+  "data": "user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"58f0801dd89398440b00002b\";roles|i:31;",
+  "timedout_at": NumberInt(1492620856),
+  "expired_at": NumberInt(1492645321)
 });
 
 /** users records **/
@@ -494,6 +509,12 @@ db.getCollection("users").insert({
     },
     {
       "in": ISODate("2017-04-19T08:16:55.0Z")
+    },
+    {
+      "in": ISODate("2017-04-19T10:44:28.0Z")
+    },
+    {
+      "in": ISODate("2017-04-19T13:42:03.0Z")
     }
   ],
   "id_congty": ObjectId("58f0801dd89398440b00002b")

@@ -6,7 +6,7 @@ $session = new SessionManager();
 $users = new Users();
 require_once('../inc/functions.inc.php');
 require_once('../inc/config.inc.php');
-if(!$users->isLoggedIn()){ transfers_to('../login.html?url=' . $_SERVER['REQUEST_URI']); }
+if(!$users->isLoggedIn()){ transfers_to('./login.html?url=' . $_SERVER['REQUEST_URI']); }
 //$user_default = $users->get_one_default();
 $id_user = $users->get_userid();
 $id_congty = $users->get_id_congty();
@@ -113,11 +113,19 @@ $id_congty = $users->get_id_congty();
                     </a>
                 </li>
                 <?php endif; ?>
+                <?php if($users->is_admin() || $users->is_factory() || $users->is_packer()): ?>
+                <li>
+                    <a href="nhamay.html">
+                        <i class="fa fa-gears "></i> 
+                        <span>SƠ CHẾ</span>
+                    </a>
+                </li>
+            	<?php endif; ?>
             	<?php if($users->is_admin() || $users->is_retail() || $users->is_packer()): ?>
                 <li>
                     <a href="donggoi.html">
                         <i class="fa fa-dropbox "></i> 
-                        <span>XỬ LÝ ĐÓNG GÓI</span>
+                        <span>ĐÓNG GÓI</span>
                     </a>
                 </li>
                 <?php endif; ?>
@@ -139,4 +147,4 @@ $id_congty = $users->get_id_congty();
 		<!-- end #top-menu -->
 		<!-- begin #content -->
 		<div id="content" class="content">
-		<h1 class="page-header"><i class="ion-egg text-primary"></i> QUẢN LÝ XỬ LÝ TRỨNG</h1>
+		<h1 class="page-header"><i class="ion-leaf text-primary"></i> QUẢN LÝ RAU QUẢ</h1>

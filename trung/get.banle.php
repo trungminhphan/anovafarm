@@ -1,6 +1,6 @@
 <?php
 require_once('header_none.php');
-$nhamay = new NhaMay();$nongtrai = new NongTrai();$banle = new BanLe();
+$nongtrai = new NongTraiTrung();$banle = new BanLeTrung();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 
@@ -21,17 +21,9 @@ if($act == 'edit'){
 	$arr = array(
 		'id' => $id,
 		'act' => 'edit',
-		'id_donggoi' => strval($bl['id_donggoi']),
-		'noibansi' => $bl['noibansi'],
-		'diachibansi' => $bl['diachibansi'],
-		'ngaygiobansi' => date("d/m/Y", $bl['ngaygiobansi']->sec),
-		'giobansi' => intval(date("H", $bl['ngaygiobansi']->sec)),
-		'phutbansi' => intval(date("i", $bl['ngaygiobansi']->sec)),
-		'noibanle' => $bl['noibanle'],
-		'tenquaysap' => $bl['tenquaysap'],
-		'ngaygiobanle' => date("d/m/Y", $bl['ngaygiobanle']->sec),
-		'giobanle' => intval(date("H", $bl['ngaygiobanle']->sec)),
-		'phutbanle' => intval(date("i", $bl['ngaygiobanle']->sec))
+		'id_donggoitrung' => strval($bl['id_donggoitrung']),
+		'id_dmbanle' => $bl['id_dmbanle'],
+		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($bl['hienthi'] == 1 ? ' checked' : '').'/>'
 	);
 	echo json_encode($arr);
 }

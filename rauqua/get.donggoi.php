@@ -1,25 +1,21 @@
 <?php
 require_once('header_none.php');
-$nongtrai = new NongTraiTrung();$banle = new BanLeTrung();
-$donggoi = new DongGoiTrung();
-$danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
+$nhamay = new NhaMay();$nongtrai = new NongTrai();$banle = new BanLe();
+$donggoi = new DongGoi();$danhmucnhamay = new DanhMucNhaMay();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 
 if($act == 'edit' || $act == 'thembanle'){
 	$donggoi->id = $id; $dg = $donggoi->get_one();
-	$nongtrai->id = $dg['id_nongtraitrung']; $nt = $nongtrai->get_one();
-	$danhmucnhamay->id = $dg['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-	$danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
+	$nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
+	$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
+	$danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
 	$arr = array(
 		'id' => $id,
 		'act' => $act,
 		'id_donggoi' => $id,
-		'id_nongtraitrung' => strval($dg['id_nongtraitrung']),
-		'tennongtrai' => $dmnt['ten'],
-		'diachinongtrai' => $dmnt['diachi'],
 		'madan' => $nt['madan'],
-		'id_dmnhamay' => strval($dg['id_dmnhamay']),
+		'id_nhamay' => strval($dg['id_nhamay']),
 		'tennhamay' => $dm['ten'],
 		'diachinhamay' => $dm['diachi'],
 		'tensanpham' => $dg['tensanpham'],
@@ -27,7 +23,12 @@ if($act == 'edit' || $act == 'thembanle'){
 		'solo' => $dg['solo'],
 		'tieuchuan' => $dg['tieuchuan'],
 		'sochungnhantieuchuan' => $dg['sochungnhantieuchuan'],
-		'ngaydonggoi' => date("d/m/Y", $dg['ngaydonggoi']->sec),
+		'ngaygiogietmo' => date("d/m/Y", $dg['ngaygiogietmo']->sec),
+		'giogietmo' => intval(date("H", $dg['ngaygiogietmo']->sec)),
+		'phutgietmo' => intval(date("i", $dg['ngaygiogietmo']->sec)),
+		'ngaygiodonggoi' => date("d/m/Y", $dg['ngaygiodonggoi']->sec),
+		'giodonggoi' => intval(date("H", $dg['ngaygiodonggoi']->sec)),
+		'phutdonggoi' => intval(date("i", $dg['ngaygiodonggoi']->sec)),
 		'hansudung' => $dg['hansudung'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($dg['hienthi'] == 1 ? ' checked' : '').'/>'
 		);

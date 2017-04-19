@@ -1,14 +1,18 @@
 <?php require_once('header.php');
 check_permis($users->is_admin() || $users->is_retail());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$nhamay = new NhaMay();$nongtrai = new NongTrai();$banle = new BanLe();
-$danhmucnhamay = new DanhMucNhaMay(); $danhmucnongtrai = new DanhMucNongTrai();
-$donggoi = new DongGoi();$danhmucbanle = new DanhMucBanLe();
-//$nhamay_list = $nhamay->get_all_list();
-//$nongtrai_list = $nongtrai->get_all_list();
-$banle_list =  $banle->get_all_list();
+$nongtrai = new NongTraiTrung();$banle = new BanLeTrung();$donggoi = new DongGoiTrung();
+$danhmucnhamay = new DanhMucNhaMay();
+$danhmucnongtrai = new DanhMucNongTrai();
+$danhmucbanle = new DanhMucBanLe();
 $donggoi_list = $donggoi->get_all_list();
 $danhmucbanle_list = $danhmucbanle->get_all_list();
+if($users->is_admin()){
+    $banle_list =  $banle->get_all_list();
+} else {
+    $banle->id_congty = $id_congty;
+    $banle_list =  $banle->get_list_by_congty();
+}
 ?>
 <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
@@ -48,8 +52,7 @@ $danhmucbanle_list = $danhmucbanle->get_all_list();
             		if($banle_list){
             			$i=1;
             			foreach($banle_list as $bl){
-                            $donggoi->id = $bl['id_donggoi'];$dg = $donggoi->get_one();
-
+                            $donggoi->id = $bl['id_donggoitrung'];$dg = $donggoi->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
@@ -98,15 +101,15 @@ $danhmucbanle_list = $danhmucbanle->get_all_list();
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="act" id="act">
                         <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
-                    	<select name="id_donggoi" id="id_donggoi" class="select2" style="width:100%;">
+                    	<select name="id_donggoitrung" id="id_donggoitrung" class="select2" style="width:100%;">
                     	<?php
                     	if($donggoi_list){
                     		foreach($donggoi_list as $dg){
-                                $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
-                                $danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
-                    			$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
+                                //$nhamay->id = $dg['id_dmnhamay']; $nm = $nhamay->get_one();
+                                //$danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
+                    			//$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
                                 $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                    			echo '<option value="'.$dg['_id'].'">'.$dg['tensanpham'].', Số lô: '.$dg['solo'] . ', mã đàn: '. $nt['madan'].', ' .$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                    			echo '<option value="'.$dg['_id'].'">Tên sản phẩm: '.$dg['tensanpham'].', Số lô: '.$dg['solo'].', Tiêu chuẩn: '. $dg['tieuchuan'] . '</option>';
                     		}
                     	}
                     	?>
@@ -169,17 +172,9 @@ $danhmucbanle_list = $danhmucbanle->get_all_list();
             var _link = $(this).attr("href");
             $.getJSON(_link, function(data){
                 $("#id").val(data.id); $("#act").val(data.act);
-                $("#id_donggoi").val(data.id_donggoi);$("#id_donggoi").select2();
-                $("#noibansi").val(data.noibansi);
-                $("#diachibansi").val(data.diachibansi);
-                $("#ngaygiobansi").val(data.ngaygiobansi);
-                $("#giobansi").val(data.giobansi);$("#giobansi").select2();
-                $("#phutbansi").val(data.phutbansi);$("#phutbansi").select2();
-                $("#noibanle").val(data.noibanle);
-                $("#tenquaysap").val(data.tenquaysap);
-                $("#ngaygiobanle").val(data.ngaygiobanle);
-                $("#giobanle").val(data.giobanle);$("#giobanle").select2();
-                $("#phutbanle").val(data.phutbanle);$("#phutbanle").select2();
+                $("#id_donggoitrung").val(data.id_donggoitrung);$("#id_donggoitrung").select2();
+                $("#id_dmbanle").val(data.id_dmbanle); $("#id_dmbanle").select2();
+                $("#hienthi").html(data.hienthi); FormSliderSwitcher.init();           
             });
         });
         $(".open_window").click(function(){

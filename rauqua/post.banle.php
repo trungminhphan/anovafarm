@@ -1,10 +1,10 @@
 <?php
 require_once('header_none.php');
-$banle = new BanLeTrung();
+$banle = new BanLe();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';
 $url = isset($_POST['url']) ? $_POST['url'] : '';
-$id_donggoitrung = isset($_POST['id_donggoitrung']) ? $_POST['id_donggoitrung'] : '';
+$id_donggoi = isset($_POST['id_donggoi']) ? $_POST['id_donggoi'] : '';
 $id_dmbanle = isset($_POST['id_dmbanle']) ? $_POST['id_dmbanle'] : '';
 $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : 0;
 
@@ -22,7 +22,7 @@ $giobanle = isset($_POST['giobanle']) ? $_POST['giobanle'] : '';
 $phutbanle = isset($_POST['phutbanle']) ? $_POST['phutbanle'] : '';
 $ngaygiobanle = new MongoDate(convert_date_yyyy_mm_dd_1($ngaygiobanle, $giobanle, $phutbanle));
 */
-$banle->id_donggoitrung = $id_donggoitrung;
+$banle->id_donggoi = $id_donggoi;
 $banle->id_dmbanle = $id_dmbanle;
 $banle->hienthi = $hienthi;
 $banle->id_user = $id_user;
