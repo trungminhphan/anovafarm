@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteRule "index.html" "index.php"
+RewriteRule "login.html" "login.php"
+RewriteRule "change_password.html" "change_password.php"
+RewriteRule "uploads.html" "uploads.php"
+RewriteRule "logout.html" "logout.php"
