@@ -66,14 +66,14 @@ if($users->is_admin()){
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nm['tieuchuan'].'</td>';
             				echo '<td class="text-right">'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
-                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
+                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($nm['hienthi'] == 1){
 	            					echo '<td class="text-center link_hienthi"><a href="get.nhamay.html?id='.$nm['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
 	            				} else {
 	            					echo '<td class="text-center link_hienthi"><a href="get.nhamay.html?id='.$nm['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
 	            				}*/
-	            				echo '<td class="text-center"><a href="print_qrcode.html?id='.$nm['_id'].'&type=2" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nm['_id'].'&type=2&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
 	            				echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=themdonggoi#modal-donggoi" data-toggle="modal" name="'.$nt['_id'].'" class="themdonggoi"><i class="fa fa-dropbox"></i></a></td>';
             				}
             				if($users->is_admin() || $users->is_factory()){

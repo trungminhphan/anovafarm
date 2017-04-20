@@ -1,10 +1,10 @@
 <?php
 require_once('header_none.php');
-$banle = new BanLe();
+$banle = new BanLeRauQua();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';
 $url = isset($_POST['url']) ? $_POST['url'] : '';
-$id_donggoi = isset($_POST['id_donggoi']) ? $_POST['id_donggoi'] : '';
+$id_donggoirauqua = isset($_POST['id_donggoirauqua']) ? $_POST['id_donggoirauqua'] : '';
 $id_dmbanle = isset($_POST['id_dmbanle']) ? $_POST['id_dmbanle'] : '';
 $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : 0;
 
@@ -22,17 +22,11 @@ $giobanle = isset($_POST['giobanle']) ? $_POST['giobanle'] : '';
 $phutbanle = isset($_POST['phutbanle']) ? $_POST['phutbanle'] : '';
 $ngaygiobanle = new MongoDate(convert_date_yyyy_mm_dd_1($ngaygiobanle, $giobanle, $phutbanle));
 */
-$banle->id_donggoi = $id_donggoi;
+$banle->id_donggoirauqua = $id_donggoirauqua;
 $banle->id_dmbanle = $id_dmbanle;
 $banle->hienthi = $hienthi;
 $banle->id_user = $id_user;
 $banle->id_congty = $id_congty;
-/*$banle->noibansi = $noibansi;
-$banle->diachibansi = $diachibansi;
-$banle->ngaygiobansi = $ngaygiobansi;
-$banle->noibanle = $noibanle;
-$banle->tenquaysap  = $tenquaysap;
-$banle->ngaygiobanle = $ngaygiobanle;*/
 $l = explode("?", $url); $url = $l[0];
 if($act == 'edit'){
 	$banle->id = $id;

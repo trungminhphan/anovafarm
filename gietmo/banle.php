@@ -75,7 +75,7 @@ if($users->is_admin()){
             				} else {
             					echo '<td class="text-center link_hienthi"><a href="get.banle.html?id='.$bl['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
             				}*/
-            				echo '<td class="text-center"><a href="print_qrcode.html?id='.$bl['_id'].'&type=4&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$bl['_id'].'&type=4&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
             				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
             				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=edit#modal-banle" data-toggle="modal" class="suabanle"><i class="fa fa-pencil"></i></a></td>';
             				echo '</tr>'; $i++;

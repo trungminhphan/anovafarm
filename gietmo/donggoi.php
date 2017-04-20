@@ -68,14 +68,14 @@ if($users->is_admin()){
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
             				echo '<td class="text-right">'.date("d/m/Y H:i",$dg['ngaygiodonggoi']->sec).'</td>';
-                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
+                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($dg['hienthi'] == 1){
 	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
 	            				} else {
 	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
 	            				}*/
-	            				echo '<td class="text-center"><a href="print_qrcode.html?id='.$dg['_id'].'&type=3" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
 	            				echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=thembanle#modal-banle" data-toggle="modal" name="'.$dg['_id'].'" class="thembanle"><i class="fa fa-shopping-cart"></i></a></td>';
             				}
             				if($users->is_admin() || $users->is_packer()){

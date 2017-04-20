@@ -1,6 +1,6 @@
 <?php
 require_once('header_none.php');
-$nhamay = new NhaMay();$nongtrai = new NongTrai();$banle = new BanLe();
+$nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$banle = new BanLeRauQua();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 
@@ -21,7 +21,7 @@ if($act == 'edit'){
 	$arr = array(
 		'id' => $id,
 		'act' => 'edit',
-		'id_donggoi' => strval($bl['id_donggoi']),
+		'id_donggoirauqua' => strval($bl['id_donggoirauqua']),
 		'id_dmbanle' => $bl['id_dmbanle'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($bl['hienthi'] == 1 ? ' checked' : '').'/>'
 	);

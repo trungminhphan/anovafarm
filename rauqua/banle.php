@@ -1,11 +1,10 @@
 <?php require_once('header.php');
 check_permis($users->is_admin() || $users->is_retail());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$nhamay = new NhaMay();$nongtrai = new NongTrai();$banle = new BanLe();
+$nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();
+$donggoi = new DongGoiRauQua();$banle = new BanLeRauQua();
 $danhmucnhamay = new DanhMucNhaMay(); $danhmucnongtrai = new DanhMucNongTrai();
-$donggoi = new DongGoi();$danhmucbanle = new DanhMucBanLe();
-//$nhamay_list = $nhamay->get_all_list();
-//$nongtrai_list = $nongtrai->get_all_list();
+$danhmucbanle = new DanhMucBanLe();
 $donggoi_list = $donggoi->get_all_list();
 $danhmucbanle_list = $danhmucbanle->get_all_list();
 if($users->is_admin()){
@@ -53,7 +52,7 @@ if($users->is_admin()){
             		if($banle_list){
             			$i=1;
             			foreach($banle_list as $bl){
-                            $donggoi->id = $bl['id_donggoi'];$dg = $donggoi->get_one();
+                            $donggoi->id = $bl['id_donggoirauqua'];$dg = $donggoi->get_one();
 
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
@@ -69,13 +68,13 @@ if($users->is_admin()){
             				//echo '<td>'.$bl['noibanle'].'</td>';
             				//echo '<td>'.$bl['tenquaysap'].'</td>';
             				//echo '<td>'.(date("d/m/Y H:i", $bl['ngaygiobanle']->sec)).'</td>';
-                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$bl['_id'].'&type=4" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
+                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$bl['_id'].'&type=4&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				/*if($bl['hienthi'] == 1){
             					echo '<td class="text-center link_hienthi"><a href="get.banle.html?id='.$bl['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
             				} else {
             					echo '<td class="text-center link_hienthi"><a href="get.banle.html?id='.$bl['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
             				}*/
-            				echo '<td class="text-center"><a href="print_qrcode.html?id='.$bl['_id'].'&type=4" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$bl['_id'].'&type=4&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
             				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
             				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=edit#modal-banle" data-toggle="modal" class="suabanle"><i class="fa fa-pencil"></i></a></td>';
             				echo '</tr>'; $i++;
@@ -88,6 +87,7 @@ if($users->is_admin()){
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modal-banle">
 <form action="post.banle.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
     <div class="modal-dialog modal-lg">
@@ -103,15 +103,11 @@ if($users->is_admin()){
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="act" id="act">
                         <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
-                    	<select name="id_donggoi" id="id_donggoi" class="select2" style="width:100%;">
+                    	<select name="id_donggoirauqua" id="id_donggoirauqua" class="select2" style="width:100%;">
                     	<?php
                     	if($donggoi_list){
                     		foreach($donggoi_list as $dg){
-                                $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
-                                $danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
-                    			$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
-                                $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                    			echo '<option value="'.$dg['_id'].'">'.$dg['tensanpham'].', Số lô: '.$dg['solo'] . ', mã đàn: '. $nt['madan'].', ' .$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                    			echo '<option value="'.$dg['_id'].'">'.$dg['tensanpham'].', Số lô: '.$dg['solo'] .'</option>';
                     		}
                     	}
                     	?>

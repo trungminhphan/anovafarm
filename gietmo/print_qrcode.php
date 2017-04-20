@@ -95,7 +95,7 @@ echo '</div>';
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
     $(document).ready(function() {
-    	window.print();
+    	//window.print();
         App.init();
     });
 </script>

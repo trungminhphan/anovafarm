@@ -68,14 +68,14 @@ if($users->is_admin()){
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
             				echo '<td class="text-right">'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
-                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
+                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($dg['hienthi'] == 1){
 	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
 	            				} else {
 	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
 	            				}*/
-	            				echo '<td class="text-center"><a href="print_qrcode.html?id='.$dg['_id'].'&type=3" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
 	            				echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=thembanle#modal-banle" data-toggle="modal" name="'.$dg['_id'].'" class="thembanle"><i class="fa fa-shopping-cart"></i></a></td>';
             				}
             				if($users->is_admin() || $users->is_packer()){
@@ -92,6 +92,68 @@ if($users->is_admin()){
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-banle">
+<form action="post.banle.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="dongoiform">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Thông tin nơi bán lẻ</h4>
+            </div>
+            <div class="modal-body">        
+                <input type="hidden" name="id" id="id">
+                <input type="hidden" name="act" id="act">
+                <input type="hidden" name="id_donggoitrung" id="id_donggoitrung">
+                <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Tên sản phẩm</label>
+                    <div class="col-md-3 p-t-5" id="tensanphambanle"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Qui cách đóng gói</label>
+                    <div class="col-md-3 p-t-5" id="quicachdonggoibanle"></div>
+                    <label class="col-md-3 control-label">Số lô</label>
+                    <div class="col-md-3 p-t-5" id="solobanle"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nơi đóng gói</label>
+                    <div class="col-md-9 p-t-5" id="tennhamaybanle"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nông trại</label>
+                    <div class="col-md-9 p-t-5" id="tennongtraibanle"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nơi bán lẻ</label>
+                    <div class="col-md-9">
+                     <select name="id_dmbanle[]" multiple id="id_dmbanle" class="select2" style="width:100%;">
+                    <?php
+                    if($danhmucbanle_list){
+                        foreach($danhmucbanle_list as $dmbl){
+                            echo '<option value="'.$dmbl['_id'].'">'.$dmbl['ten'].','.$dmbl['diachi'].'</option>';
+                        }
+                    }
+                    ?>
+                     </select>   
+                    </div>
+                </div>
+                <div class="form-group">
+                <label class="col-md-3 control-label">Hiển thị</label>
+                <div class="col-md-3" id="hienthibanle">
+                    <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
+                <button type="submit" name="submit" id="submit" class="btn btn-sm btn-success">Lưu</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
 <div class="modal fade" id="modal-donggoi">
 <form action="post.donggoi.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
     <input type="hidden" name="id" id="id">
@@ -176,67 +238,6 @@ if($users->is_admin()){
                         <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
-                <button type="submit" name="submit" id="submit" class="btn btn-sm btn-success">Lưu</button>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
-
-<div class="modal fade" id="modal-banle">
-<form action="post.banle.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="dongoiform">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Thông tin nơi bán lẻ</h4>
-            </div>
-            <div class="modal-body">        
-                <input type="hidden" name="id" id="id">
-                <input type="hidden" name="act" id="act">
-                <input type="hidden" name="id_donggoitrung" id="id_donggoitrung">
-                <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Tên sản phẩm</label>
-                    <div class="col-md-3 p-t-5" id="tensanphambanle"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Qui cách đóng gói</label>
-                    <div class="col-md-3 p-t-5" id="quicachdonggoibanle"></div>
-                    <label class="col-md-3 control-label">Số lô</label>
-                    <div class="col-md-3 p-t-5" id="solobanle"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Nơi đóng gói</label>
-                    <div class="col-md-9 p-t-5" id="tennhamaybanle"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Nông trại</label>
-                    <div class="col-md-9 p-t-5" id="tennongtraibanle"></div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Nơi bán lẻ</label>
-                    <div class="col-md-9">
-                     <select name="id_dmbanle[]" multiple id="id_dmbanle" class="select2" style="width:100%;">
-                    <?php
-                    if($danhmucbanle_list){
-                        foreach($danhmucbanle_list as $dmbl){
-                            echo '<option value="'.$dmbl['_id'].'">'.$dmbl['ten'].','.$dmbl['diachi'].'</option>';
-                        }
-                    }
-                    ?>
-                     </select>   
-                    </div>
-                </div>
-                <div class="form-group">
-                <label class="col-md-3 control-label">Hiển thị</label>
-                <div class="col-md-3" id="hienthibanle">
-                    <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
-                </div>
-            </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>

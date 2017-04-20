@@ -2,8 +2,7 @@
 check_permis($users->is_admin() || $users->is_factory() || $users->is_farmer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nongtrai = new NongTraiTrung();
-$danhmucnhamay = new DanhMucNhaMay();
-$danhmucnongtrai = new DanhMucNongTrai();
+$danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
 $danhmucnhamay_list = $danhmucnhamay->get_all_list();
 $danhmucnongtrai_list = $danhmucnongtrai->get_all_list();
 if($users->is_admin()){
@@ -63,9 +62,9 @@ if($users->is_admin()){
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
             				echo '<td class="text-right">'.$nt['soluong'].'</td>';
-                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
+                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             if($users->is_admin() || $users->is_factory()){
-                				echo '<td class="text-center"><a href="print_qrcode.html?id='.$nt['_id'].'&type=1" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
                 				echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themdonggoi#modal-donggoi" data-toggle="modal" name="'.$nt['_id'].'" class="themdonggoi"><i class="fa fa-dropbox"></i></a></td>';
                             }
                             if($users->is_admin() || $users->is_farmer()){
