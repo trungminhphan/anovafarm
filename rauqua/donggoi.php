@@ -1,9 +1,11 @@
 <?php require_once('header.php');
 check_permis($users->is_admin() || $users->is_retail() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$danhmucnhamay = new DanhMucNhaMay();$nhamay = new NhaMay();$nongtrai = new NongTrai();$donggoi = new DongGoi();
-$danhmucbanle = new DanhMucBanLe();
+
+$nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$donggoi = new DongGoiRauQua();
+$danhmucbanle = new DanhMucBanLe();$danhmucnhamay = new DanhMucNhaMay();
 $nhamay_list = $nhamay->get_all_list();
+$danhmucnhamay_list = $danhmucnhamay->get_all_list();
 $danhmucbanle_list = $danhmucbanle->get_all_list();
 if($users->is_admin()){
     $donggoi_list = $donggoi->get_all_list();
@@ -27,7 +29,7 @@ if($users->is_admin()){
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                 </div>
-                <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Sản phẩm đóng gói</h4>
+                <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Sản phẩm đóng gói rau quả</h4>
             </div>
             <div class="panel-body">
             	<?php if($users->is_admin() || $users->is_packer()): ?>
@@ -37,8 +39,7 @@ if($users->is_admin()){
             		<thead>
             			<tr>
             				<th>STT</th>
-            				<th>Mã đàn</th>
-            				<th>Tên nhà máy</th>
+            				<th>Nơi đóng gói</th>
             				<th>Tên sản phẩm</th>
             				<th class="text-right">Qui cách đóng gói</th>
                             <th class="text-right">Ngày giờ đóng gói</th>
@@ -58,16 +59,15 @@ if($users->is_admin()){
             		if($donggoi_list){
             			$i=1;
             			foreach ($donggoi_list as $dg) {
-                            $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
-            				$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
+                            $nhamay->id = $dg['id_nhamayrauqua']; $nm = $nhamay->get_one();
+            				$nongtrai->id = $nm['id_nongtrairauqua'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
-                            echo '<td>'.$dm['ten'].'</td>';
+            				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td class="text-right">'.date("d/m/Y H:i",$dg['ngaygiodonggoi']->sec).'</td>';
+            				echo '<td class="text-right">'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($dg['hienthi'] == 1){
@@ -95,35 +95,19 @@ if($users->is_admin()){
 
 <div class="modal fade" id="modal-donggoi">
 <form action="post.donggoi.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
+    <input type="hidden" name="id" id="id" value="" />
+    <input type="hidden" name="act" id="act" value="" />
+    <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Thông tin đóng gói</h4>
+                <h4 class="modal-title">Thông tin đóng gói sản phẩm rau quả</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Chọn nhà máy giết mổ:</label>
-                    <div class="col-md-9 p-t-5">
-                        <select name="id_nhamay" id="id_nhamay" class="select2" style="width:100%;">
-                        <?php
-                        if($nhamay_list){
-                            foreach($nhamay_list as $nm){
-                                $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-                                $nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
-                                echo '<option value="'.$nm['_id'].'">Số lô: '.$nm['solo'] . ', mã đàn: '. $nt['madan'].', ' .$dm['ten'].', '.$dm['diachi'].'</option>';
-                            }
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Tên sản phẩm</label>
                     <div class="col-md-9">
-                        <input type="hidden" name="id" id="id">
-                        <input type="hidden" name="act" id="act">
-                        <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
                         <input type="text" name="tensanpham" id="tensanpham" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
@@ -138,6 +122,20 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-md-3 control-label">Nơi đóng gói</label>
+                    <div class="col-md-9">
+                        <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%">
+                        <?php
+                        if($danhmucnhamay_list){
+                            foreach($danhmucnhamay_list as $dmnm){
+                                echo '<option value="'.$dmnm['_id'].'">'.$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
                         <input type="text" name="tieuchuan" id="tieuchuan" value="" class="form-control" data-parsley-required="true"/>
@@ -148,70 +146,36 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ giết mổ</label>
-                    <div class="col-md-3">
-                        <input type="text" name="ngaygiogietmo" id="ngaygiogietmo" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="giogietmo" id="giogietmo" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
+                    <label class="col-md-3 control-label">Nơi Sơ chế</label>
+                    <div class="col-md-9">
+                        <select name="id_nhamayrauqua" id="id_nhamayrauqua" class="select2" style="width:100%">
                         <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutgietmo" id="phutgietmo" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
+                        if($nhamay_list){
+                            foreach($nhamay_list as $nm){
+                                $danhmucnhamay->id = $nm['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
+                                echo '<option value="'.$nm['_id'].'">'.$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                            }
                         }
                         ?>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ đóng gói</label>
+                    <label class="col-md-3 control-label">Ngày đóng gói</label>
                     <div class="col-md-3">
-                        <input type="text" name="ngaygiodonggoi" id="ngaygiodonggoi" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
+                        <input type="text" name="ngaydonggoi" id="ngaydonggoi" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
                     </div>
-                    <div class="col-md-3">
-                        <select name="giodonggoi" id="giodonggoi" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutdonggoi" id="phutdonggoi" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Hạn sử dụng</label>
                     <div class="col-md-3">
                         <input type="text" name="hansudung" id="hansudung" value="" class="form-control" data-parsley-required="true"/>
                     </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Hiển thị</label>
-                    <div class="col-md-3" id="hienthi">
+                    <div class="col-md-3" id="hienthidonggoi">
                         <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
                     </div>
                 </div>
-            </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
                 <button type="submit" name="submit" id="submit" class="btn btn-sm btn-success">Lưu</button>
@@ -220,6 +184,8 @@ if($users->is_admin()){
     </div>
 </form>
 </div>
+
+
 <div class="modal fade" id="modal-banle">
 <form action="post.banle.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="dongoiform">
     <div class="modal-dialog modal-lg">

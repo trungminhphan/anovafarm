@@ -7,7 +7,6 @@ $users = new Users();
 require_once('../inc/functions.inc.php');
 require_once('../inc/config.inc.php');
 if(!$users->isLoggedIn()){ transfers_to('./login.html?url=' . $_SERVER['REQUEST_URI']); }
-
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 ?>
@@ -43,23 +42,33 @@ $filename = $PNG_TEMP_DIR.'test.png';
 $matrixPointSize = 10; //1-10
 $errorCorrectionLevel = 'L'; //L,M,Q,H
 //$data = 'http://traceweb.org/?id='.$id.'&type=' . $type;
-$data = $link_frontend . '/?id='.$id.'&type=' . $type;
+$data = $link_frontend . '/?id='.$id.'&type=' . $type . '&q=gietmo';
 // user data
 $filename = $PNG_TEMP_DIR . '_' . $id .'_'.$type. '_' .date("YmdhHis") . '.png';
 QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
 //display generated file
-echo '<div class="qrcode">';
-	echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" width="350"/>';  
+echo '<div class="qrcode_area" id="qrcode">';
+	echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" class="qrcode_img" />';  
+	echo '<div class="title_qrcode">RAU MUỐN</div>';
+	echo '<div class="content_qrcode">
+		<p>Quy cách: 500g</p>
+		<p>Ngày đóng gói: 18-04-2017</p>
+		<p>Hạn sử dụng: 2 ngày từ ngày đóng gói</p>
+	</div>';
+	echo '<div class="title_qrcode_1">CTY CP CO-OP  NOVA SAFE FOODS</div>';
 echo '</div>';
-echo '<div class="title_qrcode">'. $data . '</div>';
-                    
+//echo '<div class="title_qrcode">'. $data . '</div>';
+                   
 ?>
+<div id="editor"></div>
+<button id="cmd">generate PDF</button>
 
 </body>
 </html>
 <!-- end #footer -->	
 <!-- ================== BEGIN BASE JS ================== -->
 <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/js/jspdf.debug.js"></script>
 <!--[if lt IE 9]>
 	<script src="assets/crossbrowserjs/html5shiv.js"></script>
 	<script src="assets/crossbrowserjs/respond.min.js"></script>
@@ -71,6 +80,20 @@ echo '<div class="title_qrcode">'. $data . '</div>';
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
     $(document).ready(function() {
+    	var doc = new jsPDF();
+		var specialElementHandlers = {
+		    '#editor': function (element, renderer) {
+		        return true;
+		    }
+		};
+
+		$('#cmd').click(function () {
+		    doc.fromHTML($('#qrcode').html(), 15, 15, {
+		        'width': 170,
+		            'elementHandlers': specialElementHandlers
+		    });
+		    doc.save('sample-file.pdf');
+		});
         App.init();
     });
 </script>

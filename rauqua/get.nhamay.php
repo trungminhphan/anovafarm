@@ -1,30 +1,28 @@
 <?php
 require_once('header_none.php');
-$nhamay = new NhaMay();$nongtrai = new NongTrai();$donggoi = new DongGoi();
-$danhmucnhamay = new DanhMucNhaMay();
+$nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$donggoi = new DongGoiRauQua();
+$danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 
 if($act == 'edit' || $act == 'themdonggoi'){
 	$nhamay->id = $id; $nm = $nhamay->get_one();
-	$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
+	$nongtrai->id = $nm['id_nongtrairauqua']; $nt = $nongtrai->get_one();
 	$danhmucnhamay->id = $nm['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
+	$danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
 	$arr = array(
 		'id' => $id,
 		'act' => $act,
-		'id_nongtrai' => strval($nm['id_nongtrai']),
-		'madan' => $nt['madan'],
+		'id_nongtrairauqua' => strval($nm['id_nongtrairauqua']),
 		'ten' => $dmnm['ten'],
 		'diachi' => $dmnm['diachi'],
+		'tennongtrai' => $dmnt['ten'],
+		'diachinongtrai' => $dmnt['diachi'],
 		'id_dmnhamay' => strval($nm['id_dmnhamay']),
+		'matruyxuatsanpham' => $nm['matruyxuatsanpham'],
 		'tieuchuan' => $nm['tieuchuan'],
-		'solo' => $nm['solo'],
-		'sogiaykiemdichthusong' => $nm['sogiaykiemdichthusong'],
-		'giaychungnhan' => $nm['giaychungnhan'],
-		'nhanvienkiemsoat' => $nm['nhanvienkiemsoat'],
-		'ngaygiogietmo' => date("d/m/Y", $nm['ngaygiogietmo']->sec),
-		'gio' => intval(date("H", $nm['ngaygiogietmo']->sec)),
-		'phut' => intval(date("i", $nm['ngaygiogietmo']->sec)),
+		'sochungnhantieuchuan' => $nm['sochungnhantieuchuan'],
+		'ngaysoche' => date("d/m/Y", $nm['ngaysoche']->sec),
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($nm['hienthi'] == 1 ? ' checked' : '').'/>'
 	);
 	echo json_encode($arr);

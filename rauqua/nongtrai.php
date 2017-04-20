@@ -165,6 +165,8 @@ if($users->is_admin()){
 </div>
 <div class="modal fade" id="modal-nhamay">
 <form action="post.nhamay.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
+    <input type="hidden" name="id_nongtrairauqua" id="id_nongtrairauqua" value="" />
+    <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 	<div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -174,7 +176,7 @@ if($users->is_admin()){
             <div class="modal-body">
             	<div class="form-group">
             		<label class="col-md-3 control-label">Tên và địa chỉ trại</label>
-            		<div class="col-md-9 p-t-5" id="tentrai"></div>
+            		<div class="col-md-9 p-t-5" id="tenvadiachitrai"></div>
             	</div>
             	<div class="form-group">
             		<label class="col-md-3 control-label">Tiêu chuẩn trại</label>
@@ -195,7 +197,7 @@ if($users->is_admin()){
                     </div>
                 </div>
             	<div class="form-group">
-            		<label class="col-md-3 control-label">Tiêu chuẩn</label>
+            		<label class="col-md-3 control-label">Tiêu chuẩn nơi sơ chế</label>
             		<div class="col-md-3">
             			<input type="text" name="tieuchuan" id="tieuchuan" value="" class="form-control" data-parsley-required="true"/>
             		</div>
@@ -212,7 +214,7 @@ if($users->is_admin()){
                     </div>
             		<label class="col-md-3 control-label">Ngày sơ chế</label>
             		<div class="col-md-3">
-            			<input type="text" name="ngaygiogietmo" id="ngaygiogietmo" placeholder="Ngày" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
+            			<input type="text" name="ngaysoche" id="ngaysoche" placeholder="Ngày" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
             		</div>
             	</div>
                 <div class="form-group">
@@ -253,9 +255,8 @@ if($users->is_admin()){
     	$(".themnhamay").click(function(){
     		var _link = $(this).attr("href");
     		$.getJSON(_link, function(data){
-    			$("#id_nongtrai").val(data.id);
-    			$("#tentrai").html(data.ten +  ' ' + data.diachi);
-    			$("#madan").html(data.madan);
+    			$("#id_nongtrairauqua").val(data.id);
+    			$("#tenvadiachitrai").html(data.tennongtrai +  ' ' + data.diachinongtrai);
     			$("#tieuchuantrai").html(data.tieuchuan);
     		});    		
     	});

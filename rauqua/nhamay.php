@@ -1,8 +1,8 @@
 <?php require_once('header.php');
 check_permis($users->is_admin() || $users->is_factory() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$nhamay = new NhaMay();$nongtrai = new NongTrai();$danhmucnhamay = new DanhMucNhaMay();
-$danhmucnongtrai = new DanhMucNongTrai();
+$nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();
+$danhmucnhamay = new DanhMucNhaMay(); $danhmucnongtrai = new DanhMucNongTrai();
 $nongtrai_list = $nongtrai->get_all_list();
 $danhmucnhamay_list = $danhmucnhamay->get_all_list();
 if($users->is_admin()){
@@ -28,7 +28,7 @@ if($users->is_admin()){
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                 </div>
-                <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Nhà máy giết mổ</h4>
+                <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Nơi sơ chế Rau quả</h4>
             </div>
             <div class="panel-body">
             	<?php if($users->is_admin() || $users->is_factory()): ?>
@@ -38,12 +38,12 @@ if($users->is_admin()){
             		<thead>
             			<tr>
             				<th>STT</th>
-            				<th>Mã đàn</th>
+            				<th>Mã truy xuất sản phẩm</th>
             				<th>Tên nhà máy</th>
             				<th>Tiêu chuẩn</th>
-            				<th class="text-right">Số lô</th>
-            				<?php if($users->is_admin() || $users->is_retail()): ?>
+            				<th class="text-right">Ngày sơ chế</th>
                             <th class="text-center">Hiển thị</th>
+            				<?php if($users->is_admin() || $users->is_retail()): ?>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
             				<th class="text-center"><i class="fa fa-dropbox"></i></th>
             				<?php endif;?>
@@ -58,14 +58,14 @@ if($users->is_admin()){
             		if($nhamay_list){
             			$i=1;
             			foreach ($nhamay_list as $nm) {
-            				$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
+            				$nongtrai->id = $nm['id_nongtrairauqua'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
+            				echo '<td>'.$nm['matruyxuatsanpham'].'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nm['tieuchuan'].'</td>';
-            				echo '<td class="text-right">'.$nm['solo'].'</td>';
+            				echo '<td class="text-right">'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($nm['hienthi'] == 1){
@@ -93,33 +93,18 @@ if($users->is_admin()){
 
 <div class="modal fade" id="modal-nhamay">
 <form action="post.nhamay.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
+    <input type="hidden" name="id" id="id" value="" />
+    <input type="hidden" name="act" id="act" value="" />
+    <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Thông tin nhà máy sản xuất</h4>
+                <h4 class="modal-title">Thông tin nơi sơ chế rau quả</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="id" id="id">
-                <input type="hidden" name="act" id="act">
-                <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Chọn trang trại</label>
-                    <div class="col-md-9">
-                        <select name="id_nongtrai" id="id_nongtrai" class="select2" style="width:100%;">
-                        <?php
-                        if($nongtrai_list){
-                            foreach($nongtrai_list as $nt){
-                                $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dmnt = $danhmucnongtrai->get_one();
-                                echo '<option value="'.$nt['_id'].'">'.$nt['madan'] .' - '. $dmnt['ten'].', '.$dmnt['diachi'].'</option>';
-                            }
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Chọn nhà máy</label>
+                    <label class="col-md-3 control-label">Chọn nơi sơ chế</label>
                     <div class="col-md-9">
                         <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%;">
                         <?php
@@ -132,59 +117,39 @@ if($users->is_admin()){
                         </select>
                     </div>
                 </div>
-                
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Tiêu chuẩn</label>
-                    <div class="col-md-9">
+                    <label class="col-md-3 control-label">Tiêu chuẩn nơi sơ chế</label>
+                    <div class="col-md-3">
                         <input type="text" name="tieuchuan" id="tieuchuan" value="" class="form-control" data-parsley-required="true"/>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Số lô heo giết mổ</label>
+                    <label class="col-md-3 control-label">Số chứng nhận tiêu chuẩn</label>
                     <div class="col-md-3">
-                        <input type="text" name="solo" id="solo" value="" class="form-control" data-parsley-required="true"/>
-                    </div>
-                    <label class="col-md-3 control-label">Số giấy kiểm dịch thú sống.</label>
-                    <div class="col-md-3">
-                        <input type="text" name="sogiaykiemdichthusong" id="sogiaykiemdichthusong" value="" class="form-control" data-parsley-required="true"/>
+                        <input type="text" name="sochungnhantieuchuan" id="sochungnhantieuchuan" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Giấy CN kiểm soát giết mổ</label>
-                    <div class="col-md-3">
-                        <input type="text" name="giaychungnhan" id="giaychungnhan" value="" class="form-control" data-parsley-required="true"/>
-                    </div>
-                    <label class="col-md-3 control-label">Nhân viên thú y kiểm soát giết mổ</label>
-                    <div class="col-md-3">
-                        <input type="text" name="nhanvienkiemsoat" id="nhanvienkiemsoat" value="" class="form-control" data-parsley-required="true"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày, giờ giết mổ</label>
-                    <div class="col-md-3">
-                        <input type="text" name="ngaygiogietmo" id="ngaygiogietmo" placeholder="Ngày"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo date("d/m/Y"); ?>"/>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="gio" id="gio" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
+                    <label class="col-md-3 control-label">Nông trại</label>
+                    <div class="col-md-9">
+                        <select name="id_nongtrairauqua" id="id_nongtrairauqua" class="select2" style="width:100%;">
                         <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'" '.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
+                        if($nongtrai_list){
+                            foreach($nongtrai_list as $nt){
+                                $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
+                                echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'] .' - '. $dmnt['diachi'].', Tiêu chuẩn: '.$nt['tieuchuan'].'</option>';
+                            }
                         }
                         ?>
                         </select>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Mã truy xuất sản phẩm</label>
                     <div class="col-md-3">
-                        <select name="phut" id="phut" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected': '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
+                        <input type="text" name="matruyxuatsanpham" id="matruyxuatsanpham" value="" class="form-control" data-parsley-required="true"/>
+                    </div>
+                    <label class="col-md-3 control-label">Ngày sơ chế</label>
+                    <div class="col-md-3">
+                        <input type="text" name="ngaysoche" id="ngaysoche" placeholder="Ngày" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -205,28 +170,26 @@ if($users->is_admin()){
 
 <div class="modal fade" id="modal-donggoi">
 <form action="post.donggoi.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
+    <input type="hidden" name="id_nhamayrauqua" id="id_nhamayrauqua" value="" />
+    <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Thông tin đóng gói sản phẩm</h4>
+                <h4 class="modal-title">Thông tin đóng gói sản phẩm rau quả</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Nhà máy giết mổ:</label>
-                    <div class="col-md-9 p-t-5" id="tennhamay"></div>
+                    <label class="col-md-3 control-label">Nơi sơ chế</label>
+                    <div class="col-md-9 p-t-5" id="noisoche"></div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Mã đàn:</label>
-                    <div class="col-md-3 p-t-5" id="madan"></div>
-                    <label class="col-md-3 control-label">Số lô:</label>
-                    <div class="col-md-3 p-t-5" id="solonhamay"></div>
+                    <label class="col-md-3 control-label">Nông trại</label>
+                    <div class="col-md-9 p-t-5" id="nongtrai"></div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tên sản phẩm</label>
                     <div class="col-md-9">
-                        <input type="hidden" name="id_nhamay" id="id_nhamay">
-                        <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
                         <input type="text" name="tensanpham" id="tensanpham" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
@@ -240,7 +203,21 @@ if($users->is_admin()){
                         <input type="text" name="solo" id="solo" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nơi đóng gói</label>
+                    <div class="col-md-9">
+                        <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%">
+                        <?php
+                        if($danhmucnhamay_list){
+                            foreach($danhmucnhamay_list as $dmnm){
+                                echo '<option value="'.$dmnm['_id'].'">'.$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
                         <input type="text" name="tieuchuan" id="tieuchuan" value="" class="form-control" data-parsley-required="true"/>
@@ -251,64 +228,16 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ giết mổ</label>
+                    <label class="col-md-3 control-label">Ngày đóng gói</label>
                     <div class="col-md-3">
-                        <input type="text" name="ngaygiogietmo" id="ngaygiogietmo" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
+                        <input type="text" name="ngaydonggoi" id="ngaydonggoi" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
                     </div>
-                    <div class="col-md-3">
-                        <select name="giogietmo" id="giogietmo" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutgietmo" id="phutgietmo" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ đóng gói</label>
-                    <div class="col-md-3">
-                        <input type="text" name="ngaygiodonggoi" id="ngaygiodonggoi" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="giodonggoi" id="giodonggoi" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutdonggoi" id="phutdonggoi" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Hạn sử dụng</label>
                     <div class="col-md-3">
                         <input type="text" name="hansudung" id="hansudung" value="" class="form-control" data-parsley-required="true"/>
                     </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Hiển thị</label>
                     <div class="col-md-3" id="hienthidonggoi">
                         <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
@@ -350,18 +279,12 @@ if($users->is_admin()){
             var _link = $(this).attr("href");
             $.getJSON(_link, function(data){
                 $("#id").val(data.id); $("#act").val(data.act);
-                $("#id_nongtrai").val(data.id_nongtrai);$("#id_nongtrai").select2();
-                //$("#ten").val(data.ten);
-                //$("#diachi").val(data.diachi);
+                $("#id_nongtrairauqua").val(data.id_nongtrai);$("#id_nongtrai").select2();
                 $("#id_dmnhamay").val(data.id_dmnhamay);$("#id_dmnhamay").select2();
                 $("#tieuchuan").val(data.tieuchuan);
-                $("#solo").val(data.solo);
-                $("#sogiaykiemdichthusong").val(data.sogiaykiemdichthusong);
-                $("#giaychungnhan").val(data.giaychungnhan);
-                $("#nhanvienkiemsoat").val(data.nhanvienkiemsoat);
-                $("#ngaygiogietmo").val(data.ngaygiogietmo);
-                $("#gio").val(data.gio);$("#gio").select2();
-                $("#phut").val(data.phut);$("#phut").select2();
+                $("#sochungnhantieuchuan").val(data.sochungnhantieuchuan);
+                $("#matruyxuatsanpham").val(data.matruyxuatsanpham);
+                $("#ngaysoche").val(data.ngaysoche);
                 $("#hienthi").html(data.hienthi);
                 FormSliderSwitcher.init();
             });
@@ -369,10 +292,9 @@ if($users->is_admin()){
         $(".themdonggoi").click(function(){
             var _link = $(this).attr("href");
             $.getJSON(_link, function(data){
-                $("#id_nhamay").val(data.id);
-                $("#tennhamay") .html(data.ten + ', ' + data.diachi);
-                $("#madan").html(data.madan);
-                $("#solonhamay").html(data.solo);
+                $("#id_nhamayrauqua").val(data.id);
+                $("#noisoche") .html(data.ten + ', ' + data.diachi);
+                $("#nongtrai") .html(data.tennongtrai + ', ' + data.diachinongtrai);
             });
         });
         $(".open_window").click(function(){

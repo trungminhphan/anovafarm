@@ -11,7 +11,7 @@ if($act == 'del' && $id){
 		transfers_to('nongtrai.html?msg=Xoá thành công');
 	}
 }
-if($act == 'edit' && $id){
+if($act == 'edit' || $act == 'themnhamay'){
 	$nongtrai->id = $id; $nt = $nongtrai->get_one();
 	$danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
 	$arr = array(
