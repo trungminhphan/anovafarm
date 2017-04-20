@@ -1,6 +1,6 @@
 <?php
 require_once('header_none.php');
-$nongtrai = new NongTraiTrung();
+$nongtrai = new NongTraiRauQua();
 $danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
@@ -13,16 +13,18 @@ if($act == 'del' && $id){
 }
 if($act == 'edit' && $id){
 	$nongtrai->id = $id; $nt = $nongtrai->get_one();
+	$danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
 	$arr = array(
 		'id' => $id,
 		'act' => $act,
 		'id_dmnongtrai' => $nt['id_dmnongtrai'],
+		'tennongtrai' => $dmnt['ten'],
+		'diachinongtrai' => $dmnt['diachi'],
 		'tieuchuan' => $nt['tieuchuan'],
 		'sochungnhantieuchuan' => $nt['sochungnhantieuchuan'],
-		'madan' => $nt['madan'],
+		'matruyxuatsanpham' => $nt['matruyxuatsanpham'],
 		'soluong' => $nt['soluong'],
 		'ngaythuhoach' => date("d/m/Y",$nt['ngaythuhoach']->sec),
-		'nhamaycungcapthucan' => $nt['nhamaycungcapthucan'],
 		'soxevanchuyen' => $nt['soxevanchuyen'],
 		'tentaixe' => $nt['tentaixe'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($nt['hienthi'] == 1 ? ' checked' : '').'/>'
