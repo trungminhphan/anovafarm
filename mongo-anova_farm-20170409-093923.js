@@ -214,14 +214,14 @@ db.getCollection("danhmucnongtrai").insert({
 db.getCollection("donggoi").insert({
   "_id": ObjectId("58f71edad89398d40d000029"),
   "id_nhamay": ObjectId("58f71da4d89398f408000029"),
-  "tensanpham": "ABC EFA ABC EFA",
-  "quicachdonggoi": "ABC EFA",
+  "tensanpham": "HEO HƠI",
+  "quicachdonggoi": "0.5 kg",
   "solo": "123",
   "tieuchuan": "ViệtGAP",
   "sochungnhantieuchuan": "123",
   "ngaygiogietmo": ISODate("2017-04-19T08:08:00.0Z"),
-  "ngaygiodonggoi": ISODate("2017-04-19T10:24:00.0Z"),
-  "hansudung": "3 ngày",
+  "ngaygiodonggoi": ISODate("2017-04-20T10:24:00.0Z"),
+  "hansudung": "3 ngày sau đóng gói",
   "hienthi": NumberInt(1),
   "date_post": ISODate("2017-04-19T08:24:58.0Z"),
   "id_user": ObjectId("58e3072432341cfc09005d7e"),
@@ -422,6 +422,20 @@ db.getCollection("sessions").insert({
   "timedout_at": NumberInt(1492620856),
   "expired_at": NumberInt(1492645321)
 });
+db.getCollection("sessions").insert({
+  "_id": ObjectId("58f83701400ae1085de232b0"),
+  "session_id": "0onhca5b3104j2201a07jfenl6",
+  "data": "user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"58f0801dd89398440b00002b\";roles|i:31;",
+  "timedout_at": NumberInt(1492672441),
+  "expired_at": NumberInt(1492698017)
+});
+db.getCollection("sessions").insert({
+  "_id": ObjectId("58f84917400ae1085de232b1"),
+  "session_id": "kp64hjead2a5taphn7edvahjl1",
+  "data": "user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"58f0801dd89398440b00002b\";roles|i:31;",
+  "timedout_at": NumberInt(1492675124),
+  "expired_at": NumberInt(1492702647)
+});
 
 /** users records **/
 db.getCollection("users").insert({
@@ -515,6 +529,12 @@ db.getCollection("users").insert({
     },
     {
       "in": ISODate("2017-04-19T13:42:03.0Z")
+    },
+    {
+      "in": ISODate("2017-04-20T04:20:19.0Z")
+    },
+    {
+      "in": ISODate("2017-04-20T05:37:29.0Z")
     }
   ],
   "id_congty": ObjectId("58f0801dd89398440b00002b")
