@@ -40,24 +40,13 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 	</div>
 	<h1 class="page-header text-center">THÔNG TIN NGUỒN GỐC SẢN PHẨM</h1>
 	<?php
-	if($q=='rauqua'){
+	if($q== 'rauqua' || $q=='trung' || $q=='gietmo'){
 		if($type==4){
-			require_once('banle_rauqua.php');
+			require_once('banle_'.$q.'.php');
+		} else if($type == 3){
+			require_once('donggoi_'.$q.'.php');
 		} else {
 			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';	
-		}
-	} else if($q == 'trung'){
-		if($type==4){
-			require_once('banle_trung.php');
-		} else {
-			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';	
-		}
-	} else if($q=='gietmo') {
-		//Giet mo
-		if($type==4){ //banle
-			require_once('banle_gietmo.php');
-		} else {
-			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';
 		}
 	} else {
 		echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';

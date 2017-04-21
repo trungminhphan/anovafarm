@@ -17,6 +17,11 @@ if($id && $q=='trung'){
 		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
 		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
 		$hansudung = $dg['hansudung'];
+	} else if($type==3){
+		$donggoi = new DongGoiTrung(); $donggoi->id = $id; $dg = $donggoi->get_one();
+		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
+		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
+		$hansudung = $dg['hansudung'];
 	}
 } else if ($id && $q == 'rauqua'){
 	if($type==4){
@@ -25,12 +30,23 @@ if($id && $q=='trung'){
 		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
 		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
 		$hansudung = $dg['hansudung'];
+	} else if($type==3){
+		$donggoi = new DongGoiRauQua(); $donggoi->id = $id; $dg = $donggoi->get_one();
+		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
+		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
+		$hansudung = $dg['hansudung'];
 	}
 
-} else if($id) {
+} else if($id && $q=='gietmo') {
 	if($type==4){
 		$banle = new BanLe();$banle->id = $id; $bl = $banle->get_one();
 		$donggoi = new DongGoi(); $donggoi->id = $bl['id_donggoi']; $dg = $donggoi->get_one();
+		$tensanpham = $dg['tensanpham'];
+		$quicachdonggoi = $dg['quicachdonggoi'];
+		$ngaydonggoi = date("d-m-Y", $dg['ngaygiodonggoi']->sec);
+		$hansudung = $dg['hansudung'];	
+	} else if($type==3){
+		$donggoi = new DongGoi(); $donggoi->id = $id; $dg = $donggoi->get_one();
 		$tensanpham = $dg['tensanpham'];
 		$quicachdonggoi = $dg['quicachdonggoi'];
 		$ngaydonggoi = date("d-m-Y", $dg['ngaygiodonggoi']->sec);

@@ -53,7 +53,7 @@ $user_default = $users->get_one_default();
 					if(isset($user_default['hinhanh']) && $user_default['hinhanh']){
 						echo '<img src="image.html?id='.$user_default['hinhanh'].'" height="30px;" align="left">';
 					} else {
-						echo '<img src="images/seafood.png" alt="" height="30" align="left"/>';
+						echo '<img src="images/default_logo.png" alt="" height="30" align="left"/>';
 					}
 					?>&nbsp;&nbsp;&nbsp;NOVA SAFE FOODS
 					</a>

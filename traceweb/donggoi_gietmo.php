@@ -2,18 +2,15 @@
 $danhmucnongtrai = new DanhMucNongTrai();
 $danhmucnhamay = new DanhMucNhaMay();
 $danhmucbanle = new DanhMucBanLe();
-$banle = new BanLeRauQua();$nhamay = new NhaMayRauQua();
-$donggoi=new DongGoiRauQua();$nongtrai = new NongTraiRauQua();
-$banle->id = $id; $bl = $banle->get_one();
-$donggoi->id = $bl['id_donggoirauqua']; $dg = $donggoi->get_one();
-$nhamay->id = $dg['id_nhamayrauqua']; $nm = $nhamay->get_one();
-$nongtrai->id = $nm['id_nongtrairauqua']; $nt = $nongtrai->get_one();
-$danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-$danhmucnhamay->id = $dg['id_dmnhamay']; $nmdg = $danhmucnhamay->get_one();
-$danhmucnhamay->id = $nm['id_dmnhamay']; $nmsc = $danhmucnhamay->get_one();
+$donggoi=new DongGoi();
+$nhamay = new NhaMay();$nongtrai = new NongTrai();
+$donggoi->id = $id; $dg = $donggoi->get_one();
+$nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
+$danhmucnhamay->id = $nm['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
+$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
 $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
 ?>
-<?php if($bl) : ?>
+<?php if($dg) : ?>
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
@@ -41,8 +38,32 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
-		<div>Nông trại (Farm)</div>
-		<div class="f-s-16"><?php echo $dmnt['ten'] .', ' . $dmnt['diachi']; ?></div>
+		<div>Nơi giết mổ (Slaughter House)</div>
+		<div class="f-s-16"><?php echo $dmnm['ten'] . ', ' . $dmnm['diachi']; ?></div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<div class="row p-t-15">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
+		<div>Tiêu chuẩn nhà máy giết mổ (Standard)</div>
+		<div class="f-s-16"><?php echo $nm['tieuchuan']; ?></div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<div class="row p-t-15">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
+		<div>Số chứng nhận tiêu chuẩn (Standard no.)</div>
+		<div class="f-s-16"><?php echo $nm['giaychungnhan']; ?></div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<div class="row p-t-15">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
+		<div>Trại chăn nuôi (Farm)</div>
+		<div class="f-s-16"><?php echo $dmnt['ten'] . ', ' . $dmnt['diachi']; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -58,31 +79,23 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Số chứng nhận tiêu chuẩn (Standard no.)</div>
-		<div class="f-s-16"><?php echo $nt['sochungnhantieuchuan']; ?></div>
+		<div class="f-s-16"><?php echo $nt['sogiaykiemdichthusong']; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
-		<div>Nơi sơ chế (Processing factory)</div>
-		<div class="f-s-16"><?php echo $nmsc['ten']  . ', ' . $nmsc['diachi'] ; ?></div>
+		<div>Ngày giết mổ (Date of Slaughter)</div>
+		<div class="f-s-16"><?php echo date("d/m/Y", $nm['ngaygiogietmo']->sec); ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
-		<div>Nơi đóng gói (Place of packing)</div>
-		<div class="f-s-16"><?php echo $nmdg['ten']  . ', ' . $nmdg['diachi'] ; ?></div>
-	</div>
-	<div class="col-md-3"></div>
-</div>
-<div class="row p-t-15">
-	<div class="col-md-3"></div>
-	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
-		<div>Ngày đóng gói (Date of packing)</div>
-		<div class="f-s-16"><?php echo $dg['ngaydonggoi'] ? date("d/m/Y", $dg['ngaydonggoi']->sec) : '' ; ?></div>
+		<div>Ngày đóng gói (Date of Packing)</div>
+		<div class="f-s-16"><?php echo date("d/m/Y", $dg['ngaygiodonggoi']->sec); ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -91,23 +104,6 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Hạn sử dụng (Expiry Date)</div>
 		<div class="f-s-16"><?php echo $dg['hansudung']; ?></div>
-	</div>
-	<div class="col-md-3"></div>
-</div>
-<div class="row p-t-15">
-	<div class="col-md-3"></div>
-	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
-		<div>Tên và địa chỉ nơi bán lẻ (Retailer)</div>
-		<div class="f-s-16">
-		<?php
-		if($bl['id_dmbanle']){
-			foreach($bl['id_dmbanle'] as $key => $value){
-				$danhmucbanle->id = $value; $dmbl = $danhmucbanle->get_one();
-				echo $dmbl['ten'] .', '. $dmbl['diachi'] . '<br/>';
-			}
-		}
-		?>
-		</div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
