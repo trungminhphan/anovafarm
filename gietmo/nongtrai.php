@@ -198,6 +198,7 @@ if($users->is_admin()){
 </div>
 <div class="modal fade" id="modal-nhamay">
 <form action="post.nhamay.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
+    <input type="hidden" name="id_nongtrai" id="id_nongtrai" value=""/>
 	<div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
