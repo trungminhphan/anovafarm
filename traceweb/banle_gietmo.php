@@ -11,6 +11,7 @@ $danhmucnhamay->id = $nm['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
 $nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
 $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
 ?>
+<?php if($bl) : ?>
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
@@ -124,3 +125,6 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	</div>
 	<div class="col-md-3"></div>
 </div>
+<?php else: ?>
+	<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>
+<?php endif; ?>

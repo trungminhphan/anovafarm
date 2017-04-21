@@ -2,14 +2,15 @@
 require_once('header_none.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
-$danhmucnongtrai = new DanhMucNongTrai();$nongtrai = new NongTrai();
+$danhmucnongtrai = new DanhMucNongTrai();
+$nongtrai = new NongTrai();$nongtraitrung = new NongTraiTrung();$nongtrairauqua = new NongTraiRauQua();
 if($act == 'del' && $id){
 	$danhmucnongtrai->id = $id; $dm = $danhmucnongtrai->get_one();
-	if($nongtrai->check_dmnongtrai($id)){
-		transfers_to('danhmucnongtrai.html?msg=Không thể xóa, ràng buộc nơi giết mổ');
+	if($nongtrai->check_dmnongtrai($id) || $nongtraitrung->check_dmnongtrai($id) || $nongtrairauqua->check_dmnongtrai($id)){
+		transfers_to('danhmucnongtrai.html?msg=Không thể xóa, ràng buộc các Nông trại giết mổ, Nông trại Trứng, Nông trại Rau quả');
 	} else {
 		if($danhmucnongtrai->delete()) transfers_to('danhmucnongtrai.html?msg=Xóa thành công!');
-		else transfers_to('danhmucnongtrai.html?msg=Không thể xóa, ràng buộc nơi giết mổ');
+		else transfers_to('danhmucnongtrai.html?msg=Không thể xóa, ràng buộc dữ liệu');
 	}
 }
 

@@ -29,17 +29,16 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 	<link href="../assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="../assets/css/theme/blue.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
-
 </head>
 <body>
 <!-- begin #page-loader -->
-
 <div id="page-container" class="page-container fade page-without-sidebar p-20">
 	<div class="row">
 		<div class="col-md-12 text-center">
 			<img  src="../images/logocoopnova.png" height="100px"/>
 		</div>
 	</div>
+	<h1 class="page-header text-center">THÔNG TIN NGUỒN GỐC SẢN PHẨM</h1>
 	<?php
 	if($q=='rauqua'){
 		if($type==4){
@@ -53,14 +52,15 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 		} else {
 			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';	
 		}
-	} else {
+	} else if($q=='gietmo') {
 		//Giet mo
 		if($type==4){ //banle
 			require_once('banle_gietmo.php');
 		} else {
 			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';
 		}
-		
+	} else {
+		echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';
 	}
 	?>
 </div>
@@ -71,7 +71,7 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 	<div class="row p-10">
 		<div class="col-md-3"></div>
 		<div class="col-md-3 text-center">&copy; 2017 Bản quyền bởi Anova Corp</div>
-		<div class="col-md-3 text-center">Giải pháp bởi: <a href="http://wJAYbranding.com" target="_blank">JAYbranding.com</a></div>
+		<div class="col-md-3 text-center">Giải pháp bởi: <a href="http://JAYbranding.com" target="_blank">JAYbranding.com</a></div>
 		<div class="col-md-3"></div>
 	</div>
 

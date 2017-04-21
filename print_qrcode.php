@@ -80,7 +80,7 @@ QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 //display generated file
 echo '<div class="qrcode_area" id="qrcode">';
 	echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" class="qrcode_img" />';  
-	echo '<div class="title_qrcode">'.$tensanpham.'</div>';
+	echo '<div class="title_qrcode"><span>'.$tensanpham.'</span></div>';
 	echo '<div class="content_qrcode">
 		<p>Quy cách: '.$quicachdonggoi.'</p>
 		<p>Ngày đóng gói: '.$ngaydonggoi.'</p>

@@ -37,7 +37,7 @@ if($act == 'edit' || $act == 'thembanle'){
 if($act == 'del'){
 	$donggoi->id = $id;
 	if($banle->check_donggoi($id)){
-		transfers_to('donggoi.html?msg=Không thể xoá, vì liên quan bán lẻ!');
+		transfers_to('donggoi.html?msg=Không thể xoá, ràng buộc dữ liệu ở bán lẻ rau quả!');
 	} else {
 		if($donggoi->delete()) transfers_to('donggoi.html?msg=Xoá thành công!');
 		else transfers_to('donggoi.html?msg=Không thể xoá!');

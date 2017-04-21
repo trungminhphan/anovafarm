@@ -1,7 +1,6 @@
 <?php
 require_once('header_none.php');
-$nongtrai = new NongTraiTrung();$banle = new BanLeTrung();
-$donggoi = new DongGoiTrung();
+$nongtrai = new NongTraiTrung();$donggoi = new DongGoiTrung();$banle = new BanLeTrung();
 $danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
@@ -37,7 +36,7 @@ if($act == 'edit' || $act == 'thembanle'){
 if($act == 'del'){
 	$donggoi->id = $id;
 	if($banle->check_donggoi($id)){
-		transfers_to('donggoi.html?msg=Không thể xoá, vì liên quan bán lẻ!');
+		transfers_to('donggoi.html?msg=Không thể xoá, ràng buộc dữ liệu ở bán lẻ Trứng!');
 	} else {
 		if($donggoi->delete()) transfers_to('donggoi.html?msg=Xoá thành công!');
 		else transfers_to('donggoi.html?msg=Không thể xoá!');

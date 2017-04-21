@@ -1,14 +1,18 @@
 <?php
 require_once('header_none.php');
-$nongtrai = new NongTraiTrung();
+$nongtrai = new NongTraiTrung();$donggoi= new DongGoiTrung();
 $danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 
 if($act == 'del' && $id){
 	$nongtrai->id = $id;
-	if($nongtrai->delete()){
-		transfers_to('nongtrai.html?msg=Xoá thành công');
+	if($donggoi->check_nongtrai($id)){
+		transfers_to('nongtrai.html?msg=Không thể xoá, ràng buộc dữ liệu ở đóng gói.');
+	} else {
+		if($nongtrai->delete()){
+			transfers_to('nongtrai.html?msg=Xoá thành công');
+		}
 	}
 }
 if($act == 'edit' && $id){

@@ -2,14 +2,15 @@
 require_once('header_none.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
-$danhmucbanle = new DanhMucBanLe();$banle = new BanLe();
+$danhmucbanle = new DanhMucBanLe();
+$banle = new BanLe();$banletrung = new BanLeTrung(); $banlerauqua = new BanLeRauQua();
 if($act == 'del' && $id){
 	$danhmucbanle->id = $id;
-	if($banle->check_dmbanle($id)){
-		transfers_to('danhmucbanle.html?msg=Không thể xóa, ràng buộc nơi giết mổ');
+	if($banle->check_dmbanle($id) || $banletrung->check_dmbanle($id) || $banlerauqua->check_dmbanle($id)){
+		transfers_to('danhmucbanle.html?msg=Không thể xóa, ràng buộc dữ liệu ở Bán lẻ giết mổ, bán lẻ trứng, bán lẻ rau quả');
 	} else {
 		if($danhmucbanle->delete()) transfers_to('danhmucbanle.html?msg=Xóa thành công!');
-		else transfers_to('danhmucbanle.html?msg=Không thể xóa, ràng buộc nơi giết mổ');
+		else transfers_to('danhmucbanle.html?msg=Không thể xóa, ràng buộc dữ liệu');
 	}
 }
 

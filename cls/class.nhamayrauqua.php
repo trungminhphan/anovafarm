@@ -83,8 +83,8 @@ class NhaMayRauQua {
 		return $this->_collection->remove($query);
 	}
 
-	public function check_nongtrai($id_nongtrai){
-		$query = array('id_nongtrai' => new MongoId($id_nongtrai));
+	public function check_nongtrai($id_nongtrairauqua){
+		$query = array('id_nongtrairauqua' => new MongoId($id_nongtrairauqua));
 		$field = array('_id' => true);
 		$result = $this->_collection->findOne($query, $field);
 		if(isset($result['_id']) && $result['_id']) return true;
@@ -93,6 +93,14 @@ class NhaMayRauQua {
 
 	public function check_dmnhamay($id_dmnhamay){
 		$query = array('id_dmnhamay' => new MongoId($id_dmnhamay));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
+		else return false;
+	}
+
+	public function check_dmcongty($id_congty){
+		$query = array('id_congty' => new MongoId($id_congty));
 		$field = array('_id' => true);
 		$result = $this->_collection->findOne($query, $field);
 		if(isset($result['_id']) && $result['_id']) return true;

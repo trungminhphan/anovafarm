@@ -52,5 +52,13 @@ class DanhMucNhaMay {
 		return $this->_collection->remove($query);
 	}
 
+	public function check_dmcongty($id_congty){
+		$query = array('id_congty' => new MongoId($id_congty));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
+		else return false;
+	}
+
 }
 ?>

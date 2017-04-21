@@ -61,8 +61,9 @@ class BanLeTrung {
 		$query = array('_id' => new MongoId($this->id));
 		return $this->_collection->remove($query);
 	}
-	public function check_donggoi($id_donggoi){
-		$query = array('id_donggoi' => new MongoId($id_donggoi));
+
+	public function check_donggoi($id_donggoitrung){
+		$query = array('id_donggoitrung' => new MongoId($id_donggoitrung));
 		$field = array('_id' => true);
 		$result = $this->_collection->findOne($query, $field);
 		if(isset($result['_id']) && $result['_id']) return true;
@@ -74,6 +75,14 @@ class BanLeTrung {
 		$field = array('_id' => true);
 		$result = $this->_collection->findOne($query, $field);
 		if($result['_id']) return true;
+		else return false;
+	}
+
+	public function check_dmcongty($id_congty){
+		$query = array('id_congty' => new MongoId($id_congty));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
 	}
 }

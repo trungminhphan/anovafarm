@@ -3,7 +3,6 @@ class BanLeRauQua {
 	const COLLECTION = 'banlerauqua';
 	private $_mongo;
 	private $_collection;
-
 	public $id = '';
 	public $id_donggoirauqua = '';
 	public $id_dmbanle = '';
@@ -61,8 +60,9 @@ class BanLeRauQua {
 		$query = array('_id' => new MongoId($this->id));
 		return $this->_collection->remove($query);
 	}
-	public function check_donggoi($id_donggoi){
-		$query = array('id_donggoi' => new MongoId($id_donggoi));
+	
+	public function check_donggoi($id_donggoirauqua){
+		$query = array('id_donggoirauqua' => new MongoId($id_donggoirauqua));
 		$field = array('_id' => true);
 		$result = $this->_collection->findOne($query, $field);
 		if(isset($result['_id']) && $result['_id']) return true;
@@ -74,6 +74,14 @@ class BanLeRauQua {
 		$field = array('_id' => true);
 		$result = $this->_collection->findOne($query, $field);
 		if($result['_id']) return true;
+		else return false;
+	}
+
+	public function check_dmcongty($id_congty){
+		$query = array('id_congty' => new MongoId($id_congty));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
 	}
 }

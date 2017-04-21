@@ -31,7 +31,7 @@ if($act == 'edit' || $act == 'themdonggoi'){
 if($act == 'del'){
 	$nhamay->id = $id;
 	if($donggoi->check_nhamay($id)){
-		transfers_to('nhamay.html?msg=Không thể xoá, vì liên quan bán lẻ!');
+		transfers_to('nhamay.html?msg=Không thể xoá, ràng buộc dữ liệu ở đóng gói rau quả!');
 	} else {
 		if($nhamay->delete()) transfers_to('nhamay.html?msg=Xoá thành công!');
 		else transfers_to('nhamay.html?msg=Không thể xoá, vì ràng buộc đóng gói!');

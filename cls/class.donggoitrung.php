@@ -94,5 +94,29 @@ class DongGoiTrung{
 		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
 	}
+
+	public function check_dmnhamay($id_dmnhamay){
+		$query = array('id_dmnhamay' => new MongoId($id_dmnhamay));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
+		else return false;
+	}
+
+	public function check_nongtrai($id_nongtraitrung){
+		$query = array('id_nongtraitrung' => new MongoId($id_nongtraitrung));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
+		else return false;
+	}
+
+	public function check_dmcongty($id_congty){
+		$query = array('id_congty' => new MongoId($id_congty));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return true;
+		else return false;
+	}
 }
 ?>
