@@ -220,7 +220,6 @@ if($users->is_admin()){
                 <div class="form-group">
                     <label class="col-md-3 control-label">Hiển thị</label>
                     <div class="col-md-3" id="hienthinhamay">
-                        <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
                     </div>
                 </div>
             </div>
@@ -258,6 +257,8 @@ if($users->is_admin()){
     			$("#id_nongtrairauqua").val(data.id);
     			$("#tenvadiachitrai").html(data.tennongtrai +  ' ' + data.diachinongtrai);
     			$("#tieuchuantrai").html(data.tieuchuan);
+                $("#hienthinhamay").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+                FormSliderSwitcher.init();
     		});    		
     	});
         $(".open_window").click(function(){
@@ -278,6 +279,8 @@ if($users->is_admin()){
         <?php endif; ?>  
         $(".themnongtrai").click(function(){
             $("#id").val("");$("#act").val("");
+            $("#hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+            FormSliderSwitcher.init();
         });
         $(".suanongtrai").click(function(){
             var _link = $(this).attr("href");
@@ -295,6 +298,6 @@ if($users->is_admin()){
                 FormSliderSwitcher.init();
             });
         });
-        App.init();TableManageDefault.init();FormSliderSwitcher.init();
+        App.init();TableManageDefault.init();
     });
 </script>

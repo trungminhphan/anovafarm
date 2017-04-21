@@ -184,6 +184,10 @@ if($users->is_admin()){
                     <div class="col-md-9 p-t-5" id="noisoche"></div>
                 </div>
                 <div class="form-group">
+                    <label class="col-md-3 control-label">Mã truy xuất sản phẩm</label>
+                    <div class="col-md-9 p-t-5" id="matruyxuatsanphamdonggoi"></div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Nông trại</label>
                     <div class="col-md-9 p-t-5" id="nongtrai"></div>
                 </div>
@@ -239,9 +243,7 @@ if($users->is_admin()){
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Hiển thị</label>
-                    <div class="col-md-3" id="hienthidonggoi">
-                        <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
-                    </div>
+                    <div class="col-md-3" id="hienthidonggoi"></div>
                 </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
@@ -274,6 +276,8 @@ if($users->is_admin()){
     	//set_hienthi();
     	$(".themnhamay").click(function(){
             $("#id").val("");$("#act").val("");
+            $("#hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+            FormSliderSwitcher.init();
         });
         $(".suanhamay").click(function(){
             var _link = $(this).attr("href");
@@ -293,8 +297,11 @@ if($users->is_admin()){
             var _link = $(this).attr("href");
             $.getJSON(_link, function(data){
                 $("#id_nhamayrauqua").val(data.id);
-                $("#noisoche") .html(data.ten + ', ' + data.diachi);
-                $("#nongtrai") .html(data.tennongtrai + ', ' + data.diachinongtrai);
+                $("#noisoche").html(data.ten + ', ' + data.diachi);
+                $("#nongtrai").html(data.tennongtrai + ', ' + data.diachinongtrai);
+                $("#matruyxuatsanphamdonggoi").html(data.matruyxuatsanpham);
+                $("#hienthidonggoi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+                FormSliderSwitcher.init();
             });
         });
         $(".open_window").click(function(){
@@ -313,6 +320,6 @@ if($users->is_admin()){
             time:""
         });
         <?php endif; ?>
-        App.init();TableManageDefault.init();FormSliderSwitcher.init();
+        App.init();TableManageDefault.init();
     });
 </script>

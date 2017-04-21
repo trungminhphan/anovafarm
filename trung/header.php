@@ -95,14 +95,14 @@ $id_congty = $users->get_id_congty();
             <ul class="nav">
             	<li>
                     <a href="../">
-                        <i class="fa fa-reply-all"></i>
-                        <span>Trở về</span>
+                        <i class="fa fa-laptop"></i>
+                        <span>DASHBOARD</span>
                     </a>
                 </li>
                 <li>
                     <a href="index.html">
-                        <i class="fa fa-home"></i>
-                        <span>TRANG CHỦ</span>
+                        <i class="ion-egg"></i>
+                        <span>QUẢN LÝ TRỨNG</span>
                     </a>
                 </li>
                 <?php if($users->is_admin() || $users->is_factory() || $users->is_farmer()): ?>

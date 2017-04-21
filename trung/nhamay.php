@@ -11,7 +11,6 @@ if($users->is_admin()){
     $nhamay->id_congty = $id_congty;
     $nhamay_list = $nhamay->get_list_by_congty();
 }
-
 ?>
 <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
@@ -310,9 +309,7 @@ if($users->is_admin()){
                         <input type="text" name="hansudung" id="hansudung" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                     <label class="col-md-3 control-label">Hiển thị</label>
-                    <div class="col-md-3" id="hienthidonggoi">
-                        <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
-                    </div>
+                    <div class="col-md-3" id="hienthidonggoi"></div>
                 </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
@@ -345,6 +342,8 @@ if($users->is_admin()){
     	//set_hienthi();
     	$(".themnhamay").click(function(){
             $("#id").val("");$("#act").val("");
+            $("#hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+            FormSliderSwitcher.init();
         });
         $(".suanhamay").click(function(){
             var _link = $(this).attr("href");
@@ -373,6 +372,8 @@ if($users->is_admin()){
                 $("#tennhamay") .html(data.ten + ', ' + data.diachi);
                 $("#madan").html(data.madan);
                 $("#solonhamay").html(data.solo);
+                $("#hienthidonggoi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+                FormSliderSwitcher.init();
             });
         });
         $(".open_window").click(function(){
@@ -391,6 +392,6 @@ if($users->is_admin()){
             time:""
         });
         <?php endif; ?>
-        App.init();TableManageDefault.init();FormSliderSwitcher.init();
+        App.init();TableManageDefault.init();
     });
 </script>
