@@ -64,7 +64,7 @@ if($users->is_admin()){
             				echo '<td class="text-right">'.$nt['soluong'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             if($users->is_admin() || $users->is_factory()){
-                				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                				echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$nt['_id'].'&type=1&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
                 				echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themdonggoi#modal-donggoi" data-toggle="modal" name="'.$nt['_id'].'" class="themdonggoi"><i class="fa fa-dropbox"></i></a></td>';
                             }
                             if($users->is_admin() || $users->is_farmer()){

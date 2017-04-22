@@ -75,7 +75,7 @@ if($users->is_admin()){
 	            				} else {
 	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
 	            				}*/
-	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+	            				echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$dg['_id'].'&type=3&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
 	            				echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=thembanle#modal-banle" data-toggle="modal" name="'.$dg['_id'].'" class="thembanle"><i class="fa fa-shopping-cart"></i></a></td>';
             				}
             				if($users->is_admin() || $users->is_packer()){
