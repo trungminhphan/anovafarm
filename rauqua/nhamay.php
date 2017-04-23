@@ -41,7 +41,7 @@ if($users->is_admin()){
             				<th>Mã truy xuất sản phẩm</th>
             				<th>Tên nhà máy</th>
             				<th>Tiêu chuẩn</th>
-            				<th class="text-right">Ngày sơ chế</th>
+            				<th>Ngày sơ chế</th>
                             <th class="text-center">Hiển thị</th>
             				<?php if($users->is_admin() || $users->is_retail()): ?>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -65,7 +65,7 @@ if($users->is_admin()){
             				echo '<td>'.$nm['matruyxuatsanpham'].'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nm['tieuchuan'].'</td>';
-            				echo '<td class="text-right">'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
+            				echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($nm['hienthi'] == 1){

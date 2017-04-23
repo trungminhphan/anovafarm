@@ -41,8 +41,8 @@ if($users->is_admin()){
             				<th>STT</th>
             				<th>Nơi đóng gói</th>
             				<th>Tên sản phẩm</th>
-            				<th class="text-right">Qui cách đóng gói</th>
-                            <th class="text-right">Ngày giờ đóng gói</th>
+            				<th>Qui cách đóng gói</th>
+                            <th>Ngày giờ đóng gói</th>
             				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -67,7 +67,7 @@ if($users->is_admin()){
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td class="text-right">'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+            				echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';

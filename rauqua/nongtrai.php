@@ -38,7 +38,7 @@ if($users->is_admin()){
             				<th>Mã truy xuất</th>
             				<th>Tên trang trại</th>
             				<th>Ngày thu hoạch</th>
-            				<th class="text-right">Số lượng</th>
+            				<th>Số lượng</th>
                             <th class="text-center">Hiển thị</th>
                             <?php if($users->is_admin() || $users->is_factory()): ?>            				
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -61,7 +61,7 @@ if($users->is_admin()){
             				echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
-            				echo '<td class="text-right">'.$nt['soluong'].'</td>';
+            				echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             if($users->is_admin() || $users->is_factory()){
                 				/*if($nt['hienthi'] == 1){

@@ -38,7 +38,7 @@ if($users->is_admin()){
             			<tr>
             				<th>STT</th>
             				<th>Tên sản phẩm</th>
-            				<th class="text-right">Nơi bán lẻ</th>
+            				<th>Nơi bán lẻ</th>
             				<!--<th class="text-center">Tên quầy, sạp</th>
             				<th class="text-center">Ngày giờ bán</th>-->
             				<th class="text-center">Hiển thị</th>
