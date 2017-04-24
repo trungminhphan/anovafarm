@@ -69,7 +69,9 @@ $user_default = $users->get_one_default();
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-user"></i> 
-							<span class="hidden-xs">Phan Minh Trung</span> <b class="caret"></b>
+							<span class="hidden-xs">
+								<?php echo $user_default['person']; ?>
+							</span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
 							<li class="arrow"></li>
