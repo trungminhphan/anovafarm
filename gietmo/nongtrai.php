@@ -37,7 +37,7 @@ if($users->is_admin()){
             				<th>STT</th>
             				<th>Mã đàn</th>
             				<th>Tên trang trại</th>
-            				<th>Ngày giờ xuất</th>
+            				<th>Ngày xuất</th>
             				<th>Số lượng</th>
                             <?php if($users->is_admin() || $users->is_factory()): ?>
             				<th class="text-center">Hiển thị</th>
@@ -60,7 +60,7 @@ if($users->is_admin()){
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$nt['madan'].'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.date("d/m/Y H:i",$nt['ngaygioxuat']->sec).'</td>';
+            				echo '<td>'.date("d/m/Y",$nt['ngaygioxuat']->sec).'</td>';
             				echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             if($users->is_admin() || $users->is_factory()){
@@ -119,40 +119,19 @@ if($users->is_admin()){
                     <div class="col-md-3">
                         <input type="text" name="tieuchuan" id="tieuchuannongtrai" value="" class="form-control" data-parsley-required="true"/>
                     </div>
-                    <div class="col-md-2">
-                        <input type="text" name="ngaygioxuat" id="ngaygioxuat" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" placeholder="Ngày giờ xuất" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="gioxuat" id="gioxuat" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="phutxuat" id="phutxuat" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected':'').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Mã đàn</label>
                     <div class="col-md-3">
                         <input type="text" name="madan" id="madannongtrai" value="" class="form-control" data-parsley-required="true"/>
                     </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Số lượng</label>
                     <div class="col-md-3">
                         <input type="number" name="soluong" id="soluong" value="" class="form-control" data-parsley-required="true"/>
+                    </div>
+                     <label class="col-md-3 control-label">Ngày xuất</label>
+                    <div class="col-md-3">
+                        <input type="text" name="ngaygioxuat" id="ngaygioxuat" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" placeholder="Ngày giờ xuất" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -257,38 +236,14 @@ if($users->is_admin()){
             		</div>
             	</div>
             	<div class="form-group">
-            		<label class="col-md-3 control-label">Ngày, giờ giết mổ</label>
+            		<label class="col-md-3 control-label">Ngày giết mổ</label>
             		<div class="col-md-3">
             			<input type="text" name="ngaygiogietmo" id="ngaygiogietmo" placeholder="Ngày" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
             		</div>
-            		<div class="col-md-3">
-            			<select name="gio" id="gio" class="select2" style="width:100%;">
-            				<option value="0">Giờ</option>
-            			<?php
-                        $gg = date("H");
-            			for($g=1; $g<=24; $g++){
-            				echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-            			}
-            			?>
-            			</select>
-            		</div>
-            		<div class="col-md-3">
-            			<select name="phut" id="phut" class="select2" style="width:100%;">
-            				<option value="0">Phút</option>
-            			<?php
-                        $pp = date("i");
-            			for($p=1; $p<=60; $p++){
-            				echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-            			}
-            			?>
-            			</select>
-            		</div>
-            	</div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Hiển thị</label>
                     <div class="col-md-3" id="hienthinhamay">
                     </div>
-                </div>
+            	</div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
@@ -358,8 +313,6 @@ if($users->is_admin()){
                 $("#diachinongtrai").val(data.diachi);
                 $("#tieuchuannongtrai").val(data.tieuchuan);
                 $("#ngaygioxuat").val(data.ngaygioxuat);
-                $("#gioxuat").val(data.gioxuat);$("#gioxuat").select2();
-                $("#phutxuat").val(data.phutxuat);$("#phutxuat").select2();
                 $("#madannongtrai").val(data.madan);
                 $("#soluong").val(data.soluong);
                 $("#nhamaycungcapthucan").val(data.nhamaycungcapthucan);

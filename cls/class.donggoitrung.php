@@ -118,5 +118,10 @@ class DongGoiTrung{
 		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
 	}
+
+	public function get_one_by_nongtrai(){
+		$query = array('id_nongtraitrung' => new MongoId($this->id_nongtraitrung));
+		return $this->_collection->findOne($query);
+	}
 }
 ?>

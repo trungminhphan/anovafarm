@@ -42,9 +42,18 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 	<?php
 	if($q== 'rauqua' || $q=='trung' || $q=='gietmo'){
 		if($type==4){
+			echo '<h5>GIAI ĐOẠN NÔNG TRẠI</h5>';
 			require_once('banle_'.$q.'.php');
-		} else if($type == 3){
+		} else if($type == 3){	
+			echo '<h4 class="text-center">GIAI ĐOẠN ĐÓNG GÓI</h4>';
 			require_once('donggoi_'.$q.'.php');
+		} else if($type==2){
+			if($q == 'rauqua') echo '<h4 class="text-center">GIAI ĐOẠN SƠ CHẾ</h4>';
+			else echo '<h4 class="text-center">GIAI ĐOẠN GIẾT MỔ</h4>';
+			require_once('nhamay_'.$q.'.php');
+		} else if($type==1){
+			echo '<h4 class="text-center">GIAI ĐOẠN NÔNG TRẠI</h4>';
+			require_once('nongtrai_'.$q.'.php');
 		} else {
 			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';	
 		}
@@ -59,8 +68,8 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 
 	<div class="row p-10">
 		<div class="col-md-3"></div>
-		<div class="col-md-3 text-center">&copy; 2017 Bản quyền bởi Anova Corp</div>
-		<div class="col-md-3 text-center">Giải pháp bởi: <a href="http://JAYbranding.com" target="_blank">JAYbranding.com</a></div>
+		<div class="col-md-6 text-center">&copy; 2017 Bản quyền bởi Anova Corp</div>
+		<!--<div class="col-md-3 text-center">Giải pháp bởi: <a href="http://JAYbranding.com" target="_blank">JAYbranding.com</a></div>-->
 		<div class="col-md-3"></div>
 	</div>
 

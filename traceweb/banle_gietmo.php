@@ -40,7 +40,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Trại chăn nuôi (Farm)</div>
-		<div class="f-s-16"><?php echo $dmnt['ten'] . ', ' . $dmnt['diachi']; ?></div>
+		<div class="f-s-16"><?php echo $dmnt['ten'] . '<br />' . $dmnt['diachi']; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -64,7 +64,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Nơi giết mổ (Slaughter House)</div>
-		<div class="f-s-16"><?php echo $dmnm['ten'] . ', ' . $dmnm['diachi']; ?></div>
+		<div class="f-s-16"><?php echo $dmnm['ten'] . '<br />' . $dmnm['diachi']; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -117,7 +117,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 		if($bl['id_dmbanle']){
 			foreach($bl['id_dmbanle'] as $key => $value){
 				$danhmucbanle->id = $value; $dmbl = $danhmucbanle->get_one();
-				echo $dmbl['ten'] .', '. $dmbl['diachi'] . '<br/>';
+				echo $dmbl['ten'] .'<br />'. $dmbl['diachi'] . '<br/><br />';
 			}
 		}
 		?>

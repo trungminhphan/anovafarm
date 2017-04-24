@@ -23,8 +23,6 @@ if($act == 'edit' || $act == 'themdonggoi'){
 		'giaychungnhan' => $nm['giaychungnhan'],
 		'nhanvienkiemsoat' => $nm['nhanvienkiemsoat'],
 		'ngaygiogietmo' => date("d/m/Y", $nm['ngaygiogietmo']->sec),
-		'gio' => intval(date("H", $nm['ngaygiogietmo']->sec)),
-		'phut' => intval(date("i", $nm['ngaygiogietmo']->sec)),
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($nm['hienthi'] == 1 ? ' checked' : '').'/>'
 	);
 	echo json_encode($arr);

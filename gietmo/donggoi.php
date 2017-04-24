@@ -41,7 +41,7 @@ if($users->is_admin()){
             				<th>Tên nhà máy</th>
             				<th>Tên sản phẩm</th>
             				<th>Qui cách đóng gói</th>
-                            <th>Ngày giờ đóng gói</th>
+                            <th>Ngày đóng gói</th>
             				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -67,7 +67,7 @@ if($users->is_admin()){
                             echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td>'.date("d/m/Y H:i",$dg['ngaygiodonggoi']->sec).'</td>';
+            				echo '<td>'.date("d/m/Y",$dg['ngaygiodonggoi']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($dg['hienthi'] == 1){
@@ -148,57 +148,13 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ giết mổ</label>
+                    <label class="col-md-3 control-label">Ngày giết mổ</label>
                     <div class="col-md-3">
                         <input type="text" name="ngaygiogietmo" id="ngaygiogietmo" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
                     </div>
-                    <div class="col-md-3">
-                        <select name="giogietmo" id="giogietmo" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutgietmo" id="phutgietmo" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ đóng gói</label>
+                    <label class="col-md-3 control-label">Ngày đóng gói</label>
                     <div class="col-md-3">
                         <input type="text" name="ngaygiodonggoi" id="ngaygiodonggoi" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="giodonggoi" id="giodonggoi" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutdonggoi" id="phutdonggoi" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -306,11 +262,7 @@ if($users->is_admin()){
                 $("#tieuchuan").val(data.tieuchuan);
                 $("#sochungnhantieuchuan").val(data.sochungnhantieuchuan);
                 $("#ngaygiogietmo").val(data.ngaygiogietmo);
-                $("#giogietmo").val(data.giogietmo);$("#giogietmo").select2();
-                $("#phutgietmo").val(data.phutgietmo);$("#phutgietmo").select2();
                 $("#ngaygiodonggoi").val(data.ngaygiodonggoi);
-                $("#giodonggoi").val(data.giodonggoi);$("#giodonggoi").select2();
-                $("#phutdonggoi").val(data.phutdonggoi);$("#phutdonggoi").select2();
                 $("#hansudung").val(data.hansudung);
                 $("#hienthi").html(data.hienthi);
                 FormSliderSwitcher.init();

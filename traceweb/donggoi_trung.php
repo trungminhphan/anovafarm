@@ -37,7 +37,7 @@ $danhmucnhamay->id = $dg['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Nơi đóng gói (Place of packing)</div>
-		<div class="f-s-16"><?php echo $dmnm['ten']  . ', ' . $dmnm['diachi'] ; ?></div>
+		<div class="f-s-16"><?php echo $dmnm['ten']  . '<br />' . $dmnm['diachi'] ; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -61,7 +61,7 @@ $danhmucnhamay->id = $dg['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Nông trại (Farm)</div>
-		<div class="f-s-16"><?php echo $dmnt['ten'] .', ' . $dmnt['diachi']; ?></div>
+		<div class="f-s-16"><?php echo $dmnt['ten'] .'<br />' . $dmnt['diachi']; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>

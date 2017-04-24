@@ -10,15 +10,8 @@ $quicachdonggoi = isset($_POST['quicachdonggoi']) ? $_POST['quicachdonggoi'] : '
 $solo = isset($_POST['solo']) ? $_POST['solo'] : '';
 $tieuchuan = isset($_POST['tieuchuan']) ? $_POST['tieuchuan'] : '';
 $sochungnhantieuchuan = isset($_POST['sochungnhantieuchuan']) ? $_POST['sochungnhantieuchuan'] : '';
-
 $ngaygiogietmo = isset($_POST['ngaygiogietmo']) ? $_POST['ngaygiogietmo'] : '';
-$giogietmo = isset($_POST['giogietmo']) ? $_POST['giogietmo'] : '';
-$phutgietmo = isset($_POST['phutgietmo']) ? $_POST['phutgietmo'] : '';
-$ngaygiogietmo = new MongoDate(convert_date_yyyy_mm_dd_1($ngaygiogietmo, $giogietmo, $giogietmo));
 $ngaygiodonggoi = isset($_POST['ngaygiodonggoi']) ? $_POST['ngaygiodonggoi'] : '';
-$giodonggoi = isset($_POST['giodonggoi']) ? $_POST['giodonggoi'] : '';
-$phutdonggoi = isset($_POST['phutdonggoi']) ? $_POST['phutdonggoi'] : '';
-$ngaygiodonggoi = new MongoDate(convert_date_yyyy_mm_dd_1($ngaygiodonggoi, $giodonggoi, $phutdonggoi));
 $hansudung = isset($_POST['hansudung']) ? $_POST['hansudung'] : '';
 $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : 0;
 
@@ -28,8 +21,8 @@ $donggoi->quicachdonggoi = $quicachdonggoi;
 $donggoi->solo = $solo;
 $donggoi->tieuchuan = $tieuchuan;
 $donggoi->sochungnhantieuchuan = $sochungnhantieuchuan;
-$donggoi->ngaygiogietmo = $ngaygiogietmo;
-$donggoi->ngaygiodonggoi = $ngaygiodonggoi;
+$donggoi->ngaygiogietmo = $ngaygiogietmo ? new MongoDate(convert_date_yyyy_mm_dd($ngaygiogietmo)) : '';
+$donggoi->ngaygiodonggoi = $ngaygiodonggoi ? new MongoDate(convert_date_yyyy_mm_dd($ngaygiodonggoi)) : '';
 $donggoi->hansudung = $hansudung;
 $donggoi->hienthi = intval($hienthi);
 $donggoi->id_user = $id_user;

@@ -3,7 +3,6 @@ require_once('header_none.php');
 $nongtrai = new NongTrai();$danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
-
 if($act == 'del' && $id){
 	$nongtrai->id = $id;
 	if($nongtrai->delete()){
@@ -20,8 +19,6 @@ if($act == 'edit' && $id){
 		'id_dmnongtrai' => $nt['id_dmnongtrai'],
 		'tieuchuan' => $nt['tieuchuan'],
 		'ngaygioxuat' => date("d/m/Y",$nt['ngaygioxuat']->sec),
-		'gioxuat' => intval(date("H",$nt['ngaygioxuat']->sec)),
-		'phutxuat' =>intval(date("i",$nt['ngaygioxuat']->sec)),
 		'madan' => $nt['madan'],
 		'soluong' => $nt['soluong'],
 		'nhamaycungcapthucan' => $nt['nhamaycungcapthucan'],

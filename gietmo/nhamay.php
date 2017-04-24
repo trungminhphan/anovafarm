@@ -160,34 +160,10 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày, giờ giết mổ</label>
+                    <label class="col-md-3 control-label">Ngày giết mổ</label>
                     <div class="col-md-3">
                         <input type="text" name="ngaygiogietmo" id="ngaygiogietmo" placeholder="Ngày"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo date("d/m/Y"); ?>"/>
                     </div>
-                    <div class="col-md-3">
-                        <select name="gio" id="gio" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'" '.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phut" id="phut" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected': '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Hiển thị</label>
                     <div class="col-md-3" id="hienthi">
                         <input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>
@@ -251,57 +227,13 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ giết mổ</label>
+                    <label class="col-md-3 control-label">Ngày giết mổ</label>
                     <div class="col-md-3">
                         <input type="text" name="ngaygiogietmo" id="ngaygiogietmo" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
                     </div>
-                    <div class="col-md-3">
-                        <select name="giogietmo" id="giogietmo" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        $gg = date("H");
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutgietmo" id="phutgietmo" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        $pp = date("i");
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày giờ đóng gói</label>
+                    <label class="col-md-3 control-label">Ngày đóng gói</label>
                     <div class="col-md-3">
                         <input type="text" name="ngaygiodonggoi" id="ngaygiodonggoi" value="<?php echo date("d/m/Y"); ?>" class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true"/>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="giodonggoi" id="giodonggoi" class="select2" style="width:100%;">
-                            <option value="0">Giờ</option>
-                        <?php
-                        for($g=1; $g<=24; $g++){
-                            echo '<option value="'.$g.'"'.($g==$gg ? ' selected' : '').'>'.$g.'</option>';
-                        }
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select name="phutdonggoi" id="phutdonggoi" class="select2" style="width:100%;">
-                            <option value="0">Phút</option>
-                        <?php
-                        for($p=1; $p<=60; $p++){
-                            echo '<option value="'.$p.'"'.($p==$pp ? ' selected' : '').'>'.$p.'</option>';
-                        }
-                        ?>
-                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -310,9 +242,9 @@ if($users->is_admin()){
                         <input type="text" name="hansudung" id="hansudung" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                     <label class="col-md-3 control-label">Hiển thị</label>
-                    <div class="col-md-3" id="hienthidonggoi">
-                    </div>
+                    <div class="col-md-3" id="hienthidonggoi"></div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
                 <button type="submit" name="submit" id="submit" class="btn btn-sm btn-success">Lưu</button>
@@ -344,7 +276,7 @@ if($users->is_admin()){
     	//set_hienthi();
     	$(".themnhamay").click(function(){
             $("#id").val("");$("#act").val("");
-            $("hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+            $("#hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
             FormSliderSwitcher.init();
         });
         $(".suanhamay").click(function(){
@@ -361,8 +293,6 @@ if($users->is_admin()){
                 $("#giaychungnhan").val(data.giaychungnhan);
                 $("#nhanvienkiemsoat").val(data.nhanvienkiemsoat);
                 $("#ngaygiogietmo").val(data.ngaygiogietmo);
-                $("#gio").val(data.gio);$("#gio").select2();
-                $("#phut").val(data.phut);$("#phut").select2();
                 $("#hienthi").html(data.hienthi);
                 FormSliderSwitcher.init();
             });
@@ -374,7 +304,7 @@ if($users->is_admin()){
                 $("#tennhamay") .html(data.ten + ', ' + data.diachi);
                 $("#madan").html(data.madan);
                 $("#solonhamay").html(data.solo);
-                $("hienthidonggoi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
+                $("#hienthidonggoi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
                 FormSliderSwitcher.init();
             });
         });

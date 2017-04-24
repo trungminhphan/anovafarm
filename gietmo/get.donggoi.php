@@ -24,11 +24,7 @@ if($act == 'edit' || $act == 'thembanle'){
 		'tieuchuan' => $dg['tieuchuan'],
 		'sochungnhantieuchuan' => $dg['sochungnhantieuchuan'],
 		'ngaygiogietmo' => date("d/m/Y", $dg['ngaygiogietmo']->sec),
-		'giogietmo' => intval(date("H", $dg['ngaygiogietmo']->sec)),
-		'phutgietmo' => intval(date("i", $dg['ngaygiogietmo']->sec)),
 		'ngaygiodonggoi' => date("d/m/Y", $dg['ngaygiodonggoi']->sec),
-		'giodonggoi' => intval(date("H", $dg['ngaygiodonggoi']->sec)),
-		'phutdonggoi' => intval(date("i", $dg['ngaygiodonggoi']->sec)),
 		'hansudung' => $dg['hansudung'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($dg['hienthi'] == 1 ? ' checked' : '').'/>'
 		);

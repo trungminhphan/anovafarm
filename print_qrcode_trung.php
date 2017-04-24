@@ -22,6 +22,12 @@ if($id && $q=='trung'){
 		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
 		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
 		$hansudung = $dg['hansudung'];
+	} else {
+		$nongtrai = new NongTraiTrung(); $nongtrai->id = $id; $nt = $nongtrai->get_one();
+		$donggoi = new DongGoiTrung(); $donggoi->id_nongtraitrung = $nt['_id']; $dg = $donggoi->get_one_by_nongtrai();
+		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
+		$ngaydonggoi = $dg['ngaydonggoi'] ? date("d-m-Y", $dg['ngaydonggoi']->sec) : '';
+		$hansudung = $dg['hansudung'];
 	}
 } else {
 	$tensanpham = ''; $quicachdonggoi = ''; $ngaydonggoi = ''; $hansudung = '';

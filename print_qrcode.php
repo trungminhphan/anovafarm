@@ -10,20 +10,7 @@ if(!$users->isLoggedIn()){ transfers_to('./login.html?url=' . $_SERVER['REQUEST_
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $q = isset($_GET['q']) ? $_GET['q'] : '';
-if($id && $q=='trung'){
-	if($type==4){
-		$banle = new BanLeTrung(); $banle->id = $id; $bl = $banle->get_one();
-		$donggoi = new DongGoiTrung(); $donggoi->id = $bl['id_donggoitrung']; $dg = $donggoi->get_one();
-		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
-		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
-		$hansudung = $dg['hansudung'];
-	} else if($type==3){
-		$donggoi = new DongGoiTrung(); $donggoi->id = $id; $dg = $donggoi->get_one();
-		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
-		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
-		$hansudung = $dg['hansudung'];
-	}
-} else if ($id && $q == 'rauqua'){
+if ($id && $q == 'rauqua'){
 	if($type==4){
 		$banle = new BanLeRauQua(); $banle->id = $id; $bl = $banle->get_one();
 		$donggoi = new DongGoiRauQua(); $donggoi->id = $bl['id_donggoirauqua']; $dg = $donggoi->get_one();
@@ -35,6 +22,23 @@ if($id && $q=='trung'){
 		$tensanpham = $dg['tensanpham']; $quicachdonggoi = $dg['quicachdonggoi'];
 		$ngaydonggoi = date("d-m-Y", $dg['ngaydonggoi']->sec);
 		$hansudung = $dg['hansudung'];
+	} else if($type==2) {
+		$nhamay = new NhaMayRauQua(); $nhamay->id = $id; $nm = $nhamay->get_one();
+		$danhmucnhamay = new DanhMucNhaMay(); $danhmucnhamay->id = $nm['id_dmnhamay'];
+		$dmnm = $danhmucnhamay->get_one();
+		$title_1 = $nm['matruyxuatsanpham'];
+		$title_2 = $dmnm['ten'];
+		$title_3 = 'Ngày sơ chế: ' . date("d/m/Y", $nm['ngaysoche']->sec);
+	} else if($type==1){
+		$nongtrai = new NongTraiRauQua(); $nongtrai->id = $id; $nt = $nongtrai->get_one();
+		$danhmucnongtrai = new DanhMucNongTrai(); $danhmucnongtrai->id = $nt['id_dmnongtrai'];
+		$dmnt = $danhmucnongtrai->get_one();
+		$title_1 = $nt['matruyxuatsanpham'];
+		$title_2 = $dmnt['ten'];
+		$title_3 = 'Ngày thu hoạch: ' . date("d/m/Y", $nt['ngaythuhoach']->sec);
+	} else {
+		$title_1 = ''; $title_2='';$title_3='';
+		$tensanpham = ''; $quicachdonggoi = ''; $ngaydonggoi = ''; $hansudung = '';
 	}
 
 } else if($id && $q=='gietmo') {
@@ -51,8 +55,26 @@ if($id && $q=='trung'){
 		$quicachdonggoi = $dg['quicachdonggoi'];
 		$ngaydonggoi = date("d-m-Y", $dg['ngaygiodonggoi']->sec);
 		$hansudung = $dg['hansudung'];	
+	} else if($type==2) {
+		$nhamay = new NhaMay(); $nhamay->id = $id; $nm = $nhamay->get_one();
+		$danhmucnhamay = new DanhMucNhaMay(); $danhmucnhamay->id = $nm['id_dmnhamay'];
+		$dmnm = $danhmucnhamay->get_one();
+		$title_1 = 'Số lô: ' . $nm['solo'];
+		$title_2 = $dmnm['ten'];
+		$title_3 = 'Ngày giết mổ: ' . date("d/m/Y", $nm['ngaygiogietmo']->sec);
+	} else if($type==1){
+		$nongtrai = new NongTrai(); $nongtrai->id = $id; $nt = $nongtrai->get_one();
+		$danhmucnongtrai = new DanhMucNongTrai(); $danhmucnongtrai->id = $nt['id_dmnongtrai'];
+		$dmnt = $danhmucnongtrai->get_one();
+		$title_1 = 'Mã đàn: ' . $nt['madan'];
+		$title_2 = $dmnt['ten'];
+		$title_3 = 'Ngày xuất: ' . date("d/m/Y", $nt['ngaygioxuat']->sec);
+	} else {
+		$title_1 = ''; $title_2='';$title_3='';
+		$tensanpham = ''; $quicachdonggoi = ''; $ngaydonggoi = ''; $hansudung = '';
 	}
 } else {
+	$title_1 = ''; $title_2='';$title_3='';
 	$tensanpham = ''; $quicachdonggoi = ''; $ngaydonggoi = ''; $hansudung = '';
 }
 
@@ -94,18 +116,28 @@ $data = $link_frontend . '/?id='.$id.'&type=' . $type . '&q='.$q;
 $filename = $PNG_TEMP_DIR . '_' . $id .'_'.$type. '_' .date("YmdhHis") . '.png';
 QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2);    
 //display generated file
-echo '<div class="qrcode_area" id="qrcode">';
-	echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" class="qrcode_img" />';  
-	echo '<div class="title_qrcode"><span>'.$tensanpham.'</span></div>';
-	echo '<div class="content_qrcode">
-		<p>Quy cách: '.$quicachdonggoi.'</p>
-		<p>Ngày đóng gói: '.$ngaydonggoi.'</p>
-		<p>Hạn sử dụng: '.$hansudung.'</p>
-	</div>';
-	echo '<div class="title_qrcode_1">CTY CP CO-OP  NOVA SAFE FOODS</div>';
-echo '</div>';
-//echo '<div class="title_qrcode">'. $data . '</div>';
-                   
+if($type == 1 || $type==2){
+	echo '<div class="qrcode_area" id="qrcode">';
+		echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" class="qrcode_img" />';  
+		echo '<div class="title_qrcode"><span>'.$title_1.'</span></div>';
+		echo '<div class="content_qrcode">
+			<p>'.$title_2.'</p>
+			<p>'.$title_3.'</p>
+		</div>';
+		echo '<div class="title_qrcode_1">CTY CP CO-OP  NOVA SAFE FOODS</div>';
+	echo '</div>';
+} else {
+	echo '<div class="qrcode_area" id="qrcode">';
+		echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" class="qrcode_img" />';  
+		echo '<div class="title_qrcode"><span>'.$tensanpham.'</span></div>';
+		echo '<div class="content_qrcode">
+			<p>Quy cách: '.$quicachdonggoi.'</p>
+			<p>Ngày đóng gói: '.$ngaydonggoi.'</p>
+			<p>Hạn sử dụng: '.$hansudung.'</p>
+		</div>';
+		echo '<div class="title_qrcode_1">CTY CP CO-OP  NOVA SAFE FOODS</div>';
+	echo '</div>';
+}           
 ?>
 </body>
 </html>

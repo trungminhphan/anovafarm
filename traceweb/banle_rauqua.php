@@ -42,7 +42,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Nông trại (Farm)</div>
-		<div class="f-s-16"><?php echo $dmnt['ten'] .', ' . $dmnt['diachi']; ?></div>
+		<div class="f-s-16"><?php echo $dmnt['ten'] .'<br />' . $dmnt['diachi']; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -66,7 +66,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Nơi sơ chế (Processing factory)</div>
-		<div class="f-s-16"><?php echo $nmsc['ten']  . ', ' . $nmsc['diachi'] ; ?></div>
+		<div class="f-s-16"><?php echo $nmsc['ten']  . '<br />' . $nmsc['diachi'] ; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -74,7 +74,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Nơi đóng gói (Place of packing)</div>
-		<div class="f-s-16"><?php echo $nmdg['ten']  . ', ' . $nmdg['diachi'] ; ?></div>
+		<div class="f-s-16"><?php echo $nmdg['ten']  . '<br />' . $nmdg['diachi'] ; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -103,7 +103,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 		if($bl['id_dmbanle']){
 			foreach($bl['id_dmbanle'] as $key => $value){
 				$danhmucbanle->id = $value; $dmbl = $danhmucbanle->get_one();
-				echo $dmbl['ten'] .', '. $dmbl['diachi'] . '<br/>';
+				echo $dmbl['ten'] .'<br />'. $dmbl['diachi'] . '<br/><br/>';
 			}
 		}
 		?>
