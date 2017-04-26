@@ -13,7 +13,7 @@ $danhmucnhamay->id = $dg['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
-		<div>Tên sản phẩm (Products)</div>
+		<div>Tên sản phẩm (Product)</div>
 		<div class="f-s-16"><?php echo $dg['tensanpham']; ?></div>
 	</div>
 	<div class="col-md-3"></div>

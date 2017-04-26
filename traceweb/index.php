@@ -42,10 +42,10 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 	<?php
 	if($q== 'rauqua' || $q=='trung' || $q=='gietmo'){
 		if($type==4){
-			echo '<h4 class="text-center">GIAI ĐOẠN BÁN LẺ</h4>';
+			//echo '<h4 class="text-center">GIAI ĐOẠN BÁN LẺ</h4>';
 			require_once('banle_'.$q.'.php');
 		} else if($type == 3){	
-			echo '<h4 class="text-center">GIAI ĐOẠN ĐÓNG GÓI</h4>';
+			//echo '<h4 class="text-center">GIAI ĐOẠN ĐÓNG GÓI</h4>';
 			require_once('donggoi_'.$q.'.php');
 		} else if($type==2){
 			if($q == 'rauqua') echo '<h4 class="text-center">GIAI ĐOẠN SƠ CHẾ</h4>';
