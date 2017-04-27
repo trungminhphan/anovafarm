@@ -16,7 +16,7 @@ img.qrcode_img{
 	float: right;
 }
 .title_qrcode {
-	font-size: 17px;
+	font-size: 16px;
 	text-align:left;	
 	font-weight: bold;
 	padding: 0px 0px 0px 0px;
@@ -38,7 +38,7 @@ img.qrcode_img{
 	bottom:0px;
 }
 .content_qrcode p{
-	font-size: 12px;
+	font-size: 11px;
 	padding: 0px;
 	margin: 0px 0px 2px 0px;
 }

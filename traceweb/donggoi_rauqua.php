@@ -88,6 +88,14 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 <div class="row p-t-15">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
+		<div>Ngày thu hoạch (Date of Harvest)</div>
+		<div class="f-s-16"><?php echo $nt['ngaythuhoach'] ? date("d/m/Y", $nt['ngaythuhoach']->sec) : '' ; ?></div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<div class="row p-t-15">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Ngày đóng gói (Date of packing)</div>
 		<div class="f-s-16"><?php echo $dg['ngaydonggoi'] ? date("d/m/Y", $dg['ngaydonggoi']->sec) : '' ; ?></div>
 	</div>
