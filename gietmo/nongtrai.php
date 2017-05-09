@@ -31,6 +31,7 @@ if($users->is_admin()){
             </div>
             <div class="panel-body">
                 <a href="#modal-nongtrai" data-toggle="modal" class="btn btn-primary m-10 themnongtrai"><i class="fa fa-plus"></i> Thêm mới</a>
+                <a href="nongtrai_sync.html" class="btn btn-primary"><i class="fa fa-refresh"></i> Đồng bộ dữ liệu</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>

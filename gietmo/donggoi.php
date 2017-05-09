@@ -41,6 +41,7 @@ if($users->is_admin()){
             				<th>Tên nhà máy</th>
             				<th>Tên sản phẩm</th>
             				<th>Qui cách đóng gói</th>
+                            <th>Số lô</th>
                             <th>Ngày đóng gói</th>
             				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
@@ -66,6 +67,7 @@ if($users->is_admin()){
             				echo '<td>'.$nt['madan'].'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
+                            echo '<td>'.$dg['solo'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
             				echo '<td>'.date("d/m/Y",$dg['ngaygiodonggoi']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
