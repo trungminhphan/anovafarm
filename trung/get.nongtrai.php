@@ -20,7 +20,7 @@ if($act == 'edit' && $id){
 	$arr = array(
 		'id' => $id,
 		'act' => $act,
-		'id_dmnongtrai' => $nt['id_dmnongtrai'],
+		'id_dmnongtrai' => strval($nt['id_dmnongtrai']),
 		'tieuchuan' => $nt['tieuchuan'],
 		'sochungnhantieuchuan' => $nt['sochungnhantieuchuan'],
 		'madan' => $nt['madan'],

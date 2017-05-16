@@ -16,7 +16,7 @@ if($act == 'edit' && $id){
 		'act' => $act,
 		//'ten' => $nt['ten'],
 		//'diachi' => $nt['diachi'],
-		'id_dmnongtrai' => $nt['id_dmnongtrai'],
+		'id_dmnongtrai' => strval($nt['id_dmnongtrai']),
 		'tieuchuan' => $nt['tieuchuan'],
 		'ngaygioxuat' => date("d/m/Y",$nt['ngaygioxuat']->sec),
 		'madan' => $nt['madan'],

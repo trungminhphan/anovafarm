@@ -22,7 +22,7 @@ if($act == 'edit' || $act == 'thembanle'){
 		'id_dmnhamay' => strval($dg['id_dmnhamay']),
 		'tieuchuan' => $dg['tieuchuan'],
 		'sochungnhantieuchuan' => $dg['sochungnhantieuchuan'],
-		'id_nhamayrauqua' => $dg['id_nhamayrauqua'],
+		'id_nhamayrauqua' => strval($dg['id_nhamayrauqua']),
 		'ngaydonggoi' => date("d/m/Y", $dg['ngaydonggoi']->sec),
 		'hansudung' => $dg['hansudung'],	
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($dg['hienthi'] == 1 ? ' checked' : '').'/>',
