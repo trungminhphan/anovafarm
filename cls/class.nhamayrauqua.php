@@ -62,7 +62,7 @@ class NhaMayRauQua {
 			'tieuchuan' => $this->tieuchuan,
 			'sochungnhantieuchuan' => $this->sochungnhantieuchuan,
 			'matruyxuatsanpham' => $this->matruyxuatsanpham,
-			' ngaysoche' => $this->ngaysoche,
+			'ngaysoche' => $this->ngaysoche,
 			'hienthi' => intval($this->hienthi),
 			'date_post' => new MongoDate(),
 			'id_user' => $this->id_user ? new MongoId($this->id_user) : '',
@@ -105,6 +105,35 @@ class NhaMayRauQua {
 		$result = $this->_collection->findOne($query, $field);
 		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
+	}
+
+	public function search($search){
+		$arr_list = array();$danhmuc = new DanhMucNhaMay();
+		$list = $danhmuc->search($search);
+		if($list){
+			foreach($list as $l){
+				$arr_list[] = $l['_id'];
+			}
+		}
+		$date1 = convert_date_yyyy_mm_dd_1($search, 0 , 0);
+		$date2 = convert_date_yyyy_mm_dd_1($search, 24 , 0);
+		$start_date = $date1 ? new MongoDate($date1) : new MongoDate();
+		$end_date = $date2 ? new MongoDate($date2) : new MongoDate();
+		$query = array( '$or' => array(
+			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
+			array('sochungnhantieuchuan' => new MongoRegex('/' . $search . '/i')),
+			array('matruyxuatsanpham' => new MongoRegex('/' . $search . '/i')),
+			array('$and' => array(
+				array('ngaysoche' => array('$gte' => $start_date)),
+				array('ngaysoche' => array('$lte' => $end_date)),
+				)),
+			array('giaychungnhan' => new MongoRegex('/' . $search . '/i')),
+			array('nhanvienkiemsoat' => new MongoRegex('/' . $search . '/i')),
+			array('sogiaykiemdichthusong' => new MongoRegex('/' . $search . '/i')),
+			array('id_dmnhamay' => array('$in' => $arr_list))
+		));
+		$sort = array('date_post' => -1);
+		return $this->_collection->find($query)->sort($sort);
 	}
 }
 ?>

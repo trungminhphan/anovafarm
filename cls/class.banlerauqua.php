@@ -84,5 +84,18 @@ class BanLeRauQua {
 		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
 	}
+
+	public function search($search){
+		$arr_list = array();$danhmuc = new DanhMucBanLe();
+		$list = $danhmuc->search($search);
+		if($list){
+			foreach($list as $l){
+				$arr_list[] = strval($l['_id']);
+			}
+		}
+		$query = array('id_dmbanle' => array('$in' => $arr_list));
+		$sort = array('date_post' => -1);
+		return $this->_collection->find($query)->sort($sort);
+	}
 }
 ?>

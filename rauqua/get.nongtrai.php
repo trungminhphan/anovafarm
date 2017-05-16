@@ -21,7 +21,7 @@ if($act == 'edit' || $act == 'themnhamay'){
 	$arr = array(
 		'id' => $id,
 		'act' => $act,
-		'id_dmnongtrai' => $nt['id_dmnongtrai'],
+		'id_dmnongtrai' => strval($nt['id_dmnongtrai']),
 		'tennongtrai' => $dmnt['ten'],
 		'diachinongtrai' => $dmnt['diachi'],
 		'tieuchuan' => $nt['tieuchuan'],

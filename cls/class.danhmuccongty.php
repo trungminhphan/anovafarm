@@ -26,8 +26,25 @@ class DanhMucCongTy {
 		return $this->_collection->findOne($query);
 	}
 
+	public function get_id_by_ten(){
+		$query = array('ten' => $this->ten);
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return $result['_id'];
+		else return false;
+	}
+
 	public function insert(){
 		$query = array(
+			'ten' => $this->ten,
+			'diachi' => $this->diachi
+		);
+		return $this->_collection->insert($query);
+	}
+
+	public function insert_id(){
+		$query = array(
+			'_id' => new MongoId($this->id),
 			'ten' => $this->ten,
 			'diachi' => $this->diachi
 		);
@@ -41,6 +58,14 @@ class DanhMucCongTy {
 		));
 		$condition = array('_id' => new MongoId($this->id));
 		return $this->_collection->update($condition, $query);	
+	}
+
+	public function search($search){
+		$query = array('$or' => array(
+			array('ten' => new MongoRegex('/' . $search . '/i')),
+			array('diachi' => new MongoRegex('/' . $search . '/i'))
+		));
+		return $this->_collection->find($query);
 	}
 }
 ?>

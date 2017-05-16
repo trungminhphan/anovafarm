@@ -35,10 +35,12 @@ if($users->is_admin()){
             		<thead>
             			<tr>
             				<th>STT</th>
+                            <th>Tên trang trại</th>
             				<th>Mã đàn</th>
-            				<th>Tên trang trại</th>
             				<th>Ngày thu hoạch</th>
             				<th>Số lượng</th>
+                            <th>Số xe vận chuyển</th>
+                            <th>Tên tài xế</th>
                             <?php if($users->is_admin() || $users->is_factory()): ?>
             				<th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -58,10 +60,12 @@ if($users->is_admin()){
                             $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nt['madan'].'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
             				echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
+                            echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             if($users->is_admin() || $users->is_factory()){
                 				echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$nt['_id'].'&type=1&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';

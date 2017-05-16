@@ -3,11 +3,17 @@ class NongTrai {
 	const COLLECTION = 'nongtrai';
 	private $_mongo;
 	private $_collection;
-
 	public $id = '';
+	public $TYPE='';//0
+	public $SUB_TYPE='';//1
+	public $CODE='';//2
+	public $TRANSFER_DATE='';//6
+	public $TRANSFER_FILE_NAME='';//7
+	public $CREATED_BY='';//9
 	public $id_dmnongtrai = '';
 	public $tieuchuan = '';
 	public $ngaygioxuat = '';
+	public $ngaygioxuat_1 = '';
 	public $madan = '';
 	public $soluong = '';
 	public $nhamaycungcapthucan = '';
@@ -62,7 +68,32 @@ class NongTrai {
 		);
 		return $this->_collection->insert($query);
 	}
-
+	public function sync(){
+		$query = array(
+			'TYPE' => $this->TYPE,
+			'SUB_TYPE' => $this->SUB_TYPE,
+			'CODE' => $this->CODE,
+			'TRANSFER_DATE' => $this->TRANSFER_DATE,
+			'TRANSFER_FILE_NAME' => $this->TRANSFER_FILE_NAME,
+			'CREATED_BY' => $this->CREATED_BY,
+			'id_dmnongtrai' => $this->id_dmnongtrai ? new MongoId($this->id_dmnongtrai) : '',
+			'tieuchuan' => $this->tieuchuan,
+			'ngaygioxuat' => $this->ngaygioxuat,
+			'ngaygioxuat_1' => $this->ngaygioxuat_1,
+			'madan' => $this->madan,
+			'soluong' => intval($this->soluong),
+			'nhamaycungcapthucan' => $this->nhamaycungcapthucan,
+			'soxevanchuyen' => $this->soxevanchuyen,
+			'tentaixe' => $this->tentaixe,
+			'sogiaykiemdichthusong' => $this->sogiaykiemdichthusong,
+			'nhanvienkiemdich' => $this->nhanvienkiemdich,
+			'hienthi' => intval($this->hienthi),
+			'date_post' => new MongoDate(),
+			'id_user' => $this->id_user ? new MongoId($this->id_user) : '',
+			'id_congty' => $this->id_congty ? new MongoId($this->id_congty) : ''
+		);
+		return $this->_collection->insert($query);
+	}
 	public function edit(){
 		$query = array('$set' => array(
 			'id_dmnongtrai' => $this->id_dmnongtrai ? new MongoId($this->id_dmnongtrai) : '',
@@ -93,15 +124,19 @@ class NongTrai {
 		return $this->_collection->remove($query);
 	}
 
+	public function delete_by_code(){
+		return $this->_collection->remove(array('TYPE'=> $this->TYPE, 'CODE' => $this->CODE));
+	}
+
 	public function check_exist(){
-		$query = array('type'=> $this->type, 'code' => $this->code);
+		$query = array('TYPE'=> $this->TYPE, 'CODE' => $this->CODE);
 		$result = $this->_collection->findOne($query);
 		if($result['_id']) return true;
 		return false;
 	}
 
-	public function check_exist_file($filename){
-		$query = array('filename' => $filename);
+	public function check_exist_file($file){
+		$query = array('TRANSFER_FILE_NAME' => $file);
 		$result = $this->_collection->findOne($query);
 		if($result['_id']) return true;
 		return false;	
@@ -131,18 +166,23 @@ class NongTrai {
 				$arr_list[] = $l['_id'];
 			}
 		}
-		$date = convert_date_yyyy_mm_dd($search);
-		$date_search = $date ? new MongoDate($date) : new MongoDate();
+		$date1 = convert_date_yyyy_mm_dd_1($search, 0 , 0);
+		$date2 = convert_date_yyyy_mm_dd_1($search, 24 , 0);
+		$start_date = $date1 ? new MongoDate($date1) : new MongoDate();
+		$end_date = $date2 ? new MongoDate($date2) : new MongoDate();
 		$query = array( '$or' => array(
 			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
 			array('madan' => new MongoRegex('/' . $search . '/i')),
 			array('soluong' => intval($search)),
+			array('$and' => array(
+				array('ngaygioxuat' => array('$gte' => $start_date)),
+				array('ngaygioxuat' => array('$lte' => $end_date)),
+				)),
 			array('soxevanchuyen' => new MongoRegex('/' . $search . '/i')),
 			array('tentaixe' => new MongoRegex('/' . $search . '/i')),
 			array('sogiaykiemdichthusong' => new MongoRegex('/' . $search . '/i')),
 			array('nhanvienkiemdich' => new MongoRegex('/' . $search . '/i')),
 			array('id_dmnongtrai' => array('$in' => $arr_list)),
-
 		));
 		$sort = array('date_post' => -1);
 		return $this->_collection->find($query)->sort($sort);

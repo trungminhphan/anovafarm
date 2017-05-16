@@ -101,6 +101,31 @@ class DongGoi{
 		if(isset($result['_id']) && $result['_id']) return true;
 		else return false;
 	}
+
+	public function search($search){
+		$date1 = convert_date_yyyy_mm_dd_1($search, 0 , 0);
+		$date2 = convert_date_yyyy_mm_dd_1($search, 24 , 0);
+		$start_date = $date1 ? new MongoDate($date1) : new MongoDate();
+		$end_date = $date2 ? new MongoDate($date2) : new MongoDate();
+		$query = array( '$or' => array(
+			array('tensanpham' => new MongoRegex('/' . $search . '/i')),
+			array('quicachdonggoi' => new MongoRegex('/' . $search . '/i')),
+			array('solo' => new MongoRegex('/' . $search . '/i')),
+			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
+			array('sochungnhantieuchuan' => new MongoRegex('/' . $search . '/i')),
+			array('hansudung' => new MongoRegex('/' . $search . '/i')),
+			array('$and' => array(
+				array('ngaygiogietmo' => array('$gte' => $start_date)),
+				array('ngaygiogietmo' => array('$lte' => $end_date)),
+				)),
+			array('$and' => array(
+				array('ngaygiodonggoi' => array('$gte' => $start_date)),
+				array('ngaygiodonggoi' => array('$lte' => $end_date)),
+				))
+		));
+		$sort = array('date_post' => -1);
+		return $this->_collection->find($query)->sort($sort);
+	}
 }
 
 ?>

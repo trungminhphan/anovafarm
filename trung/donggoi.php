@@ -38,11 +38,14 @@ if($users->is_admin()){
             		<thead>
             			<tr>
             				<th>STT</th>
-            				<th>Mã đàn</th>
             				<th>Nơi đóng gói</th>
+                            <th>Mã đàn</th>
             				<th>Tên sản phẩm</th>
             				<th>Qui cách đóng gói</th>
                             <th>Ngày đóng gói</th>
+                            <th>Số lô</th>
+                            <th>Ngày thu hoạch</th>
+                            <th>Nông trại</th>
             				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -61,20 +64,19 @@ if($users->is_admin()){
             			foreach ($donggoi_list as $dg) {
             				$nongtrai->id = $dg['id_nongtraitrung'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $dg['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+                            $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
+            				echo '<td>'.$nt['madan'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
             				echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<td>'.$dg['solo'].'</td>';
+                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.$dmnt['ten'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
-	            				/*if($dg['hienthi'] == 1){
-	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
-	            				} else {
-	            					echo '<td class="text-center link_hienthi"><a href="get.donggoi.html?id='.$dg['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
-	            				}*/
 	            				echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$dg['_id'].'&type=3&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
 	            				echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=thembanle#modal-banle" data-toggle="modal" name="'.$dg['_id'].'" class="thembanle"><i class="fa fa-shopping-cart"></i></a></td>';
             				}

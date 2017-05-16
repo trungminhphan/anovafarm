@@ -49,13 +49,15 @@ function quote_smart($value){
 function convert_date_yyyy_mm_dd($str_date){
 	$s = explode ("/", $str_date);
 	if(isset($s[1]) && isset($s[2])){
-		return strtotime($s[2] . '-'. $s[1] . '-' . $s[0] . ' 00:00:00');
+		return strtotime(intval($s[2]) . '-'. intval($s[1]) . '-' . intval($s[0]) . ' 00:00:00');
 	} else return '';
 }
 
 function convert_date_yyyy_mm_dd_1($str_date, $gio, $phut){
 	$s = explode ("/", $str_date);
-	return strtotime($s[2] . '-'. $s[1] . '-' . $s[0] . ' '.$gio.':'.$phut.':00');
+	if(isset($s[1]) && isset($s[2])){
+		return strtotime($s[2] . '-'. $s[1] . '-' . $s[0] . ' '.$gio.':'.$phut.':00');
+	} else return '';
 }
 
 function convert_date_yyyy_mm_dd_2($str_date, $gio, $phut){

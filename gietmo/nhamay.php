@@ -37,11 +37,14 @@ if($users->is_admin()){
             		<thead>
             			<tr>
             				<th>STT</th>
-            				<th>Mã đàn</th>
             				<th>Tên nhà máy</th>
             				<th>Tiêu chuẩn</th>
+                            <th>Mã đàn</th>
             				<th>Số lô</th>
                             <th>Ngày giết mổ</th>
+                            <th>Số giấy kiểm dịch thú sống</th>
+                            <th>CODE</th>
+                            <th>Số xe vận chuyển</th>
             				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
@@ -62,11 +65,14 @@ if($users->is_admin()){
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nm['tieuchuan'].'</td>';
+                            echo '<td>'.$nt['madan'].'</td>';
             				echo '<td>'.$nm['solo'].'</td>';
                             echo '<td>'.date("d/m/Y", $nm['ngaygiogietmo']->sec).'</td>';
+                            echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
+                            echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=gietmo" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
             				if($users->is_admin() || $users->is_retail()){
 	            				/*if($nm['hienthi'] == 1){
