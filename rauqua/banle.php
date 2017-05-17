@@ -107,7 +107,10 @@ if($users->is_admin()){
                     	<?php
                     	if($donggoi_list){
                     		foreach($donggoi_list as $dg){
-                    			echo '<option value="'.$dg['_id'].'">'.$dg['tensanpham'].', Số lô: '.$dg['solo'] .'</option>';
+                                $danhmucnhamay->id = $dg['id_dmnhamay']; $nm = $danhmucnhamay->get_one();
+                                $nhamay->id = $dg['id_nhamayrauqua']; $nr = $nhamay->get_one();
+                                $nongtrai->id = $nr['id_nongtrairauqua']; $nt = $nongtrai->get_one();
+                    			echo '<option value="'.$dg['_id'].'">'.$nm['ten'] .' - '. $dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.date("d/m/Y", $dg['ngaydonggoi']->sec).' - '.$dg['hansudung'] .' - '.$dg['solo'].' - ' .date("d/m/Y",$nt['ngaythuhoach']->sec).' - ' .date("d/m/Y",$nr['ngaysoche']->sec).'</option>';
                     		}
                     	}
                     	?>

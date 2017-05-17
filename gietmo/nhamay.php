@@ -118,7 +118,7 @@ if($users->is_admin()){
                         if($nongtrai_list){
                             foreach($nongtrai_list as $nt){
                                 $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dmnt = $danhmucnongtrai->get_one();
-                                echo '<option value="'.$nt['_id'].'">'.$nt['madan'] .' - '. $dmnt['ten'].', '.$dmnt['diachi'].'</option>';
+                                echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['madan'].' - '.date("d/m/Y",$nt['ngaygioxuat']->sec).' - '.$nt['soluong'].(isset($nt['CODE']) ? ' - '.$nt['CODE'] : '').' - '.$nt['soxevanchuyen'].' - '.$nt['tentaixe']. ' - '.$nt['sogiaykiemdichthusong'].'</option>';
                             }
                         }
                         ?>

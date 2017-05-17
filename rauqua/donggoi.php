@@ -166,6 +166,20 @@ if($users->is_admin()){
             </div>
             <div class="modal-body">
                 <div class="form-group">
+                    <label class="col-md-3 control-label">Nơi đóng gói</label>
+                    <div class="col-md-9">
+                        <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%">
+                        <?php
+                        if($danhmucnhamay_list){
+                            foreach($danhmucnhamay_list as $dmnm){
+                                echo '<option value="'.$dmnm['_id'].'">'.$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Tên sản phẩm</label>
                     <div class="col-md-9">
                         <input type="text" name="tensanpham" id="tensanpham" value="" class="form-control" data-parsley-required="true"/>
@@ -181,20 +195,7 @@ if($users->is_admin()){
                         <input type="text" name="solo" id="solo" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Nơi đóng gói</label>
-                    <div class="col-md-9">
-                        <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%">
-                        <?php
-                        if($danhmucnhamay_list){
-                            foreach($danhmucnhamay_list as $dmnm){
-                                echo '<option value="'.$dmnm['_id'].'">'.$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
-                            }
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
+                
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
@@ -213,7 +214,8 @@ if($users->is_admin()){
                         if($nhamay_list){
                             foreach($nhamay_list as $nm){
                                 $danhmucnhamay->id = $nm['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
-                                echo '<option value="'.$nm['_id'].'">Mã truy xuất sản phẩm: ' . $nm['matruyxuatsanpham']. ', '.$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                                $nongtrai->id = $nm['id_nongtrairauqua']; $nt = $nongtrai->get_one();
+                                echo '<option value="'.$nm['_id'].'">'.$dmnm['ten'].' - '.$nm['tieuchuan'].' - '.$nm['matruyxuatsanpham']. ' - ' .date("d/m/Y", $nm['ngaysoche']->sec).' - ' .date("d/m/Y", $nt['ngaythuhoach']->sec). ' - '. $nt['soxevanchuyen']. '</option>';
                             }
                         }
                         ?>

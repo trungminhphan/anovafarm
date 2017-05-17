@@ -165,6 +165,36 @@ if($users->is_admin()){
             </div>
             <div class="modal-body">
                 <div class="form-group">
+                    <label class="col-md-3 control-label">Nơi đóng gói</label>
+                    <div class="col-md-9">
+                        <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%;">
+                        <?php
+                        if($danhmucnhamay_list){
+                            foreach($danhmucnhamay_list as $dm){
+                                echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chọn nông trại</label>
+                    <div class="col-md-9">
+                        <select name="id_nongtraitrung" id="id_nongtraitrung" class="select2" style="width:100%;">
+                        <?php
+                        if($nongtraitrung_list){
+                            foreach($nongtraitrung_list as $nt){
+                                $danhmucnongtrai->id = $nt['id_dmnongtrai'];
+                                $dm = $danhmucnongtrai->get_one();
+                                echo '<option value="'.$nt['_id'].'">'.$dm['ten'] .' - '. $nt['madan'] .' - '.date("d/m/Y",$nt['ngaythuhoach']->sec) . ' - ' .$nt['soluong'].' - '. $nt['soxevanchuyen'].' - '. $nt['tentaixe'].'</option>';
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-3 control-label">Tên sản phẩm</label>
                     <div class="col-md-9">
                         <input type="text" name="tensanpham" id="tensanpham" value="" class="form-control" data-parsley-required="true"/>
@@ -181,20 +211,6 @@ if($users->is_admin()){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Nơi đóng gói</label>
-                    <div class="col-md-9">
-                        <select name="id_dmnhamay" id="id_dmnhamay" class="select2" style="width:100%;">
-                        <?php
-                        if($danhmucnhamay_list){
-                            foreach($danhmucnhamay_list as $dm){
-                                echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
-                            }
-                        }
-                        ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
                         <input type="text" name="tieuchuan" id="tieuchuan" value="" class="form-control" data-parsley-required="true"/>
@@ -202,22 +218,6 @@ if($users->is_admin()){
                     <label class="col-md-3 control-label">Số chứng nhận tiêu chuẩn</label>
                     <div class="col-md-3">
                         <input type="text" name="sochungnhantieuchuan" id="sochungnhantieuchuan" value="" class="form-control" data-parsley-required="true"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Chọn nông trại</label>
-                    <div class="col-md-9">
-                        <select name="id_nongtraitrung" id="id_nongtraitrung" class="select2" style="width:100%;">
-                        <?php
-                        if($nongtraitrung_list){
-                            foreach($nongtraitrung_list as $nt){
-                                $danhmucnongtrai->id = $nt['id_dmnongtrai'];
-                                $dm = $danhmucnongtrai->get_one();
-                                echo '<option value="'.$nt['_id'].'">Mã đàn: '.$nt['madan'].', Tên trại: '.$dm['ten'] .' - '. $dm['diachi'].'</option>';
-                            }
-                        }
-                        ?>
-                        </select>
                     </div>
                 </div>
                 <div class="form-group">

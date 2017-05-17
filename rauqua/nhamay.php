@@ -11,7 +11,6 @@ if($users->is_admin()){
     $nhamay->id_congty = $id_congty;
     $nhamay_list = $nhamay->get_list_by_congty();
 }
-
 ?>
 <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
@@ -96,7 +95,6 @@ if($users->is_admin()){
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal-nhamay">
 <form action="post.nhamay.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="nhamayform">
     <input type="hidden" name="id" id="id" value="" />
@@ -141,7 +139,7 @@ if($users->is_admin()){
                         if($nongtrai_list){
                             foreach($nongtrai_list as $nt){
                                 $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                                echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'] .' - '. $dmnt['diachi'].', Tiêu chuẩn: '.$nt['tieuchuan'].'</option>';
+                                echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['matruyxuatsanpham'].' - '.date("d/m/Y", $nt['ngaythuhoach']->sec). ' - ' .$nt['soluong'] .' - '. $nt['soxevanchuyen'].' - '. $nt['tentaixe'].'</option>';
                             }
                         }
                         ?>

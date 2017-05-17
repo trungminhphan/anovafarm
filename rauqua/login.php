@@ -1,15 +1,15 @@
 <?php
 function __autoload($class_name) {
-   require_once('cls/class.' . strtolower($class_name) . '.php');
+   require_once('../cls/class.' . strtolower($class_name) . '.php');
 }
-require_once('inc/functions.inc.php');
+require_once('../inc/functions.inc.php');
 $session = new SessionManager();
 $users = new Users();
 
 if($users->isLoggedIn()){
     transfers_to('./index.html');   
 } 
-require('inc/config.inc.php');
+require('../inc/config.inc.php');
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 if(isset($_POST['submit'])){
     $username = $_POST['username'] ? $_POST['username'] : '';

@@ -105,11 +105,10 @@ if($users->is_admin()){
                     	<?php
                     	if($donggoi_list){
                     		foreach($donggoi_list as $dg){
-                                //$nhamay->id = $dg['id_dmnhamay']; $nm = $nhamay->get_one();
-                                //$danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
-                    			//$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
+                                $nongtrai->id = $dg['id_nongtraitrung'];$nt=$nongtrai->get_one();
                                 $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                    			echo '<option value="'.$dg['_id'].'">Tên sản phẩm: '.$dg['tensanpham'].', Số lô: '.$dg['solo'].', Tiêu chuẩn: '. $dg['tieuchuan'] . '</option>';
+                                $danhmucnhamay->id = $dg['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
+                    			echo '<option value="'.$dg['_id'].'">'.$dmnm['ten'].' - '.$nt['madan'].' - '.$dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.date("d/m/Y", $dg['ngaydonggoi']->sec).' - '.$dg['solo'].' - '.date("d/m/Y", $nt['ngaythuhoach']->sec).' - '.$dmnt['ten'].'</option>';
                     		}
                     	}
                     	?>

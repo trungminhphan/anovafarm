@@ -66,15 +66,7 @@ if($users->is_admin()){
                                 }
                             }
                             echo '</td>';
-            				//echo '<td>'.$bl['noibanle'].'</td>';
-            				//echo '<td>'.$bl['tenquaysap'].'</td>';
-            				//echo '<td>'.(date("d/m/Y H:i", $bl['ngaygiobanle']->sec)).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$bl['_id'].'&type=4&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-            				/*if($bl['hienthi'] == 1){
-            					echo '<td class="text-center link_hienthi"><a href="get.banle.html?id='.$bl['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
-            				} else {
-            					echo '<td class="text-center link_hienthi"><a href="get.banle.html?id='.$bl['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
-            				}*/
             				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$bl['_id'].'&type=4&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
             				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
             				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=edit#modal-banle" data-toggle="modal" class="suabanle"><i class="fa fa-pencil"></i></a></td>';
@@ -111,7 +103,7 @@ if($users->is_admin()){
                                 $danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
                     			$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
                                 $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                    			echo '<option value="'.$dg['_id'].'">'.$dg['tensanpham'].', Số lô: '.$dg['solo'] . ', mã đàn: '. $nt['madan'].', ' .$dmnm['ten'].', '.$dmnm['diachi'].'</option>';
+                    			echo '<option value="'.$dg['_id'].'">'.$dmnm['ten'].' - '.$nt['madan'].' - '.$dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.$dg['solo'].' - '.date("d/m/Y",$dg['ngaygiodonggoi']->sec).(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : '').' - '.$nt['soxevanchuyen'].'</option>';
                     		}
                     	}
                     	?>
