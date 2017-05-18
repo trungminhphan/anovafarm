@@ -6,7 +6,7 @@ $session = new SessionManager();
 $users = new Users();
 require_once('../inc/functions.inc.php');
 require_once('../inc/config.inc.php');
-if(!$users->isLoggedIn()){ transfers_to('./login.html?url=' . $_SERVER['REQUEST_URI']); }
+if(!$users->isLoggedIn()){ transfers_to('../login.html?url=' . $_SERVER['REQUEST_URI']); }
 //$user_default = $users->get_one_default();
 $id_user = $users->get_userid();
 $id_congty = $users->get_id_congty();

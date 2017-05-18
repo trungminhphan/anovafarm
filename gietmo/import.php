@@ -1,9 +1,9 @@
 <?php
 function __autoload($class_name) {
-    require_once('cls/class.' . strtolower($class_name) . '.php');
+    require_once('../cls/class.' . strtolower($class_name) . '.php');
 }
-require_once('inc/functions.inc.php');
-require_once('inc/config.inc.php');
+require_once('../inc/functions.inc.php');
+require_once('../inc/config.inc.php');
 $nongtrai = new NongTrai();
 $dir = 'uploads/';
 $files = scandir($dir);
