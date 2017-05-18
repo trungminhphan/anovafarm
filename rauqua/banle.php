@@ -61,7 +61,7 @@ if($users->is_admin()){
                             if($bl['id_dmbanle']){
                                 foreach($bl['id_dmbanle'] as $key => $value){
                                     $danhmucbanle->id = $value; $dmbl = $danhmucbanle->get_one();
-                                    echo $dmbl['ten'] .', w'. $dmbl['diachi'] . '<br />';
+                                    echo $dmbl['ten'] .', '. $dmbl['diachi'] . '<br />';
                                 }
                             }
                             echo '</td>';
