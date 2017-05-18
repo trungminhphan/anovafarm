@@ -191,6 +191,35 @@ function check_permis($roles){
 	}
 }
 
+function check_permis_child($roles){
+	if(!$roles){
+		echo '
+			<div class="row">
+		    <div class="col-md-12">
+		        <div class="panel panel-danger">
+		            <div class="panel-heading">
+		                <h4 class="panel-title">Bạn không có quyền</h4>
+		            </div>
+		            <div class="panel-body">
+		                <p>Bạn không được cấp quyền truy cập vào chức năng này. <a href="index.html">Trở về</a></p>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		';
+		require_once('footer.php');
+
+	echo '<script src="../assets/plugins/gritter/js/jquery.gritter.js"></script>
+	<script src="../assets/js/apps.min.js"></script>
+	<script>
+	    $(document).ready(function() {
+	        App.init();
+	    });
+	</script>';
+		exit();
+	}
+}
+
 function get_char($str, $from, $to){
 	$t = '';
 	for($i = $from; $i <= $to; $i++ ){

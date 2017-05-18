@@ -4,7 +4,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 <!-- begin page-header -->
 <div class="row">
-    <?php if($users->is_admin() || $users->is_factory()): ?>
+    <?php if($users->is_admin() || $users->is_farmer()): ?>
     <div class="col-md-4 col-sm-6">
         <div class="widget widget-stats bg-green">
             <div class="stats-icon"><i class="fa fa-th"></i></div>
@@ -18,7 +18,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
         </div>
     </div>
     <?php endif; ?>
-    
+    <?php if($users->is_admin() || $users->is_packer() || $users->is_retail()): ?>
     <div class="col-md-4 col-sm-6">
         <div class="widget widget-stats bg-red">
             <div class="stats-icon"><i class="fa fa-dropbox"></i></div>
@@ -31,6 +31,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <?php if($users->is_admin() || $users->is_retail()): ?>
     <div class="col-md-4 col-sm-6">
         <div class="widget widget-stats bg-purple">

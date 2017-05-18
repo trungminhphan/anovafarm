@@ -1,5 +1,5 @@
 <?php require_once('header.php');
-check_permis($users->is_admin() || $users->is_retail() || $users->is_packer());
+check_permis_child($users->is_admin() || $users->is_retail() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucnhamay = new DanhMucNhaMay();$nongtrai = new NongTraiTrung();$danhmucnongtrai = new DanhMucNongTrai();
 $donggoi = new DongGoiTrung();
@@ -20,6 +20,7 @@ if($users->is_admin()){
 <link href="../assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+<?php if($donggoi_list && $donggoi_list->count() > 0) : ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -94,7 +95,9 @@ if($users->is_admin()){
         </div>
     </div>
 </div>
-
+<?php else: ?>
+    Chưa có sản phẩm
+<?php endif; ?>
 <div class="modal fade" id="modal-banle">
 <form action="post.banle.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="dongoiform">
     <div class="modal-dialog modal-lg">

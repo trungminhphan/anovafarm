@@ -47,34 +47,43 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             <table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã đàn</th>
-            				<th>Tên trang trại</th>
-            				<th>Ngày xuất</th>
-            				<th>Số lượng</th>                            
-            				<th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		$i=1;
-        			foreach ($nongtrai_list as $nt) {
-                        $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
-        				echo '<tr>';
-        				echo '<td>'.$i.'</td>';
-        				echo '<td>'.$nt['madan'].'</td>';
-        				echo '<td>'.$dm['ten'].'</td>';
-        				echo '<td>'.date("d/m/Y",$nt['ngaygioxuat']->sec).'</td>';
-        				echo '<td>'.$nt['soluong'].'</td>';
-                        echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-        				echo '</tr>'; $i++;
-        			}
-
-            		?>
-            		</tbody>
-            	</table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên trang trại</th>
+                            <th>Mã đàn</th>
+                            <th>Ngày xuất</th>
+                            <th>Số lượng</th>
+                            <th>CODE</th>
+                            <th>Số xe vận chuyển</th>
+                            <th>Tên tài xế</th>
+                            <th>Số giấy kiểm dịch thú sống</th>
+                            <th class="text-center">Hiển thị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($nongtrai_list){
+                        $i=1;
+                        foreach ($nongtrai_list as $nt) {
+                            $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
+                            echo '<td>'.$nt['madan'].'</td>';
+                            echo '<td>'.date("d/m/Y",$nt['ngaygioxuat']->sec).'</td>';
+                            echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
+                            echo '<td>'.$nt['tentaixe'].'</td>';
+                            echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
+                            echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -93,38 +102,44 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã đàn</th>
-            				<th>Tên nhà máy</th>
-            				<th>Tiêu chuẩn</th>
-            				<th>Số lô</th>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên nhà máy</th>
+                            <th>Tiêu chuẩn</th>
+                            <th>Mã đàn</th>
+                            <th>Số lô</th>
                             <th>Ngày giết mổ</th>
+                            <th>Số giấy kiểm dịch thú sống</th>
+                            <th>CODE</th>
+                            <th>Số xe vận chuyển</th>
                             <th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($nhamay_list){
-            			$i=1;
-            			foreach ($nhamay_list as $nm) {
-            				$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($nhamay_list){
+                        $i=1;
+                        foreach ($nhamay_list as $nm) {
+                            $nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.$nm['tieuchuan'].'</td>';
-            				echo '<td>'.$nm['solo'].'</td>';
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
+                            echo '<td>'.$nm['tieuchuan'].'</td>';
+                            echo '<td>'.$nt['madan'].'</td>';
+                            echo '<td>'.$nm['solo'].'</td>';
                             echo '<td>'.date("d/m/Y", $nm['ngaygiogietmo']->sec).'</td>';
+                            echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
+                            echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=gietmo" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -143,40 +158,45 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã đàn</th>
-            				<th>Tên nhà máy</th>
-            				<th>Tên sản phẩm</th>
-            				<th>Qui cách đóng gói</th>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên nhà máy</th>
+                            <th>Mã đàn</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Qui cách đóng gói</th>
                             <th>Số lô</th>
                             <th>Ngày đóng gói</th>
+                            <th>CODE</th>
+                            <th>Số xe vận chuyển</th>
                             <th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($donggoi_list){
-            			$i=1;
-            			foreach ($donggoi_list as $dg) {
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($donggoi_list){
+                        $i=1;
+                        foreach ($donggoi_list as $dg) {
                             $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
+                            $nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.$dg['tensanpham'].'</td>';
+                            echo '<td>'.$nt['madan'].'</td>';
+                            echo '<td>'.$dg['tensanpham'].'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
-            				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td>'.date("d/m/Y",$dg['ngaygiodonggoi']->sec).'</td>';
+                            echo '<td>'.$dg['quicachdonggoi'].'</td>';
+                            echo '<td>'.date("d/m/Y",$dg['ngaygiodonggoi']->sec).'</td>';
+                            echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -246,36 +266,39 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             <table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã đàn</th>
-            				<th>Tên trang trại</th>
-            				<th>Ngày thu hoạch</th>
-            				<th>Số lượng</th>
-            				<th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($nongtraitrung_list){
-            			$i=1;
-            			foreach ($nongtraitrung_list as $nt) {
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên trang trại</th>
+                            <th>Mã đàn</th>
+                            <th>Ngày thu hoạch</th>
+                            <th>Số lượng</th>
+                            <th>Số xe vận chuyển</th>
+                            <th>Tên tài xế</th>
+                            <th class="text-center">Hiển thị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($nongtraitrung_list){
+                        $i=1;
+                        foreach ($nongtraitrung_list as $nt) {
                             $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
-            				echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
+                            echo '<td>'.$nt['madan'].'</td>';
+                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
+                            echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-                            
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
+                            $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -294,39 +317,45 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             <table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã đàn</th>
-            				<th>Nơi đóng gói</th>
-            				<th>Tên sản phẩm</th>
-            				<th>Qui cách đóng gói</th>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Nơi đóng gói</th>
+                            <th>Mã đàn</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Qui cách đóng gói</th>
                             <th>Ngày đóng gói</th>
+                            <th>Số lô</th>
+                            <th>Ngày thu hoạch</th>
+                            <th>Nông trại</th>
                             <th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($donggoitrung_list){
-            			$i=1;
-            			foreach ($donggoitrung_list as $dg) {
-            				$nongtraitrung->id = $dg['id_nongtraitrung'];$nt=$nongtraitrung->get_one();
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($donggoitrung_list){
+                        $i=1;
+                        foreach ($donggoitrung_list as $dg) {
+                            $nongtraitrung->id = $dg['id_nongtraitrung'];$nt=$nongtraitrung->get_one();
                             $danhmucnhamay->id = $dg['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['madan'].'</td>';
+                            $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.$dg['tensanpham'].'</td>';
-            				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<td>'.$nt['madan'].'</td>';
+                            echo '<td>'.$dg['tensanpham'].'</td>';
+                            echo '<td>'.$dg['quicachdonggoi'].'</td>';
+                            echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<td>'.$dg['solo'].'</td>';
+                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.$dmnt['ten'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
-            
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -397,35 +426,39 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             <table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã truy xuất</th>
-            				<th>Tên trang trại</th>
-            				<th>Ngày thu hoạch</th>
-            				<th>Số lượng</th>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên trang trại</th>
+                            <th>Mã truy xuất</th>
+                            <th>Ngày thu hoạch</th>
+                            <th>Số lượng</th>
+                            <th>Số xe vận chuyển</th>
+                            <th>Tên tài xế</th>
                             <th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($nongtrairauqua_list){
-            			$i=1;
-            			foreach ($nongtrairauqua_list as $nt) {
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($nongtrairauqua_list){
+                        $i=1;
+                        foreach ($nongtrairauqua_list as $nt) {
                             $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
-            				echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
+                            echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
+                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
+                            echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -444,37 +477,42 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Mã truy xuất sản phẩm</th>
-            				<th>Tên nhà máy</th>
-            				<th>Tiêu chuẩn</th>
-            				<th>Ngày sơ chế</th>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên nhà máy</th>
+                            <th>Tiêu chuẩn</th>
+                            <th>Mã truy xuất sản phẩm</th>
+                            <th>Ngày sơ chế</th>
+                            <th>Ngày thu hoạch</th>
+                            <th>Số lượng</th>
+                            <th>Số xe vận chuyển</th>
                             <th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($nhamayrauqua_list){
-            			$i=1;
-            			foreach ($nhamayrauqua_list as $nm) {
-            				$nongtrairauqua->id = $nm['id_nongtrairauqua'];$nt=$nongtrairauqua->get_one();
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($nhamayrauqua_list){
+                        $i=1;
+                        foreach ($nhamayrauqua_list as $nm) {
+                            $nongtrairauqua->id = $nm['id_nongtrairauqua'];$nt=$nongtrairauqua->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$nm['matruyxuatsanpham'].'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.$nm['tieuchuan'].'</td>';
-            				echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
+                            echo '<td>'.$nm['tieuchuan'].'</td>';
+                            echo '<td>'.$nm['matruyxuatsanpham'].'</td>';
+                            echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
+                            echo '<td>'.date("d/m/Y", $nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.$nt['soluong'].'</td>';
+                            echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
-            				
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -493,37 +531,45 @@ if(isset($_GET['submit'])){
             </div>
             <div class="panel-body">
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
-            		<thead>
-            			<tr>
-            				<th>STT</th>
-            				<th>Nơi đóng gói</th>
-            				<th>Tên sản phẩm</th>
-            				<th>Qui cách đóng gói</th>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Nơi đóng gói</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Qui cách đóng gói</th>
                             <th>Ngày giờ đóng gói</th>
+                            <th>Hạn sử dụng</th>
+                            <th>Số lô đóng gói</th>
+                            <th>Ngày thu hoạch</th>
+                            <th>Ngày sơ chế</th>
                             <th class="text-center">Hiển thị</th>
-            			</tr>
-            		</thead>
-            		<tbody>
-            		<?php
-            		if($donggoirauqua_list){
-            			$i=1;
-            			foreach ($donggoirauqua_list as $dg) {
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    if($donggoirauqua_list){
+                        $i=1;
+                        foreach ($donggoirauqua_list as $dg) {
                             $nhamayrauqua->id = $dg['id_nhamayrauqua']; $nm = $nhamayrauqua->get_one();
-            				$nongtrairauqua->id = $nm['id_nongtrairauqua'];$nt=$nongtrairauqua->get_one();
+                            $nongtrairauqua->id = $nm['id_nongtrairauqua'];$nt=$nongtrairauqua->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-            				echo '<tr>';
-            				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
-            				echo '<td>'.$dg['tensanpham'].'</td>';
-            				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<tr>';
+                            echo '<td>'.$i.'</td>';
+                            echo '<td>'.$dm['ten'].'</td>';
+                            echo '<td>'.$dg['tensanpham'].'</td>';
+                            echo '<td>'.$dg['quicachdonggoi'].'</td>';
+                            echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<td>'.$dg['hansudung'].'</td>';
+                            echo '<td>'.$dg['solo'].'</td>';
+                            echo '<td>'.date("d/m/Y", $nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-            				echo '</tr>'; $i++;
-            			}
-            		}
-            		?>
-            		</tbody>
-            	</table>
+                            echo '</tr>'; $i++;
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

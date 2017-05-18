@@ -18,5 +18,5 @@
 	$arr_gioitinh = array('M' => 'Nam', 'F' => 'Nữ');
 	$arr_dungdenngay = array('D' => 'Ngày', 'M' => 'Tháng', 'Y' => 'Năm');
 
-	$link_frontend = 'http://traceweb.org/truyxuat';
+	$link_frontend = 'http://traceweb.org/truyxuat/traceweb';
 ?>

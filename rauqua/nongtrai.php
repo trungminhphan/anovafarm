@@ -1,5 +1,5 @@
 <?php require_once('header.php');
-check_permis($users->is_admin() || $users->is_factory() || $users->is_farmer());
+check_permis_child($users->is_admin() || $users->is_factory() || $users->is_farmer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nongtrai = new NongTraiRauQua();
 $danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
