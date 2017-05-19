@@ -10,6 +10,7 @@ if(!$users->isLoggedIn()){ transfers_to('../login.html?url=' . $_SERVER['REQUEST
 //$user_default = $users->get_one_default();
 $id_user = $users->get_userid();
 $id_congty = $users->get_id_congty();
+$user_default = $users->get_one_default();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -70,7 +71,9 @@ $id_congty = $users->get_id_congty();
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-user"></i> 
-							<span class="hidden-xs">Phan Minh Trung</span> <b class="caret"></b>
+							<span class="hidden-xs">
+								<?php echo $user_default['person']; ?>
+							</span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
 							<li class="arrow"></li>
