@@ -17,6 +17,19 @@
 	
 	$arr_gioitinh = array('M' => 'Nam', 'F' => 'Nữ');
 	$arr_dungdenngay = array('D' => 'Ngày', 'M' => 'Tháng', 'Y' => 'Năm');
-
 	$link_frontend = 'http://traceweb.org/truyxuat/traceweb';
+
+	$arr_giaidoan = array(
+		'nongtrai' => 'GIẾT MỔ - NÔNG TRẠI',
+		'nhamay' => 'GIẾT MỔ - GIẾT MỔ',
+		'donggoi' => 'GIẾT MỔ - ĐÓNG GÓI',
+		'banle' => 'GIẾT MỔ - BÁN LẺ',
+		'nongtraitrung' => 'TRỨNG - NÔNG TRẠI',
+		'donggoitrung' => 'TRỨNG - ĐÓNG GÓI',
+		'banletrung' => 'TRỨNG - BÁN LẺ',
+		'nongtrairauqua' => 'RAU QUẢ - NÔNG TRẠI',
+		'nhamayrauqua' => 'RAU QUẢ - SƠ CHẾ',
+		'donggoirauqua' => 'RAU QUẢ - ĐÓNG GÓI',
+		'banlerauqua' => 'RAU QUẢ - BÁN LẺ'
+	);
 ?>

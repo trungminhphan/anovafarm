@@ -54,7 +54,6 @@ if($users->is_admin()){
             			$i=1;
             			foreach($banle_list as $bl){
                             $donggoi->id = $bl['id_donggoi'];$dg = $donggoi->get_one();
-
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';

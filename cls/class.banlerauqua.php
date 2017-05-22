@@ -18,6 +18,10 @@ class BanLeRauQua {
 	public function get_all_list(){
 		return $this->_collection->find()->sort(array('ten'=>-1));
 	}
+	public function get_list_by_user(){
+		$query = array('id_user' => new MongoId($this->id_user));
+		return $this->_collection->find($query)->sort(array('date_post'=>-1));
+	}
 	public function get_list_by_congty(){
 		$query = array('id_congty' => new MongoId($this->id_congty));
 		return $this->_collection->find($query)->sort(array('date_post'=>-1));	

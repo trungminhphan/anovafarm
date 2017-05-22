@@ -144,6 +144,12 @@ $user_default = $users->get_one_default();
                         <span>TÌM KIẾM</span>
                     </a>
                 </li>
+                <li>
+                    <a href="xuatdulieu.html">
+                        <i class="fa fa-file-excel-o "></i> 
+                        <span>XUẤT DỮ LIỆU</span>
+                    </a>
+                </li>
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>
                 </li>

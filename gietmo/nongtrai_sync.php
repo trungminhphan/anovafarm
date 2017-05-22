@@ -1,7 +1,6 @@
 <?php
 require_once('header_sync.php');
 $id_congty = $users->get_id_congty();
-echo $id_congty;
 $id_user = $users->get_userid();
 $nongtrai = new NongTrai();
 $danhmucnongtrai = new DanhMucNongTrai();$danhmuccongty = new DanhMucCongTy();
@@ -15,32 +14,22 @@ foreach($files as $file => $filename){
 		if(file_exists($dir . $filename)){
 			$ext = end($arr_file);
 			if(strtolower($ext) == 'csv'){
-				//echo '<table border="1">';
 				$row = 0;
 				if (($handle = fopen($dir . $filename, "r")) !== FALSE) {
 					while (($data = fgetcsv($handle, '', ",")) !== FALSE) {
 						if($row > 0){
-							echo $data[30];
-							$danhmucnongtrai->ten = trim($data[10]);
-							$id_dmnongtrai = $danhmucnongtrai->get_id_by_ten();
-							if(!$id_dmnongtrai){
-								$id_dmnongtrai = new MongoId();
-								$danhmuccongty->ten = trim($data[29]);
-								$id_dmcongty = $danhmuccongty->get_id_by_ten();
-								if(!$id_dmcongty){
-									$id_dmcongty = new MongoId();
-									$danhmuccongty->id = $id_dmcongty;
-									$danhmuccongty->diachi = $data[26];
-									$danhmuccongty->insert_id();
+							$danhmuccongty->ten = trim($data[29]);
+							$id_dmcongty = $danhmuccongty->get_id_by_ten();
+							if($id_dmcongty == $id_congty && $data[29]){
+								$danhmucnongtrai->ten = trim($data[10]);
+								$id_dmnongtrai = $danhmucnongtrai->get_id_by_ten();
+								if(!$id_dmnongtrai){
+									$id_dmnongtrai = new MongoId();
+									$danhmucnongtrai->id = $id_dmnongtrai;
+									$danhmucnongtrai->diachi = $data[11];
+									$danhmucnongtrai->id_congty = $id_dmcongty;
+									$danhmucnongtrai->insert_id();
 								}
-								$danhmucnongtrai->id = $id_dmnongtrai;
-								$danhmucnongtrai->diachi = $data[11];
-								$danhmucnongtrai->id_congty = $id_dmcongty;
-								$danhmucnongtrai->insert_id();
-							} else {
-								$id_dmcongty = $danhmucnongtrai->get_id_congty();
-							}
-							if($id_dmcongty == $id_congty){
 								$nongtrai->TYPE= $data[0];//0
 								$nongtrai->SUB_TYPE=$data[1];//1
 								$nongtrai->CODE=$data[2];//2
@@ -64,7 +53,7 @@ foreach($files as $file => $filename){
 								if($nongtrai->check_exist()){
 						            $nongtrai->delete_by_code();
 						        }
-						        $nongtrai->sync();
+						       $nongtrai->sync();
 								echo 'Tên trại: '. $data[10] .'<br />';
 								echo 'Địa chỉ: '. $data[11] .'<br />';
 								echo 'Tiêu chuẩn: '. $data[12] .'<br />';

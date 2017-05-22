@@ -28,15 +28,12 @@ class DanhMucCongTy {
 
 	public function get_id_by_ten(){
 		$a = explode("-", $this->ten);
-		if(strlen($a[0]) == 5){
-			$query = array('ten' => new MongoRegex('/^'.$a[0].'/'));
-			$field = array('_id' => true);
-			$result = $this->_collection->findOne($query, $field);
-			if(isset($result['_id']) && $result['_id']) return $result['_id'];
-			else return false;
-		} else {
-			return false;
-		}
+		$query = array('ten' => new MongoRegex('/^'.$a[0].'/'));
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($result['_id']) && $result['_id']) return strval($result['_id']);
+		else return false;
+		
 	}
 
 	public function insert(){
