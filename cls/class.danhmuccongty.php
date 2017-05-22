@@ -27,11 +27,16 @@ class DanhMucCongTy {
 	}
 
 	public function get_id_by_ten(){
-		$query = array('ten' => $this->ten);
-		$field = array('_id' => true);
-		$result = $this->_collection->findOne($query, $field);
-		if(isset($result['_id']) && $result['_id']) return $result['_id'];
-		else return false;
+		$a = explode("-", $this->ten);
+		if(strlen($a[0]) == 5){
+			$query = array('ten' => new MongoRegex('/^'.$a[0].'/'));
+			$field = array('_id' => true);
+			$result = $this->_collection->findOne($query, $field);
+			if(isset($result['_id']) && $result['_id']) return $result['_id'];
+			else return false;
+		} else {
+			return false;
+		}
 	}
 
 	public function insert(){
@@ -66,6 +71,11 @@ class DanhMucCongTy {
 			array('diachi' => new MongoRegex('/' . $search . '/i'))
 		));
 		return $this->_collection->find($query);
+	}
+
+	public function delete(){
+		$query = array('_id' => new MongoId($this->id));
+		return $this->_collection->remove($query);
 	}
 }
 ?>

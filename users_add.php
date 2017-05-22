@@ -131,7 +131,7 @@ if($id){
                     <?php
                     if($danhmuccongty_list){
                         foreach($danhmuccongty_list as $ct){
-                            echo '<option value="'.$ct['_id'].'">'.$ct['ten'].'</option>';
+                            echo '<option value="'.$ct['_id'].'"'.($ct['_id']==$id_congty ? ' selected' : '').'>'.$ct['ten'].'</option>';
                         }
                     }
                     ?>
