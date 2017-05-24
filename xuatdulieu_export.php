@@ -59,6 +59,7 @@ if($collect == 'nongtrai' && $list){
 	$objPHPExcel->setActiveSheetIndex(0);
 	$i=2; $stt=1;
 	foreach($list as $nt){
+		$url = $link_frontend.'/?id='.$nt['_id'].'&type=1&q=gietmo';
 		$danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
@@ -72,6 +73,7 @@ if($collect == 'nongtrai' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $nt['nhanvienkiemdich']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $nt['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, $nt['nhamaycungcapthucan']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -91,6 +93,7 @@ if($collect == 'nhamay' && $list){
 	foreach($list as $nm){
 		$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
         $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+        $url = $link_frontend.'/?id='.$nm['_id'].'&type=2&q=gietmo';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nm['tieuchuan']);
@@ -102,6 +105,7 @@ if($collect == 'nhamay' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nt['soxevanchuyen']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $nm['giaychungnhan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $nm['nhanvienkiemsoat']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -122,6 +126,7 @@ if($collect == 'donggoi' && $list){
 		$nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
 		$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
         $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+        $url = $link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['madan']);
@@ -135,6 +140,7 @@ if($collect == 'donggoi' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $dg['sochungnhantieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, date("d/m/Y", $dg['ngaygiogietmo']->sec));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$i, $dg['hansudung']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -153,6 +159,7 @@ if($collect == 'banle' && $list){
 	$i=2; $stt=1;
 	foreach($list as $bl){
 		$donggoi->id = $bl['id_donggoi'];$dg = $donggoi->get_one();
+		$url = $link_frontend.'/?id='.$bl['_id'].'&type=4&q=gietmo';
 		$str_banle = '';
 		if($bl['id_dmbanle']){
             foreach($bl['id_dmbanle'] as $key => $value){
@@ -163,6 +170,7 @@ if($collect == 'banle' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dg['tensanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $str_banle);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -182,6 +190,7 @@ if($collect == 'nongtraitrung' && $list){
 	$i=2; $stt=1;
 	foreach($list as $nt){
 		$danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
+		$url = $link_frontend.'/?id='.$nt['_id'].'&type=1&q=trung';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['madan']);
@@ -192,6 +201,7 @@ if($collect == 'nongtraitrung' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, $nt['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nt['sochungnhantieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $nt['nhamaycungcapthucan']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -212,6 +222,7 @@ if($collect == 'donggoitrung' && $list){
 		$nongtraitrung->id = $dg['id_nongtraitrung'];$nt=$nongtraitrung->get_one();
         $danhmucnhamay->id = $dg['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
         $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
+        $url =$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['madan']);
@@ -224,6 +235,7 @@ if($collect == 'donggoitrung' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $dg['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $dg['sochungnhantieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, $dg['hansudung']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -242,6 +254,7 @@ if($collect == 'banletrung' && $list){
 	$i=2; $stt=1;
 	foreach($list as $bl){
 		$donggoitrung->id = $bl['id_donggoitrung'];$dg = $donggoitrung->get_one();
+		$url = $link_frontend.'/?id='.$bl['_id'].'&type=4&q=trung';
 		$str_banle = '';
 		if($bl['id_dmbanle']){
             foreach($bl['id_dmbanle'] as $key => $value){
@@ -252,6 +265,7 @@ if($collect == 'banletrung' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dg['tensanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $str_banle);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -271,6 +285,7 @@ if($collect == 'nongtrairauqua' && $list){
 	$i=2; $stt=1;
 	foreach($list as $nt){
 		$danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
+		$url =$link_frontend.'/?id='.$nt['_id'].'&type=1&q=rauqua';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['matruyxuatsanpham']);
@@ -280,6 +295,7 @@ if($collect == 'nongtrairauqua' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['tentaixe']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, $nt['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nt['sochungnhantieuchuan']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -299,18 +315,21 @@ if($collect == 'nhamayrauqua' && $list){
 	foreach($list as $nm){
 		$nongtrairauqua->id = $nm['id_nongtrairauqua'];$nt=$nongtrairauqua->get_one();
         $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+        $url = $link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nm['tieuchuan']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $nt['matruyxuatsanpham']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $nm['matruyxuatsanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, date("d/m/Y", $nm['ngaysoche']->sec));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, date("d/m/Y", $nt['ngaythuhoach']->sec));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['soluong']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, $nt['soxevanchuyen']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nm['sochungnhantieuchuan']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $url);
 		$i++; $stt++;
 	}
 }
+
 if($collect == 'donggoirauqua' && $list){
 	$inputFileName = 'templates/donggoirauqua.xlsx';
 	$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
@@ -328,6 +347,7 @@ if($collect == 'donggoirauqua' && $list){
 		$nhamayrauqua->id = $dg['id_nhamayrauqua']; $nm = $nhamayrauqua->get_one();
 		$nongtrairauqua->id = $nm['id_nongtrairauqua'];$nt=$nongtrairauqua->get_one();
         $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+        $url = $link_frontend.'/?id='.$dg['_id'].'&type=3&q=rauqua';
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $dg['tensanpham']);
@@ -339,6 +359,7 @@ if($collect == 'donggoirauqua' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, date("d/m/Y", $nm['ngaysoche']->sec));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $dg['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $dg['sochungnhantieuchuan']);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, $url);
 		$i++; $stt++;
 	}
 }
@@ -357,6 +378,7 @@ if($collect == 'banlerauqua' && $list){
 	$i=2; $stt=1;
 	foreach($list as $bl){
 		$donggoirauqua->id = $bl['id_donggoirauqua'];$dg = $donggoirauqua->get_one();
+		$url = $link_frontend.'/?id='.$bl['_id'].'&type=4&q=rauqua';
 		$str_banle = '';
 		if($bl['id_dmbanle']){
             foreach($bl['id_dmbanle'] as $key => $value){
@@ -367,6 +389,7 @@ if($collect == 'banlerauqua' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dg['tensanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $str_banle);
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $url);
 		$i++; $stt++;
 	}
 }

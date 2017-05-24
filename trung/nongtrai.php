@@ -41,8 +41,8 @@ if($users->is_admin()){
             				<th>Số lượng</th>
                             <th>Số xe vận chuyển</th>
                             <th>Tên tài xế</th>
+                            <th class="text-center">Hiển thị</th>
                             <?php if($users->is_admin() || $users->is_factory()): ?>
-            				<th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
             				<th class="text-center"><i class="fa fa-dropbox"></i></th>
                             <?php endif; ?>

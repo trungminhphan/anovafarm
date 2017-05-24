@@ -13,7 +13,7 @@ if(isset($_POST['submit'])){
 		//$users->person = $person;
 		if($id == $users->get_userid()){
 			$users->change_password();
-			transfers_to('users.html?msg=Thay đổi mật khẩu thành công');
+            $msg = 'Thay đổi mật khẩu thành công';
 		} else {
 			$msg= 'Bạn không có quyền thay đổi mật khẩu, vui lòng liên hệ quản trị.';
 		}
@@ -29,7 +29,6 @@ if($users->get_userid()){
 	$username = $edit_user['username'];
 	$password = '';
 }
-
 ?>
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" id="adduserform" class="form-horizontal" data-parsley-validate="true">
@@ -65,7 +64,11 @@ if($users->get_userid()){
            	</div>
            	<div class="panel-footer text-center">
             	<button name="submit" id="submit" value="OK" class="btn btn-primary"><i class="fa fa-check-circle-o"></i> Cập nhật</button>
-				<a href="users.php" class="btn btn-success"><i class="fa fa-mail-reply-all"></i> Trở về danh mục Tài khoản</a>
+                <?php if($users->is_admin()) : ?>
+				    <a href="users.php" class="btn btn-success"><i class="fa fa-mail-reply-all"></i> Trở về danh mục Tài khoản</a>
+                <?php else: ?>
+                    <a href="index.php" class="btn btn-success"><i class="fa fa-mail-reply-all"></i> Trở về</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

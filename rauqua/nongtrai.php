@@ -11,6 +11,7 @@ if($users->is_admin()){
     $nongtrai->id_congty = $id_congty;
     $nongtrai_list = $nongtrai->get_list_by_congty();
 }
+$danhmucongty = new DanhMucCongTy();
 ?>
 <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
@@ -58,9 +59,10 @@ if($users->is_admin()){
             			$i=1;
             			foreach ($nongtrai_list as $nt) {
                             $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
+                            $danhmucongty->id = $nt['id_congty']; $ct = $danhmucongty->get_one();
             				echo '<tr>';
             				echo '<td>'.$i.'</td>';
-            				echo '<td>'.$dm['ten'].'</td>';
+            				echo '<td>'.$ct['ten'].'</td>';
                             echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
             				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
             				echo '<td>'.$nt['soluong'].'</td>';

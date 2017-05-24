@@ -4,7 +4,7 @@ $id_congty = $users->get_id_congty();
 $id_user = $users->get_userid();
 $nongtrai = new NongTrai();
 $danhmucnongtrai = new DanhMucNongTrai();$danhmuccongty = new DanhMucCongTy();
-$dir = '../uploads/';
+$dir = '../../uploads/';
 $files = scandir($dir);
 foreach($files as $file => $filename){
 	if($nongtrai->check_exist_file($filename)){

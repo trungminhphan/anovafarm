@@ -41,8 +41,8 @@ if($users->is_admin()){
             				<th>Tên nhà máy</th>
             				<th>Tiêu chuẩn</th>
             				<th>Số lô</th>
-            				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
+            				<?php if($users->is_admin() || $users->is_retail()): ?>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
             				<th class="text-center"><i class="fa fa-dropbox"></i></th>
             				<?php endif;?>

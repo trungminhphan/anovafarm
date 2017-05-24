@@ -45,8 +45,8 @@ if($users->is_admin()){
                             <th>Ngày đóng gói</th>
                             <th>CODE</th>
                             <th>Số xe vận chuyển</th>
-            				<?php if($users->is_admin() || $users->is_retail()): ?>
                             <th class="text-center">Hiển thị</th>
+            				<?php if($users->is_admin() || $users->is_retail()): ?>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
             				<th class="text-center"><i class="fa fa-shopping-cart"></i></th>
             				<?php endif;?>
