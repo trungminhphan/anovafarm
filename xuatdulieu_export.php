@@ -1,6 +1,7 @@
 <?php
 require_once('header_none.php');
 $id_user = $users->get_userid();
+$id_congty = $users->get_id_congty();
 $nongtrai = new NongTrai();$nhamay = new NhaMay(); $donggoi = new DongGoi(); $banle = new BanLe();
 $nongtraitrung = new NongTraiTrung();$donggoitrung = new DongGoiTrung(); $banletrung = new BanLeTrung();
 $nongtrairauqua = new NongTraiRauQua();$nhamayrauqua = new NhaMayRauQua(); $donggoirauqua = new DongGoiRauQua(); $banlerauqua = new BanLeRauQua();
@@ -9,39 +10,92 @@ $collect = '';
 if(isset($_POST['submit'])){
 	$collect = isset($_POST['collect']) ? $_POST['collect'] : '';
     if($collect == 'nongtrai'){
-        $nongtrai->id_user = $id_user; $list = $nongtrai->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $nongtrai->get_all_list();
+		} else {
+		    $nongtrai->id_congty = $id_congty;
+		    $list = $nongtrai->get_list_by_congty();
+		}
     }
     if($collect == 'nhamay'){
-    	$nhamay->id_user = $id_user; $list = $nhamay->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $nhamay->get_all_list();    
+		} else {
+		    $nhamay->id_congty = $id_congty;
+		    $list = $nhamay->get_list_by_congty();
+		}
     }
     if($collect == 'donggoi'){
-    	$donggoi->id_user = $id_user; $list = $donggoi->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $donggoi->get_all_list();
+		} else {
+		    $donggoi->id_congty = $id_congty;
+		    $list = $donggoi->get_list_by_congty();
+		}
     }
     if($collect == 'banle'){
-    	$banle->id_user = $id_user;$list = $banle->get_list_by_user();
+    	if($users->is_admin()){
+		    $list =  $banle->get_all_list();
+		} else {
+		    $banle->id_congty = $id_congty;
+		    $list =  $banle->get_list_by_congty();
+		}
     }
-
     if($collect == 'nongtraitrung'){
-        $nongtraitrung->id_user = $id_user; $list = $nongtraitrung->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $nongtraitrung->get_all_list();
+		} else {
+		    $nongtraitrung->id_congty = $id_congty;
+		    $list = $nongtraitrung->get_list_by_congty();
+		}
     }
     if($collect == 'donggoitrung'){
-    	$donggoitrung->id_user = $id_user; $list = $donggoitrung->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $donggoitrung->get_all_list();
+		} else {
+		    $donggoitrung->id_congty = $id_congty;
+		    $list = $donggoitrung->get_list_by_congty();
+		}
     }
     if($collect == 'banletrung'){
-    	$banletrung->id_user = $id_user;$list = $banletrung->get_list_by_user();
+    	if($users->is_admin()){
+		    $list =  $banletrung->get_all_list();
+		} else {
+		    $banletrung->id_congty = $id_congty;
+		    $list =  $banletrung->get_list_by_congty();
+		}
     }
-
     if($collect == 'nongtrairauqua'){
-        $nongtrairauqua->id_user = $id_user; $list = $nongtrairauqua->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $nongtrairauqua->get_all_list();
+		} else {
+		    $nongtrairauqua->id_congty = $id_congty;
+		    $list = $nongtrairauqua->get_list_by_congty();
+		}
     }
     if($collect == 'nhamayrauqua'){
-    	$nhamayrauqua->id_user = $id_user; $list = $nhamayrauqua->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $nhamayrauqua->get_all_list();    
+		} else {
+		    $nhamayrauqua->id_congty = $id_congty;
+		    $list = $nhamayrauqua->get_list_by_congty();
+		}
     }
     if($collect == 'donggoirauqua'){
-    	$donggoirauqua->id_user = $id_user; $list = $donggoirauqua->get_list_by_user();
+    	if($users->is_admin()){
+		    $list = $donggoirauqua->get_all_list();
+		} else {
+		    $donggoirauqua->id_congty = $id_congty;
+		    $list = $donggoirauqua->get_list_by_congty();
+		}
     }
     if($collect == 'banlerauqua'){
-    	$banlerauqua->id_user = $id_user;$list = $banlerauqua->get_list_by_user();
+    	if($users->is_admin()){
+		    $list =  $banlerauqua->get_all_list();
+		} else {
+		    $banlerauqua->id_congty = $id_congty;
+		    $list =  $banlerauqua->get_list_by_congty();
+		}
     }
 }
 require_once('cls/PHPExcel.php');
