@@ -77,7 +77,7 @@ if(isset($_POST['submit'])){
             <!-- begin news-feed -->
             <div class="news-feed">
                 <div class="news-image">
-                    <img src="assets/img/login-bg/bg-8.jpg" data-id="login-cover-image" alt="" />
+                    <img src="assets/img/login-bg/bg-login.png" data-id="login-cover-image" alt="" />
                 </div>
                 <div class="news-caption">
                     <h4 class="caption-title">
