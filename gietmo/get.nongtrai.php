@@ -1,12 +1,17 @@
 <?php
 require_once('header_none.php');
 $nongtrai = new NongTrai();$danhmucnongtrai = new DanhMucNongTrai();
+$nhamay = new NhaMay();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 if($act == 'del' && $id){
 	$nongtrai->id = $id;
-	if($nongtrai->delete()){
-		transfers_to('nongtrai.html?msg=Xoá thành công');
+	if($nhamay->check_nongtrai($id)){
+		transfers_to('nongtrai.html?msg=Không thể xóa, ràng buộc dữ liệu ở nhà máy');
+	} else {
+		if($nongtrai->delete()){
+			transfers_to('nongtrai.html?msg=Xoá thành công');
+		}
 	}
 }
 if($act == 'edit' && $id){
