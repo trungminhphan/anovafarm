@@ -8,6 +8,15 @@ $donggoi = new DongGoi();$danhmucbanle = new DanhMucBanLe();
 //$nongtrai_list = $nongtrai->get_all_list();
 $donggoi_list = $donggoi->get_all_list();
 $danhmucbanle_list = $danhmucbanle->get_all_list();
+if(isset($_POST['submit'])){
+    $banle_check = isset($_POST['banle_check']) ? $_POST['banle_check'] : '';
+    if($banle_check){
+        foreach ($banle_check as $key => $value) {
+            $check = isset($_POST['bl_'.$value]) ? $_POST['bl_'.$value] : 0;
+            $banle->id = $value; $banle->lock($check);
+        }
+    }
+}
 if($users->is_admin()){
     $banle_list =  $banle->get_all_list();
 } else {
@@ -33,10 +42,17 @@ if($users->is_admin()){
                 <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Nơi bán lẻ</h4>
             </div>
             <div class="panel-body">
+                <?php if($users->is_admin()): ?>
+                <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
+                <?php endif; ?>
             	<a href="#modal-banle" data-toggle="modal" class="btn btn-primary m-10 thembanle"><i class="fa fa-plus"></i> Thêm mới</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>
+                            <?php if($users->is_admin()) : ?>
+                            <th >Khóa<input type="checkbox" name="check_all" id="check_all"></th>
+                            <?php endif; ?>
             				<th>STT</th>
             				<th>Tên sản phẩm</th>
             				<th>Nơi bán lẻ</th>
@@ -54,7 +70,12 @@ if($users->is_admin()){
             			$i=1;
             			foreach($banle_list as $bl){
                             $donggoi->id = $bl['id_donggoi'];$dg = $donggoi->get_one();
+                            $check_lock = isset($bl['lock']) ? $bl['lock'] : 0;
             				echo '<tr>';
+                             if($users->is_admin()) :
+                            echo '<input type="hidden" name="banle_check[]" value="'.$bl['_id'].'" />';                                
+                            echo '<td><input type="checkbox" value="1" name="bl_'.$bl['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
+                            endif;
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
                             echo '<td>';
@@ -67,14 +88,23 @@ if($users->is_admin()){
                             echo '</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$bl['_id'].'&type=4&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
             				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$bl['_id'].'&type=4&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
-            				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
-            				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=edit#modal-banle" data-toggle="modal" class="suabanle"><i class="fa fa-pencil"></i></a></td>';
+                            if($check_lock == 1){
+                                echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                            } else {
+                				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
+                				echo '<td class="text-center"><a href="get.banle.html?id='.$bl['_id'].'&act=edit#modal-banle" data-toggle="modal" class="suabanle"><i class="fa fa-pencil"></i></a></td>';
+                            }
+
             				echo '</tr>'; $i++;
             			}
             		}
             		?>
             		</tbody>
             	</table>
+                 <?php if($users->is_admin()) : ?>
+                </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -186,6 +216,7 @@ if($users->is_admin()){
             time:""
         });
         <?php endif; ?>        
-        App.init();TableManageDefault.init();FormSliderSwitcher.init();
+        App.init();FormSliderSwitcher.init();
+        //TableManageDefault.init();
     });
 </script>

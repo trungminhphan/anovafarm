@@ -63,10 +63,8 @@ if($users->is_admin()){
                             <th>Tên tài xế</th>
                             <th>Số giấy kiểm dịch thú sống</th>
                             <th class="text-center">Hiển thị</th>
-                            <?php if($users->is_admin() || $users->is_factory()): ?>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
             				<!--<th class="text-center"><i class="fa fa-gears"></i></th>-->
-                            <?php endif; ?>
                             <?php if($users->is_admin() || $users->is_farmer()): ?>
                             <th class="text-center"><i class="fa fa-trash"></i></th>
                             <th class="text-center"><i class="fa fa-pencil"></i></th>
@@ -95,15 +93,16 @@ if($users->is_admin()){
                             echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-                            if($users->is_admin() || $users->is_factory()){
+                            echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                            /*if($users->is_admin() || $users->is_factory()){
                 				/*if($nt['hienthi'] == 1){
                 					echo '<td class="text-center link_hienthi"><a href="get.nongtrai.html?id='.$nt['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
                 				} else {
                 					echo '<td class="text-center link_hienthi"><a href="get.nongtrai.html?id='.$nt['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
-                				}*/
-                				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                				}
+                				
                 				//echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themnhamay#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="themnhamay"><i class="fa fa-gears"></i></a></td>';
-                            }
+                            }*/
                             if($users->is_admin() || $users->is_farmer()){                              
                                 if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';

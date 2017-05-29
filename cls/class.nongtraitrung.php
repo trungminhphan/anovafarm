@@ -139,5 +139,10 @@ class NongTraiTrung {
 		$sort = array('date_post' => -1);
 		return $this->_collection->find($query)->sort($sort);	
 	}
+	public function lock($lock){
+		$query = array('$set' => array('lock' => intval($lock)));
+		$condition = array('_id' => new MongoId($this->id));
+		return $this->_collection->update($condition, $query);
+	}
 }
 ?>

@@ -42,8 +42,9 @@ if($users->is_admin()){
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
                 <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
-                <a href="#modal-nhamay" data-toggle="modal" class="btn btn-primary m-10 themnhamay"><i class="fa fa-plus"></i> Thêm mới</a>
                 <?php endif; ?>
+                <a href="#modal-nhamay" data-toggle="modal" class="btn btn-primary m-10 themnhamay"><i class="fa fa-plus"></i> Thêm mới</a>
+                <a href="../export_data.html?collect=nhamay&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>

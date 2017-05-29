@@ -1,10 +1,19 @@
 <?php require_once('header.php');
-check_permis_child($users->is_admin() || $users->is_retail() || $users->is_packer());
+check_permis_child($users->is_admin() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucnhamay = new DanhMucNhaMay();$nhamay = new NhaMay();$nongtrai = new NongTrai();$donggoi = new DongGoi();
 $danhmucbanle = new DanhMucBanLe();
 $nhamay_list = $nhamay->get_all_list();
 $danhmucbanle_list = $danhmucbanle->get_all_list();
+if(isset($_POST['submit'])){
+    $donggoi_check = isset($_POST['donggoi_check']) ? $_POST['donggoi_check'] : '';
+    if($donggoi_check){
+        foreach ($donggoi_check as $key => $value) {
+            $check = isset($_POST['dg_'.$value]) ? $_POST['dg_'.$value] : 0;
+            $donggoi->id = $value; $donggoi->lock($check);
+        }
+    }
+}
 if($users->is_admin()){
     $donggoi_list = $donggoi->get_all_list();
 } else {
@@ -30,12 +39,18 @@ if($users->is_admin()){
                 <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Sản phẩm đóng gói</h4>
             </div>
             <div class="panel-body">
-            	<?php if($users->is_admin() || $users->is_packer()): ?>
-                <a href="#modal-donggoi" data-toggle="modal" class="btn btn-primary m-10 themdonggoi"><i class="fa fa-plus"></i> Thêm mới</a>
+                <?php if($users->is_admin()): ?>
+                <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
                 <?php endif; ?>
+                <a href="#modal-donggoi" data-toggle="modal" class="btn btn-primary m-10 themdonggoi"><i class="fa fa-plus"></i> Thêm mới</a>
+                <a href="../export_data.html?collect=donggoi&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>
+                            <?php if($users->is_admin()) : ?>
+                            <th >Khóa<input type="checkbox" name="check_all" id="check_all"></th>
+                            <?php endif; ?>
             				<th>STT</th>
             				<th>Tên nhà máy</th>
                             <th>Mã đàn</th>
@@ -46,10 +61,8 @@ if($users->is_admin()){
                             <th>CODE</th>
                             <th>Số xe vận chuyển</th>
                             <th class="text-center">Hiển thị</th>
-            				<?php if($users->is_admin() || $users->is_retail()): ?>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
-            				<th class="text-center"><i class="fa fa-shopping-cart"></i></th>
-            				<?php endif;?>
+            				<!--<th class="text-center"><i class="fa fa-shopping-cart"></i></th>-->
             				<?php if($users->is_admin() || $users->is_packer()): ?>
             				<th class="text-center"><i class="fa fa-trash"></i></th>
             				<th class="text-center"><i class="fa fa-pencil"></i></th>
@@ -64,7 +77,12 @@ if($users->is_admin()){
                             $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
             				$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+                            $check_lock = isset($dg['lock']) ? $dg['lock'] : 0;
             				echo '<tr>';
+                            if($users->is_admin()) :
+                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';                                
+                            echo '<td><input type="checkbox" value="1" name="dg_'.$dg['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
+                            endif;
             				echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
                             echo '<td>'.$nt['madan'].'</td>';
@@ -75,13 +93,18 @@ if($users->is_admin()){
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-            				if($users->is_admin() || $users->is_retail()){
-	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                            echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+            				/*if($users->is_admin() || $users->is_retail()){
 	            				echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=thembanle#modal-banle" data-toggle="modal" name="'.$dg['_id'].'" class="thembanle"><i class="fa fa-shopping-cart"></i></a></td>';
-            				}
+            				}*/
             				if($users->is_admin() || $users->is_packer()){
-            					echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
-            					echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=edit#modal-donggoi" data-toggle="modal" name="'.$dg['_id'].'" class="suadonggoi"><i class="fa fa-pencil"></i></a></td>';
+                                if($check_lock == 1){
+                                    echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                    echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                } else {
+            					   echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
+            					   echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=edit#modal-donggoi" data-toggle="modal" name="'.$dg['_id'].'" class="suadonggoi"><i class="fa fa-pencil"></i></a></td>';
+                                }
             				}
             				echo '</tr>'; $i++;
             			}
@@ -89,6 +112,9 @@ if($users->is_admin()){
             		?>
             		</tbody>
             	</table>
+                <?php if($users->is_admin()) : ?>
+                </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -296,6 +322,6 @@ if($users->is_admin()){
             time:""
         });
         <?php endif; ?>
-        App.init();TableManageDefault.init();
+        App.init();//TableManageDefault.init();
     });
 </script>
