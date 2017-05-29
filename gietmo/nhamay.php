@@ -1,10 +1,19 @@
 <?php require_once('header.php');
-check_permis_child($users->is_admin() || $users->is_factory() || $users->is_packer());
+check_permis_child($users->is_admin() || $users->is_factory());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMay();$nongtrai = new NongTrai();$danhmucnhamay = new DanhMucNhaMay();
 $danhmucnongtrai = new DanhMucNongTrai();
 $nongtrai_list = $nongtrai->get_all_list();
 $danhmucnhamay_list = $danhmucnhamay->get_all_list();
+if(isset($_POST['submit'])){
+    $nhamay_check = isset($_POST['nhamay_check']) ? $_POST['nhamay_check'] : '';
+    if($nhamay_check){
+        foreach ($nhamay_check as $key => $value) {
+            $check = isset($_POST['nm_'.$value]) ? $_POST['nm_'.$value] : 0;
+            $nhamay->id = $value; $nhamay->lock($check);
+        }
+    }
+}
 if($users->is_admin()){
     $nhamay_list = $nhamay->get_all_list();    
 } else {
@@ -30,12 +39,17 @@ if($users->is_admin()){
                 <h4 class="panel-title"><i class="fa fa-gears"></i> Thông tin Nhà máy giết mổ</h4>
             </div>
             <div class="panel-body">
-            	<?php if($users->is_admin() || $users->is_factory()): ?>
+                <?php if($users->is_admin()) : ?>
+                <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
                 <a href="#modal-nhamay" data-toggle="modal" class="btn btn-primary m-10 themnhamay"><i class="fa fa-plus"></i> Thêm mới</a>
                 <?php endif; ?>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>
+                            <?php if($users->is_admin()) : ?>
+                            <th >Khóa<input type="checkbox" name="check_all" id="check_all"></th>
+                            <?php endif; ?>
             				<th>STT</th>
             				<th>Tên nhà máy</th>
             				<th>Tiêu chuẩn</th>
@@ -46,10 +60,8 @@ if($users->is_admin()){
                             <th>CODE</th>
                             <th>Số xe vận chuyển</th>
                             <th class="text-center">Hiển thị</th>
-            				<?php if($users->is_admin() || $users->is_retail()): ?>
-            				<th class="text-center"><i class="fa fa-qrcode"></i></th>
-            				<th class="text-center"><i class="fa fa-dropbox"></i></th>
-            				<?php endif;?>
+                            <th class="text-center"><i class="fa fa-qrcode"></i></th>
+            				<!--<th class="text-center"><i class="fa fa-dropbox"></i></th>-->            				
             				<?php if($users->is_admin() || $users->is_factory()): ?>
             				<th class="text-center"><i class="fa fa-trash"></i></th>
             				<th class="text-center"><i class="fa fa-pencil"></i></th>
@@ -63,7 +75,12 @@ if($users->is_admin()){
             			foreach ($nhamay_list as $nm) {
             				$nongtrai->id = $nm['id_nongtrai'];$nt=$nongtrai->get_one();
                             $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+                            $check_lock = isset($nm['lock']) ? $nm['lock'] : 0;
             				echo '<tr>';
+                            if($users->is_admin()) :
+                            echo '<input type="hidden" name="nhamay_check[]" value="'.$nm['_id'].'" />';                                
+                            echo '<td><input type="checkbox" value="1" name="nm_'.$nm['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
+                            endif;
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nm['tieuchuan'].'</td>';
@@ -74,18 +91,24 @@ if($users->is_admin()){
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=gietmo" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
-            				if($users->is_admin() || $users->is_retail()){
-	            				/*if($nm['hienthi'] == 1){
+                            echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nm['_id'].'&type=2&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+            				/*if($users->is_admin() || $users->is_retail()){
+	            				if($nm['hienthi'] == 1){
 	            					echo '<td class="text-center link_hienthi"><a href="get.nhamay.html?id='.$nm['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
 	            				} else {
 	            					echo '<td class="text-center link_hienthi"><a href="get.nhamay.html?id='.$nm['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
-	            				}*/
+	            				}
 	            				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nm['_id'].'&type=2&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
 	            				echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=themdonggoi#modal-donggoi" data-toggle="modal" name="'.$nt['_id'].'" class="themdonggoi"><i class="fa fa-dropbox"></i></a></td>';
-            				}
+            				}*/
             				if($users->is_admin() || $users->is_factory()){
-            					echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
-            					echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=edit#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="suanhamay"><i class="fa fa-pencil"></i></a></td>';
+                                if($check_lock == 1){
+                                    echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                    echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                } else {
+            					   echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
+            					   echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=edit#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="suanhamay"><i class="fa fa-pencil"></i></a></td>';
+                                }
             				}
             				echo '</tr>'; $i++;
             			}
@@ -93,6 +116,9 @@ if($users->is_admin()){
             		?>
             		</tbody>
             	</table>
+                <?php if($users->is_admin()) : ?>
+                </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -331,6 +357,13 @@ if($users->is_admin()){
             time:""
         });
         <?php endif; ?>
-        App.init();TableManageDefault.init();
+        $("#check_all").click(function(){
+            if($(this).prop("checked")){
+                $(".check").prop("checked", true);
+            } else {   
+                $(".check").prop("checked", false);
+            }
+        });
+        App.init();//TableManageDefault.init();
     });
 </script>

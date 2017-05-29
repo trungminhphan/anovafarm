@@ -1,6 +1,5 @@
 <?php
 require_once('header_none.php');
-check_permis($users->is_admin());
 $id_user = $users->get_userid();
 $id_congty = $users->get_id_congty();
 $nongtrai = new NongTrai();$nhamay = new NhaMay(); $donggoi = new DongGoi(); $banle = new BanLe();
@@ -8,8 +7,8 @@ $nongtraitrung = new NongTraiTrung();$donggoitrung = new DongGoiTrung(); $banlet
 $nongtrairauqua = new NongTraiRauQua();$nhamayrauqua = new NhaMayRauQua(); $donggoirauqua = new DongGoiRauQua(); $banlerauqua = new BanLeRauQua();
 $danhmucnongtrai = new DanhMucNongTrai();$danhmucnhamay = new DanhMucNhaMay();$danhmucbanle = new DanhMucBanLe();
 $collect = '';
-if(isset($_POST['submit'])){
-	$collect = isset($_POST['collect']) ? $_POST['collect'] : '';
+if(isset($_GET['submit'])){
+	$collect = isset($_GET['collect']) ? $_GET['collect'] : '';
     if($collect == 'nongtrai'){
     	if($users->is_admin()){
 		    $list = $nongtrai->get_all_list();

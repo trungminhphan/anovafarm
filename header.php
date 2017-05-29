@@ -10,7 +10,6 @@ if(!$users->isLoggedIn()){ transfers_to('./login.html?url=' . $_SERVER['REQUEST_
 $user_default = $users->get_one_default();
 $id_congty = $users->get_id_congty();
 $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $danhmuccongty->get_one();
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->

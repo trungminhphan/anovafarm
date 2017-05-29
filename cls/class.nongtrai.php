@@ -53,7 +53,6 @@ class NongTrai {
 		$query = array('_id' => new MongoId($this->id));
 		return $this->_collection->findOne($query);
 	}
-
 	public function insert(){
 		$query = array(
 			'id_dmnongtrai' => $this->id_dmnongtrai ? new MongoId($this->id_dmnongtrai) : '',
@@ -191,6 +190,12 @@ class NongTrai {
 		));
 		$sort = array('date_post' => -1);
 		return $this->_collection->find($query)->sort($sort);
+	}
+
+	public function lock($lock){
+		$query = array('$set' => array('lock' => intval($lock)));
+		$condition = array('_id' => new MongoId($this->id));
+		return $this->_collection->update($condition, $query);
 	}
 }
 ?>
