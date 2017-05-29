@@ -28,7 +28,8 @@ if($act == 'edit'){
 		'id' => $id,
 		'act' => $act,
 		'ten' => $dm['ten'],
-		'diachi' => $dm['diachi']
+		'diachi' => $dm['diachi'],
+		'title' => isset($dm['title']) ? $dm['title'] : ''
 	);
 	echo json_encode($arr);
 }

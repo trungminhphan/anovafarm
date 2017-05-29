@@ -11,6 +11,7 @@ if(!$users->isLoggedIn()){ transfers_to('../login.html?url=' . $_SERVER['REQUEST
 $id_user = $users->get_userid();
 $id_congty = $users->get_id_congty();
 $user_default = $users->get_one_default();
+$danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $danhmuccongty->get_one();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -57,7 +58,7 @@ $user_default = $users->get_one_default();
 					} else {
 						echo '<img src="../images/default_logo.png" alt="" height="30" align="left"/>';
 					}
-					?>&nbsp;&nbsp;&nbsp;NOVA SAFE FOODS
+					?>&nbsp;&nbsp;&nbsp;<?php echo isset($ct['title']) ? $ct['title'] : ''; ?>
 					</a>
 					<button type="button" class="navbar-toggle" data-click="top-menu-toggled">
 						<span class="icon-bar"></span>

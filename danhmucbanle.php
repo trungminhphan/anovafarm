@@ -4,7 +4,6 @@ check_permis($users->is_admin());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucbanle = new DanhMucBanLe();
 $danhmucbanle_list = $danhmucbanle->get_all_list();
-
 ?>
 <link href="assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />

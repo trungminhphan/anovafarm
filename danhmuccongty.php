@@ -2,7 +2,6 @@
 require_once('header.php');
 check_permis($users->is_admin());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$danhmuccongty = new DanhMucCongTy();
 $danhmuccongty_list = $danhmuccongty->get_all_list();
 ?>
 <link href="assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
@@ -27,6 +26,7 @@ $danhmuccongty_list = $danhmuccongty->get_all_list();
                             <th>STT</th>
                             <th>Tên công ty</th>
                             <th>Địa chỉ</th>
+                            <th>Tên hiển thị</th>
                             <th class="text-center"><i class="fa fa-trash"></i></th>
                             <th class="text-center"><i class="fa fa-pencil"></i></th>
                         </tr>
@@ -40,6 +40,7 @@ $danhmuccongty_list = $danhmuccongty->get_all_list();
                                 <td>'.$i.'</td>
                                 <td>'.$dm['ten'].'</td>
                                 <td>'.$dm['diachi'].'</td>
+                                <td>'.(isset($dm['title']) ? $dm['title'] : '').'</td>
                                 <td class="text-center"><a href="get.danhmuccongty.html?id='.$dm['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>
                                 <td class="text-center"><a href="get.danhmuccongty.html?id='.$dm['_id'].'&act=edit#modal-dmcongty" data-toggle="modal" class="suadmcongty"><i class="fa fa-pencil"></i></a></td>
                             </tr>';$i++;
@@ -76,6 +77,12 @@ $danhmuccongty_list = $danhmuccongty->get_all_list();
                         <input type="text" name="diachi" id="diachi" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Tên hiển thị</label>
+                    <div class="col-md-9">
+                        <input type="text" name="title" id="title" value="" class="form-control"/>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
@@ -103,9 +110,9 @@ $danhmuccongty_list = $danhmuccongty->get_all_list();
             $.getJSON(_link, function(data){
                 $("#id").val(data.id); $("#act").val(data.act);
                 $("#ten").val(data.ten); $("#diachi").val(data.diachi);
+                $("#title").val(data.title);
             });
         });
-
         <?php if(isset($msg) && $msg): ?>
         $.gritter.add({
             title:"Thông báo !",

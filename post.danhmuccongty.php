@@ -7,10 +7,10 @@ $url = isset($_POST['url']) ? $_POST['url'] : '';
 
 $ten = isset($_POST['ten']) ? $_POST['ten'] : '';
 $diachi = isset($_POST['diachi']) ? $_POST['diachi'] : '';
-
+$title = isset($_POST['title']) ? $_POST['title'] : '';
 $danhmuccongty->ten = $ten;
 $danhmuccongty->diachi = $diachi;
-
+$danhmuccongty->title = $title;
 if($act == 'edit'){
 	$danhmuccongty->id = $id;
 	if($danhmuccongty->edit()) {

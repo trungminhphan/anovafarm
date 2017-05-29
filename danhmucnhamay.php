@@ -2,7 +2,7 @@
 require_once('header.php');
 check_permis($users->is_admin());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$danhmucnhamay = new DanhMucNhaMay();$danhmuccongty = new DanhMucCongTy();
+$danhmucnhamay = new DanhMucNhaMay();
 $danhmucnhamay_list = $danhmucnhamay->get_all_list();
 $danhmuccongty_list = $danhmuccongty->get_all_list();
 ?>

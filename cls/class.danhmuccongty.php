@@ -7,6 +7,7 @@ class DanhMucCongTy {
 	public $id = '';
 	public $ten = '';
 	public $diachi = '';
+	public $title = '';
 
 	public function __construct(){
 		$this->_mongo = DBConnect::init();
@@ -39,7 +40,8 @@ class DanhMucCongTy {
 	public function insert(){
 		$query = array(
 			'ten' => $this->ten,
-			'diachi' => $this->diachi
+			'diachi' => $this->diachi,
+			'title' => $this->title
 		);
 		return $this->_collection->insert($query);
 	}
@@ -48,7 +50,8 @@ class DanhMucCongTy {
 		$query = array(
 			'_id' => new MongoId($this->id),
 			'ten' => $this->ten,
-			'diachi' => $this->diachi
+			'diachi' => $this->diachi,
+			'title' => $this->title
 		);
 		return $this->_collection->insert($query);
 	}
@@ -56,7 +59,8 @@ class DanhMucCongTy {
 	public function edit(){
 		$query = array('$set' => array(
 			'ten' => $this->ten,
-			'diachi' => $this->diachi
+			'diachi' => $this->diachi,
+			'title' => $this->title
 		));
 		$condition = array('_id' => new MongoId($this->id));
 		return $this->_collection->update($condition, $query);	
