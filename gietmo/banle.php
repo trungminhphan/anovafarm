@@ -47,6 +47,7 @@ if($users->is_admin()){
                 <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
                 <?php endif; ?>
             	<a href="#modal-banle" data-toggle="modal" class="btn btn-primary m-10 thembanle"><i class="fa fa-plus"></i> Thêm mới</a>
+                <a href="../export_data.html?collect=banle&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>
@@ -72,7 +73,7 @@ if($users->is_admin()){
                             $donggoi->id = $bl['id_donggoi'];$dg = $donggoi->get_one();
                             $check_lock = isset($bl['lock']) ? $bl['lock'] : 0;
             				echo '<tr>';
-                             if($users->is_admin()) :
+                            if($users->is_admin()) :
                             echo '<input type="hidden" name="banle_check[]" value="'.$bl['_id'].'" />';                                
                             echo '<td><input type="checkbox" value="1" name="bl_'.$bl['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
@@ -102,7 +103,7 @@ if($users->is_admin()){
             		?>
             		</tbody>
             	</table>
-                 <?php if($users->is_admin()) : ?>
+                <?php if($users->is_admin()) : ?>
                 </form>
                 <?php endif; ?>
             </div>
@@ -128,11 +129,13 @@ if($users->is_admin()){
                     	<?php
                     	if($donggoi_list){
                     		foreach($donggoi_list as $dg){
-                                $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
-                                $danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
-                    			$nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
-                                $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                    			echo '<option value="'.$dg['_id'].'">'.$dmnm['ten'].' - '.$nt['madan'].' - '.$dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.$dg['solo'].' - '.date("d/m/Y",$dg['ngaygiodonggoi']->sec).(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : '').' - '.$nt['soxevanchuyen'].'</option>';
+                                if($users->is_admin() || $dg['id_congty'] == $id_congty){
+                                    $nhamay->id = $dg['id_nhamay']; $nm = $nhamay->get_one();
+                                    $danhmucnhamay->id = $nm['id_dmnhamay'];$dmnm = $danhmucnhamay->get_one();
+                    			    $nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
+                                    $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
+                    			    echo '<option value="'.$dg['_id'].'">'.$dmnm['ten'].' - '.$nt['madan'].' - '.$dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.$dg['solo'].' - '.date("d/m/Y",$dg['ngaygiodonggoi']->sec).(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : '').' - '.$nt['soxevanchuyen'].'</option>';
+                                }
                     		}
                     	}
                     	?>
@@ -215,8 +218,17 @@ if($users->is_admin()){
             sticky:false,
             time:""
         });
-        <?php endif; ?>        
+        <?php endif; ?>
+        $("#check_all").click(function(){
+            if($(this).prop("checked")){
+                $(".check").prop("checked", true);
+            } else {   
+                $(".check").prop("checked", false);
+            }
+        });   
         App.init();FormSliderSwitcher.init();
-        //TableManageDefault.init();
+        <?php if(!$users->is_admin()): ?>
+            TableManageDefault.init();
+        <?php endif; ?>
     });
 </script>

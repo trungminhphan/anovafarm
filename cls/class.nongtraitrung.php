@@ -139,6 +139,37 @@ class NongTraiTrung {
 		$sort = array('date_post' => -1);
 		return $this->_collection->find($query)->sort($sort);	
 	}
+	public function search_by_congty($search){
+		$arr_list = array();$danhmuc = new DanhMucNongTrai();
+		$list = $danhmuc->search($search);
+		if($list){
+			foreach($list as $l){
+				$arr_list[] = $l['_id'];
+			}
+		}
+		$date1 = convert_date_yyyy_mm_dd_1($search, 0 , 0);
+		$date2 = convert_date_yyyy_mm_dd_1($search, 24 , 0);
+		$start_date = $date1 ? new MongoDate($date1) : new MongoDate();
+		$end_date = $date2 ? new MongoDate($date2) : new MongoDate();
+		$query = array( '$or' => array(
+			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
+			array('sochungnhantieuchuan' => new MongoRegex('/' . $search . '/i')),
+			array('madan' => new MongoRegex('/' . $search . '/i')),
+			array('soluong' => intval($search)),
+			array('$and' => array(
+				array('ngaythuhoach' => array('$gte' => $start_date)),
+				array('ngaythuhoach' => array('$lte' => $end_date)),
+				)),
+			array('nhamaycungcapthucan' => new MongoRegex('/' . $search . '/i')),
+			array('tentaixe' => new MongoRegex('/' . $search . '/i')),
+			array('soxevanchuyen' => new MongoRegex('/' . $search . '/i')),
+			array('id_dmnongtrai' => array('$in' => $arr_list))
+		));
+		$q = array('$and' => array(
+				array('id_congty' => new MongoId($this->id_congty)), $query));
+		$sort = array('date_post' => -1);
+		return $this->_collection->find($q)->sort($sort);	
+	}
 	public function lock($lock){
 		$query = array('$set' => array('lock' => intval($lock)));
 		$condition = array('_id' => new MongoId($this->id));

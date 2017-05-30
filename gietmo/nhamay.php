@@ -1,4 +1,4 @@
-<?php require_once('header.php');
+\<?php require_once('header.php');
 check_permis_child($users->is_admin() || $users->is_factory());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMay();$nongtrai = new NongTrai();$danhmucnhamay = new DanhMucNhaMay();
@@ -144,8 +144,11 @@ if($users->is_admin()){
                         <?php
                         if($nongtrai_list){
                             foreach($nongtrai_list as $nt){
-                                $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dmnt = $danhmucnongtrai->get_one();
-                                echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['madan'].' - '.date("d/m/Y",$nt['ngaygioxuat']->sec).' - '.$nt['soluong'].(isset($nt['CODE']) ? ' - '.$nt['CODE'] : '').' - '.$nt['soxevanchuyen'].' - '.$nt['tentaixe']. ' - '.$nt['sogiaykiemdichthusong'].'</option>';
+                                if($users->is_admin() || $nt['id_congty'] == $id_congty){
+                                    $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dmnt = $danhmucnongtrai->get_one();
+                                    echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['madan'].' - '.date("d/m/Y",$nt['ngaygioxuat']->sec).' - '.$nt['soluong'].(isset($nt['CODE']) ? ' - '.$nt['CODE'] : '').' - '.$nt['soxevanchuyen'].' - '.$nt['tentaixe']. ' - '.$nt['sogiaykiemdichthusong'].'</option>';
+
+                                }
                             }
                         }
                         ?>
@@ -159,7 +162,9 @@ if($users->is_admin()){
                         <?php
                         if($danhmucnhamay_list){
                             foreach($danhmucnhamay_list as $dm){
-                                echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                                if($users->is_admin() || $dm['id_congty'] == $id_congty){
+                                    echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                                }
                             }
                         }
                         ?>
@@ -365,6 +370,9 @@ if($users->is_admin()){
                 $(".check").prop("checked", false);
             }
         });
-        App.init();//TableManageDefault.init();
+        App.init();
+        <?php if(!$users->is_admin()): ?>
+            TableManageDefault.init();
+        <?php endif; ?>
     });
 </script>

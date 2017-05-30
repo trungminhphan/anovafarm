@@ -5,6 +5,15 @@ $nongtrai = new NongTraiRauQua();
 $danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
 $danhmucnhamay_list = $danhmucnhamay->get_all_list();
 $danhmucnongtrai_list = $danhmucnongtrai->get_all_list();
+if(isset($_POST['submit'])){
+    $nongtrai_check = isset($_POST['nongtrai_check']) ? $_POST['nongtrai_check'] : '';
+    if($nongtrai_check){
+        foreach ($nongtrai_check as $key => $value) {
+            $check = isset($_POST['nt_'.$value]) ? $_POST['nt_'.$value] : 0;
+            $nongtrai->id = $value; $nongtrai->lock($check);
+        }
+    }
+}
 if($users->is_admin()){
     $nongtrai_list = $nongtrai->get_all_list();
 } else {
@@ -31,10 +40,18 @@ $danhmucongty = new DanhMucCongTy();
                 <h4 class="panel-title"><i class="fa fa-th"></i> Thông tin Nông trại sản xuất Rau quả</h4>
             </div>
             <div class="panel-body">
+                <?php if($users->is_admin()) : ?>
+                <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>    
+                <?php endif; ?>
                 <a href="#modal-nongtrai" data-toggle="modal" class="btn btn-primary m-10 themnongtrai"><i class="fa fa-plus"></i> Thêm mới</a>
+                <a href="../export_data.html?collect=nongtrairauqua&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>
+                            <?php if($users->is_admin()) : ?>
+                            <th >Khóa<input type="checkbox" name="check_all" id="check_all"></th>
+                            <?php endif; ?>
             				<th>STT</th>
             				<th>Tên trang trại</th>
                             <th>Mã truy xuất</th>
@@ -43,10 +60,7 @@ $danhmucongty = new DanhMucCongTy();
                             <th>Số xe vận chuyển</th>
                             <th>Tên tài xế</th>
                             <th class="text-center">Hiển thị</th>
-                            <?php if($users->is_admin() || $users->is_factory()): ?>            				
-            				<th class="text-center"><i class="fa fa-qrcode"></i></th>
-            				<th class="text-center"><i class="fa fa-gears"></i></th>
-                            <?php endif; ?>
+                            <th class="text-center"><i class="fa fa-qrcode"></i></th>
                             <?php if($users->is_admin() || $users->is_farmer()): ?>
                             <th class="text-center"><i class="fa fa-trash"></i></th>
                             <th class="text-center"><i class="fa fa-pencil"></i></th>
@@ -60,7 +74,12 @@ $danhmucongty = new DanhMucCongTy();
             			foreach ($nongtrai_list as $nt) {
                             $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dm = $danhmucnongtrai->get_one();
                             $danhmucongty->id = $nt['id_congty']; $ct = $danhmucongty->get_one();
+                            $check_lock = isset($nt['lock']) ? $nt['lock'] : 0;
             				echo '<tr>';
+                            if($users->is_admin()) :
+                            echo '<input type="hidden" name="nongtrai_check[]" value="'.$nt['_id'].'" />';                                
+                            echo '<td><input type="checkbox" value="1" name="nt_'.$nt['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
+                            endif;
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$ct['ten'].'</td>';
                             echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
@@ -69,18 +88,15 @@ $danhmucongty = new DanhMucCongTy();
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-                            if($users->is_admin() || $users->is_factory()){
-                				/*if($nt['hienthi'] == 1){
-                					echo '<td class="text-center link_hienthi"><a href="get.nongtrai.html?id='.$nt['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
-                				} else {
-                					echo '<td class="text-center link_hienthi"><a href="get.nongtrai.html?id='.$nt['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
-                				}*/
-                				echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
-                				echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themnhamay#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="themnhamay"><i class="fa fa-gears"></i></a></td>';
-                            }
+                		    echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';              			
                             if($users->is_admin() || $users->is_farmer()){
-                                echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
-                                echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=edit#modal-nongtrai" data-toggle="modal" class="suanongtrai"><i class="fa fa-pencil"></i></a></td>';
+                                if($check_lock == 1){
+                                    echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                    echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
+                                } else {
+                                    echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xoá?\');"><i class="fa fa-trash"></i></a></td>';
+                                    echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=edit#modal-nongtrai" data-toggle="modal" class="suanongtrai"><i class="fa fa-pencil"></i></a></td>';
+                                }
                             }
             				echo '</tr>'; $i++;
             			}
@@ -88,6 +104,9 @@ $danhmucongty = new DanhMucCongTy();
             		?>
             		</tbody>
             	</table>
+                <?php if($users->is_admin()) : ?>
+                </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -111,7 +130,9 @@ $danhmucongty = new DanhMucCongTy();
                         <?php
                         if($danhmucnongtrai_list){
                             foreach($danhmucnongtrai_list as $dm){
-                                echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                                if($users->is_admin() || $dm['id_congty'] == $id_congty){
+                                    echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                                }
                             }
                         }
                         ?>
@@ -304,6 +325,16 @@ $danhmucongty = new DanhMucCongTy();
                 FormSliderSwitcher.init();
             });
         });
-        App.init();TableManageDefault.init();
+        $("#check_all").click(function(){
+            if($(this).prop("checked")){
+                $(".check").prop("checked", true);
+            } else {   
+                $(".check").prop("checked", false);
+            }
+        });
+        App.init();
+        <?php if(!$users->is_admin()): ?>
+            TableManageDefault.init();
+        <?php endif; ?>
     });
 </script>

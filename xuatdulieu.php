@@ -1,5 +1,6 @@
 <?php
 require_once('header.php');
+check_permis($users->is_admin());
 ?>
 <link href="assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <h1 class="page-header"><i class="fa fa-file-excel-o"></i> XUẤT DỮ LIỆU</h1>

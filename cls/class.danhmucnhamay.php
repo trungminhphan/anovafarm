@@ -67,6 +67,5 @@ class DanhMucNhaMay {
 		));
 		return $this->_collection->find($query);
 	}
-
 }
 ?>

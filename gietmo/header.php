@@ -109,7 +109,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                         <span>QUẢN LÝ GIẾT MỔ</span>
                     </a>
                 </li>
-                <?php if($users->is_admin() || $users->is_factory() || $users->is_farmer()): ?>
+                <?php if($users->is_admin() || $users->is_farmer()): ?>
                 <li>
                     <a href="nongtrai.html">
                         <i class="fa fa-th"></i>
@@ -117,7 +117,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                     </a>
                 </li>
                 <?php endif; ?>
-                <?php if($users->is_admin() || $users->is_factory() || $users->is_packer()): ?>
+                <?php if($users->is_admin() || $users->is_factory()): ?>
                 <li>
                     <a href="nhamay.html">
                         <i class="fa fa-gears "></i> 
@@ -125,7 +125,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                     </a>
                 </li>
             	<?php endif; ?>
-            	<?php if($users->is_admin() || $users->is_retail() || $users->is_packer()): ?>
+            	<?php if($users->is_admin() || $users->is_packer()): ?>
                 <li>
                     <a href="donggoi.html">
                         <i class="fa fa-dropbox "></i> 

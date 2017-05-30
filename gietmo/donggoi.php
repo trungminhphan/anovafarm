@@ -135,9 +135,11 @@ if($users->is_admin()){
                         <?php
                         if($nhamay_list){
                             foreach($nhamay_list as $nm){
-                                $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
-                                $nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
-                                echo '<option value="'.$nm['_id'].'">'.$dm['ten']. ' - ' . $nm['tieuchuan']. ' - ' .$nt['madan']. ' - ' .$nm['solo']. ' - ' .date("d/m/Y", $nm['ngaygiogietmo']->sec). ' - ' .$nm['sogiaykiemdichthusong'].(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : ''). ' - ' .$nt['soxevanchuyen'].'</option>';
+                                if($users->is_admin() || $nm['id_congty'] == $id_congty){
+                                    $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
+                                    $nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
+                                    echo '<option value="'.$nm['_id'].'">'.$dm['ten']. ' - ' . $nm['tieuchuan']. ' - ' .$nt['madan']. ' - ' .$nm['solo']. ' - ' .date("d/m/Y", $nm['ngaygiogietmo']->sec). ' - ' .$nm['sogiaykiemdichthusong'].(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : ''). ' - ' .$nt['soxevanchuyen'].'</option>';
+                                }
                             }
                         }
                         ?>
@@ -322,6 +324,16 @@ if($users->is_admin()){
             time:""
         });
         <?php endif; ?>
-        App.init();//TableManageDefault.init();
+        $("#check_all").click(function(){
+            if($(this).prop("checked")){
+                $(".check").prop("checked", true);
+            } else {   
+                $(".check").prop("checked", false);
+            }
+        });
+        App.init();
+        <?php if(!$users->is_admin()): ?>
+            TableManageDefault.init();
+        <?php endif; ?>
     });
 </script>

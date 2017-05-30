@@ -8,19 +8,51 @@ if(isset($_GET['submit'])){
 	$search = isset($_GET['search']) ? trim($_GET['search']) : '';
 	if($search){
 		$nongtrai = new NongTrai();$nhamay = new NhaMay(); $dongoi = new DongGoi(); $banle = new BanLe();
-		$nongtrai_list = $nongtrai->search($search);
-		$nhamay_list = $nhamay->search($search);
-		$donggoi_list = $donggoi->search($search);
-		$banle_list = $banle->search($search);
+        if($users->is_admin()) {
+    		$nongtrai_list = $nongtrai->search($search);
+    		$nhamay_list = $nhamay->search($search);
+    		$donggoi_list = $donggoi->search($search);
+    		$banle_list = $banle->search($search);
+    		$nongtraitrung_list = $nongtraitrung->search($search);
+    		$donggoitrung_list = $donggoitrung->search($search);
+    		$banletrung_list = $banletrung->search($search);
+    		$nongtrairauqua_list = $nongtrairauqua->search($search);
+    		$nhamayrauqua_list = $nhamayrauqua->search($search);
+    		$donggoirauqua_list = $donggoirauqua->search($search);
+    		$banlerauqua_list = $banlerauqua->search($search);
+        } else {
+            if($users->is_farmer()){
+                $nongtrai->id_congty = $id_congty;
+                $nongtraitrung->id_congty = $id_congty;
+                $nongtrairauqua->id_congty = $id_congty;
+                $nongtrai_list = $nongtrai->search_by_congty($search);
+                $nongtraitrung_list = $nongtraitrung->search_by_congty($search);
+                $nongtrairauqua_list = $nongtrairauqua->search_by_congty($search);
+            }
+            if($users->is_factory()){
+                $nhamay->id_congty = $id_congty;
+                $nhamayrauqua->id_congty = $id_congty;
+                $nhamay_list = $nhamay->search_by_congty($search);
+                $nhamayrauqua_list = $nhamayrauqua->search_by_congty($search);
+            }
 
-		$nongtraitrung_list = $nongtraitrung->search($search);
-		$donggoitrung_list = $donggoitrung->search($search);
-		$banletrung_list = $banletrung->search($search);
-
-		$nongtrairauqua_list = $nongtrairauqua->search($search);
-		$nhamayrauqua_list = $nhamayrauqua->search($search);
-		$donggoirauqua_list = $donggoirauqua->search($search);
-		$banlerauqua_list = $banlerauqua->search($search);
+            if($users->is_packer()){
+                $donggoi->id_congty = $id_congty;
+                $donggoitrung->id_congty = $id_congty;
+                $donggoirauqua->id_congty = $id_congty;
+                $donggoi_list = $donggoi->search_by_congty($search);
+                $donggoitrung_list = $donggoitrung->search_by_congty($search);
+                $donggoirauqua_list = $donggoirauqua->search_by_congty($search);
+            }
+            if($users->is_retail()){
+                $banle->id_congty = $id_congty;
+                $banletrung->id_congty = $id_congty;
+                $banlerauqua->id_congty = $id_congty;
+                $banle_list = $banle->search_by_congty($search);
+                $banletrung_list = $banletrung->search_by_congty($search);
+                $banlerauqua_list = $banlerauqua->search_by_congty($search);
+            }
+        }
 	}
 }
 ?>

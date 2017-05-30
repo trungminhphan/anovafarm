@@ -90,6 +90,5 @@ class DanhMucNongTrai {
 		));
 		return $this->_collection->find($query);
 	}
-
 }
 ?>

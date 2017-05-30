@@ -101,5 +101,22 @@ class BanLeRauQua {
 		$sort = array('date_post' => -1);
 		return $this->_collection->find($query)->sort($sort);
 	}
+	public function search_by_congty($search){
+		$arr_list = array();$danhmuc = new DanhMucBanLe();
+		$list = $danhmuc->search($search);
+		if($list){
+			foreach($list as $l){
+				$arr_list[] = strval($l['_id']);
+			}
+		}
+		$query = array('id_dmbanle' => array('$in' => $arr_list), 'id_congty' => new MongoId($this->id_congty));
+		$sort = array('date_post' => -1);
+		return $this->_collection->find($query)->sort($sort);
+	}
+	public function lock($lock){
+		$query = array('$set' => array('lock' => intval($lock)));
+		$condition = array('_id' => new MongoId($this->id));
+		return $this->_collection->update($condition, $query);
+	}
 }
 ?>

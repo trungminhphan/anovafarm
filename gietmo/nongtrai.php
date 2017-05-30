@@ -145,7 +145,9 @@ if($users->is_admin()){
                         <?php
                         if($danhmucnongtrai_list){
                             foreach($danhmucnongtrai_list as $dm){
-                                echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                                if($users->is_admin() || $dm['id_congty'] == $id_congty){
+                                    echo '<option value="'.$dm['_id'].'">'.$dm['ten'] .' - '. $dm['diachi'].'</option>';
+                                }
                             }
                         }
                         ?>
@@ -370,6 +372,9 @@ if($users->is_admin()){
                 $(".check").prop("checked", false);
             }
         });
-        App.init();//TableManageDefault.init();
+        App.init();
+        <?php if(!$users->is_admin()): ?>
+            TableManageDefault.init();
+        <?php endif; ?>
     });
 </script>
