@@ -24,6 +24,10 @@ class HienThi {
 		return $this->_collection->findOne($query);
 	}
 
+	public function get_one_condition($condition){
+		return $this->_collection->findOne($condition);	
+	}
+
 	public function insert(){
 		$query = array(
 			'giaidoan' => $this->giaidoan,
@@ -33,6 +37,17 @@ class HienThi {
 			'date_post' => new MongoDate()
 		);
 		return $this->_collection->insert($query);
+	}
+
+	public function edit(){
+		$query = array('$set' => array(
+			'giaidoan' => $this->giaidoan,
+			'tengiaidoan' => $this->tengiaidoan,
+			'title' => $this->title,
+			'hinhanh' => $this->hinhanh
+		));
+		$condition = array('_id' => new MongoId($this->id));
+		return $this->_collection->update($condition, $query);
 	}
 }
 ?>

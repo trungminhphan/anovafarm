@@ -7,6 +7,7 @@ require_once('../inc/config.inc.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $q = isset($_GET['q']) ? $_GET['q'] : '';
+$hienthi = new HienThi();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -65,7 +66,6 @@ $q = isset($_GET['q']) ? $_GET['q'] : '';
 
 <!-- end page container -->
 <!-- begin #footer -->
-
 	<div class="row p-10">
 		<div class="col-md-3"></div>
 		<div class="col-md-6 text-center">&copy; 2017 Bản quyền bởi Anova Corp</div>
