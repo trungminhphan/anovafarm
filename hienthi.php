@@ -75,7 +75,7 @@ if(isset($_POST['submit'])){
             			<input type="hidden" name="<?php echo $ht['giaidoan'];?>" id="<?php echo $ht['giaidoan']; ?>" value="<?php echo $ht['giaidoan']; ?>" class="form-control" data-parsley-required="true"/>
             			<div class="input-group">
             				<span class="input-group-addon"><?php echo $i; ?></span>
-            				<input type="text" name="tengiaidoan_<?php echo $ht['giaidoan'];?>" id="tengiaidoan_<?php echo $ht['giaidoan']; ?>" value="<?php echo $ht['tengiaidoan']; ?>" class="form-control" data-parsley-required="true" readonly/>
+            				<input type="text" name="tengiaidoan_<?php echo $ht['giaidoan'];?>" id="tengiaidoan_<?php echo $ht['giaidoan']; ?>" value="<?php echo $ht['tengiaidoan']; ?>" class="form-control" data-parsley-required="true"/>
             			</div>
             		</div>
             		<div class="col-md-5">

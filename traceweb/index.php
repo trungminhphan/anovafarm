@@ -34,26 +34,54 @@ $hienthi = new HienThi();
 <body>
 <!-- begin #page-loader -->
 <div id="page-container" class="page-container fade page-without-sidebar p-20">
-	<div class="row">
-		<div class="col-md-12 text-center">
-			<img  src="../images/logocoopnova.png" height="100px"/>
-		</div>
-	</div>
-	<h1 class="page-header text-center">THÔNG TIN NGUỒN GỐC SẢN PHẨM</h1>
 	<?php
 	if($q== 'rauqua' || $q=='trung' || $q=='gietmo'){
 		if($type==4){
 			//echo '<h4 class="text-center">GIAI ĐOẠN BÁN LẺ</h4>';
+			if($q == 'gietmo') $ht = $hienthi->get_one_condition(array('giaidoan' => 'banle'));
+			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'banle'.$q));
+			echo '<div class="row">
+				<div class="col-md-12 text-center">
+					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+				</div>
+			</div>';
+			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
 			require_once('banle_'.$q.'.php');
 		} else if($type == 3){	
 			//echo '<h4 class="text-center">GIAI ĐOẠN ĐÓNG GÓI</h4>';
+			if($q == 'gietmo') $ht = $hienthi->get_one_condition(array('giaidoan' => 'donggoi'));
+			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'donggoi'.$q));
+			echo '<div class="row">
+				<div class="col-md-12 text-center">
+					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+				</div>
+			</div>';
+			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
+			echo '<h4 class="text-center">'.$ht['tengiaidoan'].'</h4>';
 			require_once('donggoi_'.$q.'.php');
 		} else if($type==2){
-			if($q == 'rauqua') echo '<h4 class="text-center">GIAI ĐOẠN SƠ CHẾ</h4>';
-			else echo '<h4 class="text-center">GIAI ĐOẠN GIẾT MỔ</h4>';
+			if($q == 'gietmo') $ht = $hienthi->get_one_condition(array('giaidoan' => 'nhamay'));
+			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'nhamay'.$q));
+			echo '<div class="row">
+				<div class="col-md-12 text-center">
+					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+				</div>
+			</div>';
+			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
+			echo '<h4 class="text-center">'.$ht['tengiaidoan'].'</h4>';
+			//if($q == 'rauqua') echo '<h4 class="text-center">GIAI ĐOẠN SƠ CHẾ</h4>';
+			//else echo '<h4 class="text-center">GIAI ĐOẠN GIẾT MỔ</h4>';
 			require_once('nhamay_'.$q.'.php');
 		} else if($type==1){
-			echo '<h4 class="text-center">GIAI ĐOẠN NÔNG TRẠI</h4>';
+			if($q == 'gietmo') $ht = $hienthi->get_one_condition(array('giaidoan' => 'nongtrai'));
+			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'nongtrai'.$q));
+			echo '<div class="row">
+				<div class="col-md-12 text-center">
+					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+				</div>
+			</div>';
+			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
+			echo '<h4 class="text-center">'.$ht['tengiaidoan'].'</h4>';
 			require_once('nongtrai_'.$q.'.php');
 		} else {
 			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';	
