@@ -105,14 +105,27 @@ class BanLe {
 	public function search_by_congty($search){
 		$arr_list = array();$danhmuc = new DanhMucBanLe();
 		$list = $danhmuc->search($search);
+		$donggoi = new DongGoi();
+		$list_donggoi = $donggoi->search($search);
+		$arr_donggoi = array();
+		if($list_donggoi){
+			foreach($list_donggoi as $d){
+				$arr_donggoi[] = $d['_id'];
+			}
+		}
 		if($list){
 			foreach($list as $l){
 				$arr_list[] = strval($l['_id']);
 			}
 		}
-		$query = array('id_dmbanle' => array('$in' => $arr_list), 'id_congty' => new MongoId($this->id_congty));
+		$query = array('$or' => array(
+			array('id_dmbanle' => array('$in' => $arr_list)),
+			array('id_donggoi' => array('$in' => $arr_donggoi))
+		));
+		$q = array('$and' => array(array('id_congty' => new MongoId($this->id_congty)), $query));
+		//$query = array('id_dmbanle' => array('$in' => $arr_list), 'id_congty' => new MongoId($this->id_congty));
 		$sort = array('date_post' => -1);
-		return $this->_collection->find($query)->sort($sort);
+		return $this->_collection->find($q)->sort($sort);
 	}
 	public function lock($lock){
 		$query = array('$set' => array('lock' => intval($lock)));

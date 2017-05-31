@@ -4,7 +4,6 @@ $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$donggoi = new Don
 $danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
-
 if($act == 'edit' || $act == 'themdonggoi'){
 	$nhamay->id = $id; $nm = $nhamay->get_one();
 	$nongtrai->id = $nm['id_nongtrairauqua']; $nt = $nongtrai->get_one();
