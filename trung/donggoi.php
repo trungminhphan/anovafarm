@@ -66,6 +66,9 @@ if($users->is_admin()){
                             <th>Nông trại</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="text-center"><i class="fa fa-qrcode"></i></th>
+                            <?php if($users->is_admin() || $users->is_retail()): ?>
+                                <th class="text-center"><i class="fa fa-shopping-cart"></i></th>
+                            <?php endif; ?>
             				<?php if($users->is_admin() || $users->is_packer()): ?>
             				<th class="text-center"><i class="fa fa-trash"></i></th>
             				<th class="text-center"><i class="fa fa-pencil"></i></th>
@@ -97,6 +100,9 @@ if($users->is_admin()){
                             echo '<td>'.$dmnt['ten'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$dg['_id'].'&type=3&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                            if($users->is_admin() || $users->is_retail()){
+                                echo '<td class="text-center"><a href="get.donggoi.html?id='.$dg['_id'].'&act=thembanle#modal-banle" data-toggle="modal" name="'.$dg['_id'].'" class="thembanle"><i class="fa fa-shopping-cart"></i></a></td>';
+                            }
             				if($users->is_admin() || $users->is_packer()){
                                 if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';

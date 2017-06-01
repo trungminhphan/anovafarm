@@ -61,9 +61,12 @@ $danhmucongty = new DanhMucCongTy();
                             <th>Tên tài xế</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="text-center"><i class="fa fa-qrcode"></i></th>
+                            <?php if($users->is_admin() || $users->is_factory()): ?>
+                                <th class="text-center"><i class="fa fa-gears"></i></th>
+                            <?php endif; ?>
                             <?php if($users->is_admin() || $users->is_farmer()): ?>
-                            <th class="text-center"><i class="fa fa-trash"></i></th>
-                            <th class="text-center"><i class="fa fa-pencil"></i></th>
+                                <th class="text-center"><i class="fa fa-trash"></i></th>
+                                <th class="text-center"><i class="fa fa-pencil"></i></th>
                             <?php endif; ?>
             			</tr>
             		</thead>
@@ -89,6 +92,9 @@ $danhmucongty = new DanhMucCongTy();
                             echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                 		    echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';              			
+                            if($users->is_admin() || $users->is_factory()){
+                                echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themnhamay#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="themnhamay"><i class="fa fa-gears"></i></a></td>';
+                            } 
                             if($users->is_admin() || $users->is_farmer()){
                                 if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';

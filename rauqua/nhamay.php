@@ -63,9 +63,12 @@ if($users->is_admin()){
                             <th>Số xe vận chuyển</th>
                             <th class="text-center">Hiển thị</th>
                             <th class="text-center"><i class="fa fa-qrcode"></i></th>
+                            <?php if($users->is_admin() || $users->is_packer()): ?>
+                                    <th class="text-center"><i class="fa fa-dropbox"></i></th>
+                            <?php endif; ?>
             				<?php if($users->is_admin() || $users->is_factory()): ?>
-            				<th class="text-center"><i class="fa fa-trash"></i></th>
-            				<th class="text-center"><i class="fa fa-pencil"></i></th>
+                				<th class="text-center"><i class="fa fa-trash"></i></th>
+                				<th class="text-center"><i class="fa fa-pencil"></i></th>
             				<?php endif; ?>
             			</tr>
             		</thead>
@@ -92,6 +95,9 @@ if($users->is_admin()){
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nm['_id'].'&type=2&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
+                            if($users->is_admin() || $users->is_packer()){
+                                echo '<td class="text-center"><a href="get.nhamay.html?id='.$nm['_id'].'&act=themdonggoi#modal-donggoi" data-toggle="modal" name="'.$nt['_id'].'" class="themdonggoi"><i class="fa fa-dropbox"></i></a></td>';
+                            }
             				if($users->is_admin() || $users->is_factory()){
                                  if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';

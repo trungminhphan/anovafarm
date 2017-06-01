@@ -64,7 +64,9 @@ if($users->is_admin()){
                             <th>Số giấy kiểm dịch thú sống</th>
                             <th class="text-center">Hiển thị</th>
             				<th class="text-center"><i class="fa fa-qrcode"></i></th>
-            				<!--<th class="text-center"><i class="fa fa-gears"></i></th>-->
+                            <?php if($users->is_admin() || $users->is_factory()): ?>
+            				    <th class="text-center"><i class="fa fa-gears"></i></th>
+                            <?php endif; ?>
                             <?php if($users->is_admin() || $users->is_farmer()): ?>
                             <th class="text-center"><i class="fa fa-trash"></i></th>
                             <th class="text-center"><i class="fa fa-pencil"></i></th>
@@ -94,15 +96,9 @@ if($users->is_admin()){
                             echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=gietmo" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
-                            /*if($users->is_admin() || $users->is_factory()){
-                				/*if($nt['hienthi'] == 1){
-                					echo '<td class="text-center link_hienthi"><a href="get.nongtrai.html?id='.$nt['_id'].'&hienthi=0&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye text-primary"></i></a></td>';
-                				} else {
-                					echo '<td class="text-center link_hienthi"><a href="get.nongtrai.html?id='.$nt['_id'].'&hienthi=1&act=hienthi" class="sethienthi" onclick="return false;"><i class="fa fa-eye-slash text-danger"></i></a></td>';
-                				}
-                				
-                				//echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themnhamay#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="themnhamay"><i class="fa fa-gears"></i></a></td>';
-                            }*/
+                            if($users->is_admin() || $users->is_factory()){
+                                echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themnhamay#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="themnhamay"><i class="fa fa-gears"></i></a></td>';
+                            }                              
                             if($users->is_admin() || $users->is_farmer()){                              
                                 if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
@@ -232,9 +228,9 @@ if($users->is_admin()){
             	</div>
             	<div class="form-group">
             		<label class="col-md-3 control-label">Mã đàn</label>
-            		<div class="col-md-3 p-t-5" id="madan"></div>
-            		<label class="col-md-3 control-label">Tiêu chuẩn</label>
-            		<div class="col-md-3 p-t-5" id="tieuchuantrai"></div>
+            		<div class="col-md-2 p-t-5" id="madan"></div>
+            		<label class="col-md-2 control-label">Tiêu chuẩn</label>
+            		<div class="col-md-5 p-t-5" id="tieuchuantrai"></div>
             	</div>
             	<div class="form-group">
                     <label class="col-md-3 control-label">Chọn nhà máy</label>
