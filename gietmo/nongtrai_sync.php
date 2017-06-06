@@ -51,9 +51,11 @@ foreach($files as $file => $filename){
 								$nongtrai->id_user = $id_user;
 								$nongtrai->id_congty = $id_dmcongty;
 								if($nongtrai->check_exist()){
-						            $nongtrai->delete_by_code();
+						            //$nongtrai->delete_by_code();
+						            $_id = $nongtrai->get_id_by_code();$nongtrai->id = $_id;$nongtrai->edit_sync();
+						        } else {
+						        	$nongtrai->sync();	
 						        }
-						       $nongtrai->sync();
 								echo 'Tên trại: '. $data[10] .'<br />';
 								echo 'Địa chỉ: '. $data[11] .'<br />';
 								echo 'Tiêu chuẩn: '. $data[12] .'<br />';

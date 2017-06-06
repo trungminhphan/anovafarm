@@ -53,6 +53,13 @@ class NongTrai {
 		$query = array('_id' => new MongoId($this->id));
 		return $this->_collection->findOne($query);
 	}
+	public function get_id_by_code(){
+		$query= array('TYPE'=> $this->TYPE, 'CODE' => $this->CODE);
+		$field = array('_id' => true);
+		$result = $this->_collection->findOne($query, $field);
+		if(isset($recult['_id'])) return $result['_id'];
+		else return false;
+	}
 	public function insert(){
 		$query = array(
 			'id_dmnongtrai' => $this->id_dmnongtrai ? new MongoId($this->id_dmnongtrai) : '',
@@ -96,6 +103,34 @@ class NongTrai {
 			'id_user' => $this->id_user ? new MongoId($this->id_user) : '',
 			'id_congty' => $this->id_congty ? new MongoId($this->id_congty) : ''
 		);
+		return $this->_collection->insert($query);
+	}
+
+	public function edit_sync(){
+		$query = array('$set' => array(
+			'TYPE' => $this->TYPE,
+			'SUB_TYPE' => $this->SUB_TYPE,
+			'CODE' => $this->CODE,
+			'TRANSFER_DATE' => $this->TRANSFER_DATE,
+			'TRANSFER_FILE_NAME' => $this->TRANSFER_FILE_NAME,
+			'CREATED_BY' => $this->CREATED_BY,
+			'id_dmnongtrai' => $this->id_dmnongtrai ? new MongoId($this->id_dmnongtrai) : '',
+			'tieuchuan' => $this->tieuchuan,
+			'ngaygioxuat' => $this->ngaygioxuat,
+			'ngaygioxuat_1' => $this->ngaygioxuat_1,
+			'madan' => $this->madan,
+			'soluong' => intval($this->soluong),
+			'nhamaycungcapthucan' => $this->nhamaycungcapthucan,
+			'soxevanchuyen' => $this->soxevanchuyen,
+			'tentaixe' => $this->tentaixe,
+			'sogiaykiemdichthusong' => $this->sogiaykiemdichthusong,
+			'nhanvienkiemdich' => $this->nhanvienkiemdich,
+			'hienthi' => intval($this->hienthi),
+			'date_post' => new MongoDate(),
+			'id_user' => $this->id_user ? new MongoId($this->id_user) : '',
+			'id_congty' => $this->id_congty ? new MongoId($this->id_congty) : ''
+		));
+		$condition = array('_id' => new MongoId($this->id));
 		return $this->_collection->insert($query);
 	}
 	public function edit(){
