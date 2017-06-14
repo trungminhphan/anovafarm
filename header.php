@@ -159,6 +159,12 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                         <span>HIỂN THỊ</span>
                     </a>
                 </li>
+                <li>
+                    <a href="config.html">
+                        <i class="fa fa-cog"></i> 
+                        <span>CẤU HÌNH</span>
+                    </a>
+                </li>
             	<?php endif; ?>
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>

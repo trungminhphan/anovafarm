@@ -2,14 +2,15 @@
 function __autoload($class_name) {
    require_once('cls/class.' . strtolower($class_name) . '.php');
 }
-require_once('inc/functions.inc.php');
+$gridfs = new GridFS();$config = new Config();
 $session = new SessionManager();
 $users = new Users();
-
+require_once('inc/functions.inc.php');
+require_once('inc/config.inc.php');
 if($users->isLoggedIn()){
     transfers_to('./index.html');   
 } 
-require('inc/config.inc.php');
+$ht = $config->get_one();
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 if(isset($_POST['submit'])){
     $username = $_POST['username'] ? $_POST['username'] : '';
@@ -17,21 +18,7 @@ if(isset($_POST['submit'])){
     $url = $_POST['url'] ? $_POST['url'] : '';
     if ($users->authenticate($username, $password)) {
         $users->push_logs_in();
-         transfers_to('index.html');
-        /*if($users->is_admin()){
-            transfers_to('index.html');
-        } else if($users->is_farmer()){
-            transfers_to('nongtrai.html');
-        } else if($users->is_factory()){
-            transfers_to('nhamay.html');
-        } else if($users->is_packer()){
-            transfers_to('donggoi.html');
-        } else if($users->is_retail()){
-            transfers_to('banle.html');
-        } else {
-            if($url) transfers_to($url);
-            else transfers_to("./index.html");
-        }*/
+        transfers_to('index.html');
     } else {
         $alert = true;
     }
@@ -77,7 +64,11 @@ if(isset($_POST['submit'])){
             <!-- begin news-feed -->
             <div class="news-feed">
                 <div class="news-image">
+                <?php if(isset($ht['image']) && $ht['image']): ?>
+                    <img src="image.php?id=<?php echo $ht['image']; ?>" data-id="login-cover-image" alt="" />
+                <?php else: ?>
                     <img src="assets/img/login-bg/bg-login.png" data-id="login-cover-image" alt="" />
+                <?php endif; ?>
                 </div>
                 <div class="news-caption">
                     <h4 class="caption-title">
@@ -86,7 +77,7 @@ if(isset($_POST['submit'])){
                     <i class="fa fa-star fg-yellow"></i>
                     <i class="fa fa-star fg-yellow"></i>
                     <i class="fa fa-star fg-yellow"></i>
-                    ANOVA FARM</h4>
+                    <?php echo isset($ht['text']) ? $ht['text'] : 'ANOVA FARM'; ?></h4>
                 </div>
             </div>
             <!-- end news-feed -->
@@ -95,7 +86,7 @@ if(isset($_POST['submit'])){
                 <!-- begin login-header -->
                 <div class="login-header">
                     <div class="brand">
-                        <span class="fa fa-home"></span> ANOVA FARM
+                        <span class="fa fa-home"></span> <?php echo isset($ht['title']) ? $ht['title'] : 'ANOVA FARM'; ?>
                         <small>ĐĂNG NHẬP HỆ THỐNG</small>
                     </div>
                     <div class="icon">
