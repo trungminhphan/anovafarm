@@ -66,7 +66,7 @@ if(isset($_GET['submit'])){
     <button type="submit" name="submit" id="submit" class="btn btn-primary" value="OK"><i class="fa fa-search"></i> Tìm kiếm</button>
 </div>
 </form>
-<?php if(isset($nongtrai_list) && $nongtrai_list->count() > 0): ?>
+<?php if(isset($nongtrai_list) && count($nongtrai_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -121,7 +121,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($nhamay_list) && $nhamay_list->count() > 0): ?>
+<?php if(isset($nhamay_list) && count($nhamay_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -177,7 +177,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($donggoi_list) && $donggoi_list->count() > 0): ?>
+<?php if(isset($donggoi_list) && count($donggoi_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -234,7 +234,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($banle_list) && $banle_list->count() > 0): ?>
+<?php if(isset($banle_list) && count($banle_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -285,7 +285,7 @@ if(isset($_GET['submit'])){
 </div>
 <?php endif; ?>
 <!--------------------------- TRỨNG ------------------------------ -->
-<?php if(isset($nongtraitrung_list) && $nongtraitrung_list->count() > 0): ?>
+<?php if(isset($nongtraitrung_list) && count($nongtraitrung_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -336,7 +336,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($donggoitrung_list) && $donggoitrung_list->count() > 0): ?>
+<?php if(isset($donggoitrung_list) && count($donggoitrung_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -393,7 +393,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($banletrung_list) && $banletrung_list->count() > 0): ?>
+<?php if(isset($banletrung_list) && count($banletrung_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -445,7 +445,7 @@ if(isset($_GET['submit'])){
 </div>
 <?php endif; ?>
 <!--------------------------- RAU ------------------------------ -->
-<?php if(isset($nongtrairauqua_list) && $nongtrairauqua_list->count() > 0): ?>
+<?php if(isset($nongtrairauqua_list) && count($nongtrairauqua_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -496,7 +496,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($nhamayrauqua_list) && $nhamayrauqua_list->count() > 0): ?>
+<?php if(isset($nhamayrauqua_list) && count($nhamayrauqua_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -550,7 +550,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($donggoirauqua_list) && $donggoirauqua_list->count() > 0): ?>
+<?php if(isset($donggoirauqua_list) && count($donggoirauqua_list) > 0): ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -607,7 +607,7 @@ if(isset($_GET['submit'])){
     </div>
 </div>
 <?php endif; ?>
-<?php if(isset($banlerauqua_list) && $banlerauqua_list->count() > 0): ?>
+<?php if(isset($banlerauqua_list) && count($banlerauqua_list) > 0):  ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">

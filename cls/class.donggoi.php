@@ -107,6 +107,12 @@ class DongGoi{
 	}
 
 	public function search($search){
+		$this->_collection->createIndex(array(
+				'tensanpham' => 'text', 
+				'quicachdonggoi' => 'text',
+				'tieuchuan' => 'text',
+				'sochungnhantieuchuan' => 'text',
+				'hansudung' => 'text'));
 		$date1 = convert_date_yyyy_mm_dd_1($search, 0 , 0);
 		$date2 = convert_date_yyyy_mm_dd_1($search, 24 , 0);
 		$start_date = $date1 ? new MongoDate($date1) : new MongoDate();
@@ -128,10 +134,29 @@ class DongGoi{
 				))
 		));
 		$sort = array('date_post' => -1);
-		return $this->_collection->find($query)->sort($sort);
+		$result = array();
+		$result1 = $this->_collection->find($query)->sort($sort);
+		$result2 = $this->_collection->find(array('$text' => array('$search' => $search)));
+		if($result1){
+			foreach ($result1 as $r1) {
+				array_push($result, $r1);
+			}
+		}
+		if($result2){
+			foreach ($result2 as $r2) {
+				array_push($result, $r2);
+			}
+		}
+		return $result;
 	}
 
 	public function search_by_congty($search){
+		$this->_collection->createIndex(array(
+				'tensanpham' => 'text', 
+				'quicachdonggoi' => 'text',
+				'tieuchuan' => 'text',
+				'sochungnhantieuchuan' => 'text',
+				'hansudung' => 'text'));
 		$date1 = convert_date_yyyy_mm_dd_1($search, 0 , 0);
 		$date2 = convert_date_yyyy_mm_dd_1($search, 24 , 0);
 		$start_date = $date1 ? new MongoDate($date1) : new MongoDate();
@@ -155,7 +180,22 @@ class DongGoi{
 		$q = array('$and' => array(
 				array('id_congty' => new MongoId($this->id_congty)), $query));
 		$sort = array('date_post' => -1);
-		return $this->_collection->find($q)->sort($sort);
+		$result = array();
+		$result1 =  $this->_collection->find($q)->sort($sort);
+		$result2 = $this->_collection->find(array('$text' => array('$search' => $search)));	
+		if($result1){
+			foreach ($result1 as $r1) {
+				array_push($result, $r1);
+			}
+		}
+		if($result2){
+			foreach ($result2 as $r2) {
+				if($r2['id_congty'] == $this->id_congty){
+					array_push($result, $r2);
+				}
+			}
+		}
+		return $result;
 	}
 
 	public function lock($lock){

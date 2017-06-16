@@ -84,11 +84,20 @@ class DanhMucNongTrai {
 	}
 
 	public function search($search){
-		$query = array('$or' => array(
+		$this->_collection->createIndex(array('ten' => 'text', 'diachi' => 'text'));
+		$query = array('$text' => array('$search' => $search));
+		return $this->_collection->find($query);
+		/*$query = array('$or' => array(
 			array('ten' => new MongoRegex('/' . $search . '/i')),
 			array('diachi' => new MongoRegex('/' . $search . '/i'))
 		));
-		return $this->_collection->find($query);
+		return $this->_collection->find($query);*/
+	}
+
+	public function search_text($search){
+		$this->_collection->createIndex(array('ten' => 'text', 'diachi' => 'text'));
+		$query = array('$text' => array('$search' => $search));
+		return $this->_collection->find($query);	
 	}
 }
 ?>

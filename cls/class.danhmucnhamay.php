@@ -61,10 +61,13 @@ class DanhMucNhaMay {
 	}
 
 	public function search($search){
-		$query = array('$or' => array(
+		/*$query = array('$or' => array(
 			array('ten' => new MongoRegex('/' . $search . '/i')),
 			array('diachi' => new MongoRegex('/' . $search . '/i'))
 		));
+		return $this->_collection->find($query);*/
+		$this->_collection->createIndex(array('ten' => 'text', 'diachi' => 'text'));
+		$query = array('$text' => array('$search' => $search));
 		return $this->_collection->find($query);
 	}
 }

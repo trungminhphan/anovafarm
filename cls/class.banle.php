@@ -99,7 +99,8 @@ class BanLe {
 		}
 		$query = array('id_dmbanle' => array('$in' => $arr_list));
 		$sort = array('date_post' => -1);
-		return $this->_collection->find($query)->sort($sort);
+		$result = $this->_collection->find($query)->sort($sort);
+		return iterator_to_array($result);
 	}
 
 	public function search_by_congty($search){
@@ -125,7 +126,8 @@ class BanLe {
 		$q = array('$and' => array(array('id_congty' => new MongoId($this->id_congty)), $query));
 		//$query = array('id_dmbanle' => array('$in' => $arr_list), 'id_congty' => new MongoId($this->id_congty));
 		$sort = array('date_post' => -1);
-		return $this->_collection->find($q)->sort($sort);
+		$result = $this->_collection->find($q)->sort($sort);
+		return iterator_to_array($result);
 	}
 	public function lock($lock){
 		$query = array('$set' => array('lock' => intval($lock)));
