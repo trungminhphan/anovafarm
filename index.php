@@ -2,10 +2,11 @@
 require_once('header.php');
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $id_congty =  $users->get_id_congty();
+$config = new Config(); $ht = $config->get_one();
 ?>
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 <!-- begin page-header -->
-<h1 class="page-header">ANOVA FARM - CHỌN CHỨC NĂNG QUẢN LÝ HỆ THỐNG</h1>
+<h1 class="page-header"><?php echo $ht['title']; ?> - CHỌN CHỨC NĂNG QUẢN LÝ HỆ THỐNG</h1>
 <div class="row">
     <div class="col-md-4 col-sm-6">
         <div class="widget widget-stats bg-green">
