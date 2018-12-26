@@ -1,5 +1,10 @@
 <?php
 require_once('header_none.php');
+use \Models\DanhMucNongTrai;
+use \Models\NongTrai;
+use \Models\NongTraiTrung;
+use \Models\NongTraiRauQua;
+
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 $danhmucnongtrai = new DanhMucNongTrai();

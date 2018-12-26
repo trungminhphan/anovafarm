@@ -1,9 +1,11 @@
 <?php
-function __autoload($class_name) {
-    require_once('cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "vendor/autoload.php";
+use \Models\Users;
+use \Models\SessionManager;
+use \Models\DanhMucCongTy;
 $session = new SessionManager();
 $users = new Users();
+
 require_once('inc/functions.inc.php');
 require_once('inc/config.inc.php');
 if(!$users->isLoggedIn()){ transfers_to('./login.html?url=' . $_SERVER['REQUEST_URI']); }
@@ -70,7 +72,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-user"></i> 
+							<i class="fa fa-user"></i>
 							<span class="hidden-xs">
 								<?php echo $user_default['person']; ?>
 							</span> <b class="caret"></b>
@@ -136,32 +138,32 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                 </li>
                 <li>
                     <a href="gietmo/">
-                        <i class="fa fa-gears "></i> 
+                        <i class="fa fa-gears "></i>
                         <span>GIẾT MỔ</span>
                     </a>
                 </li>
                 <li>
                     <a href="timkiem.html">
-                        <i class="fa fa-search "></i> 
+                        <i class="fa fa-search "></i>
                         <span>TÌM KIẾM</span>
                     </a>
                 </li>
                 <?php if($users->is_admin()): ?>
                 <li>
                     <a href="xuatdulieu.html">
-                        <i class="fa fa-file-excel-o "></i> 
+                        <i class="fa fa-file-excel-o "></i>
                         <span>XUẤT DỮ LIỆU</span>
                     </a>
                 </li>
                 <li>
                     <a href="hienthi.html">
-                        <i class="fa fa-qrcode"></i> 
+                        <i class="fa fa-qrcode"></i>
                         <span>HIỂN THỊ</span>
                     </a>
                 </li>
                 <li>
                     <a href="config.html">
-                        <i class="fa fa-cog"></i> 
+                        <i class="fa fa-cog"></i>
                         <span>CẤU HÌNH</span>
                     </a>
                 </li>

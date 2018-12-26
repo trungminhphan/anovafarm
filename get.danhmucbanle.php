@@ -1,5 +1,9 @@
 <?php
 require_once('header_none.php');
+use \Models\DanhMucBanLe;
+use \Models\BanLe;
+use \Models\BanLeTrung;
+use \Models\BanLeRauQua;
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 $danhmucbanle = new DanhMucBanLe();

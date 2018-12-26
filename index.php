@@ -1,5 +1,6 @@
 <?php
 require_once('header.php');
+use \Models\Config;
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $id_congty =  $users->get_id_congty();
 $config = new Config(); $ht = $config->get_one();
@@ -13,7 +14,7 @@ $config = new Config(); $ht = $config->get_one();
             <div class="stats-icon"><i class="ion-egg"></i></div>
             <div class="stats-info">
                 <h4>QUẢN LÝ</h4>
-                <p>SẢN XUẤT TRỨNG</p>    
+                <p>SẢN XUẤT TRỨNG</p>
             </div>
             <div class="stats-link">
                 <a href="trung/">Quản lý <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -25,7 +26,7 @@ $config = new Config(); $ht = $config->get_one();
             <div class="stats-icon"><i class="ion-leaf"></i></div>
             <div class="stats-info">
                 <h4>QUẢN LÝ</h4>
-                <p>SẢN XUẤT RAU QUẢ</p>   
+                <p>SẢN XUẤT RAU QUẢ</p>
             </div>
             <div class="stats-link">
                 <a href="rauqua/">Quản lý <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -37,14 +38,14 @@ $config = new Config(); $ht = $config->get_one();
             <div class="stats-icon"><i class="fa fa-gears"></i></div>
             <div class="stats-info">
                 <h4>QUẢN LÝ</h4>
-                <p>QUI TRÌNH GIẾT MỔ</p>    
+                <p>QUI TRÌNH GIẾT MỔ</p>
             </div>
             <div class="stats-link">
                 <a href="gietmo/">Quản lý <i class="fa fa-arrow-circle-o-right"></i></a>
             </div>
         </div>
     </div>
-    
+
 </div>
 <div style="clear:both;"></div>
 <?php require_once('footer.php'); ?>

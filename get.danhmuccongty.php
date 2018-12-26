@@ -1,5 +1,20 @@
 <?php
 require_once('header_none.php');
+use \Models\DanhMucCongTy;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+use \Models\NongTrai;
+use \Models\NongTraiTrung;
+use \Models\NongTraiRauQua;
+use \Models\NhaMay;
+use \Models\NhaMayRauQua;
+use \Models\DongGoi;
+use \Models\DongGoiTrung;
+use \Models\DongGoiRauQua;
+use \Models\BanLe;
+use \Models\BanLeTrung;
+use \Models\BanLeRauQua;
+
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 $danhmuccongty = new DanhMucCongTy();
@@ -10,7 +25,7 @@ $donggoi = new DongGoi(); $donggoitrung = new DongGoiTrung(); $donggoirauqua = n
 $banle = new BanLe(); $banletrung = new BanLeTrung(); $banlerauqua = new BanLeRauQua();
 if($act == 'del' && $id){
 	$danhmuccongty->id = $id; $dm = $danhmuccongty->get_one();
-	if($users->check_dmcongty($id) || $danhmucnhamay->check_dmcongty($id) || $danhmucnongtrai->check_dmcongty($id) 
+	if($users->check_dmcongty($id) || $danhmucnhamay->check_dmcongty($id) || $danhmucnongtrai->check_dmcongty($id)
 		|| $nongtrai->check_dmcongty($id) || $nongtraitrung->check_dmcongty($id) || $nongtrairauqua->check_dmcongty($id)
 		|| $nhamay->check_dmcongty($id) || $nhamayrauqua->check_dmcongty($id)
 		|| $donggoi->check_dmcongty($id) || $donggoitrung->check_dmcongty($id) || $donggoirauqua->check_dmcongty($id)
@@ -19,7 +34,7 @@ if($act == 'del' && $id){
 	} else {
 		if($danhmuccongty->delete()) transfers_to('danhmuccongty.html?msg=Xóa thành công!');
 		else transfers_to('danhmuccongty.html?msg=Không thể xóa, ràng buộc nơi giết mổ');
-	}	
+	}
 }
 
 if($act == 'edit'){

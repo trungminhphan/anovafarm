@@ -1,5 +1,6 @@
 <?php
 require_once('header.php');
+use \Models\DanhMucNhaMay;
 check_permis($users->is_admin());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucnhamay = new DanhMucNhaMay();
@@ -133,7 +134,7 @@ $danhmuccongty_list = $danhmuccongty->get_all_list();
             sticky:false,
             time:""
         });
-        <?php endif; ?>  
+        <?php endif; ?>
         App.init();
     });
 </script>

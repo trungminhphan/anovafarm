@@ -1,5 +1,7 @@
 <?php
 require_once('header_none.php');
+use \Models\DanhMucNongTrai;
+
 $danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';

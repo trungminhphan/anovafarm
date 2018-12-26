@@ -1,5 +1,10 @@
 <?php
 require_once('header_none.php');
+use \Models\DanhMucNhaMay;
+use \Models\NhaMay;
+use \Models\NhaMayRauQua;
+use \Models\DongGoiTrung;
+use \Models\DongGoiRauQua;
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 $danhmucnhamay = new DanhMucNhaMay();
