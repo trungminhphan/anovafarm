@@ -1,5 +1,7 @@
 <?php
 require_once('header.php');
+use \Models\HienThi;
+use \Models\GridFS;
 $hienthi = new HienThi();$gridfs = new GridFS();
 $hienthi_list = $hienthi->get_all_list();
 /*foreach($arr_giaidoan as $key => $value){

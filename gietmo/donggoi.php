@@ -1,5 +1,12 @@
 <?php require_once('header.php');
 check_permis_child($users->is_admin() || $users->is_packer());
+use \Models\DBConnect;
+use \Models\DanhMucNhaMay;
+use \Models\NhaMay;
+use \Models\NongTrai;
+use \Models\DongGoi;
+use \Models\DanhMucBanLe;
+
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucnhamay = new DanhMucNhaMay();$nhamay = new NhaMay();$nongtrai = new NongTrai();$donggoi = new DongGoi();
 $danhmucbanle = new DanhMucBanLe();
@@ -41,7 +48,7 @@ if($users->is_admin()){
             <div class="panel-body">
                 <?php if($users->is_admin()): ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-donggoi" data-toggle="modal" class="btn btn-primary m-10 themdonggoi"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=donggoi&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -82,7 +89,7 @@ if($users->is_admin()){
                             $check_lock = isset($dg['lock']) ? $dg['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';                                
+                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="dg_'.$dg['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
@@ -91,7 +98,7 @@ if($users->is_admin()){
             				echo '<td>'.$dg['tensanpham'].'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td>'.date("d/m/Y",$dg['ngaygiodonggoi']->sec).'</td>';
+            				echo '<td>'.DBConnect::getDate($dg['ngaygiodonggoi'],"d/m/Y").'</td>';
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
@@ -140,7 +147,7 @@ if($users->is_admin()){
                                 if($users->is_admin() || $nm['id_congty'] == $id_congty){
                                     $danhmucnhamay->id = $nm['id_dmnhamay']; $dm = $danhmucnhamay->get_one();
                                     $nongtrai->id = $nm['id_nongtrai']; $nt = $nongtrai->get_one();
-                                    echo '<option value="'.$nm['_id'].'">'.$dm['ten']. ' - ' . $nm['tieuchuan']. ' - ' .$nt['madan']. ' - ' .$nm['solo']. ' - ' .date("d/m/Y", $nm['ngaygiogietmo']->sec). ' - ' .$nm['sogiaykiemdichthusong'].(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : ''). ' - ' .$nt['soxevanchuyen'].'</option>';
+                                    echo '<option value="'.$nm['_id'].'">'.$dm['ten']. ' - ' . $nm['tieuchuan']. ' - ' .$nt['madan']. ' - ' .$nm['solo']. ' - ' .DBConnect::getDate($nm['ngaygiogietmo'],"d/m/Y"). ' - ' .$nm['sogiaykiemdichthusong'].(isset($nt['CODE']) ? ' - ' . $nt['CODE'] : ''). ' - ' .$nt['soxevanchuyen'].'</option>';
                                 }
                             }
                         }
@@ -214,7 +221,7 @@ if($users->is_admin()){
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Thông tin nơi bán lẻ</h4>
             </div>
-            <div class="modal-body">        
+            <div class="modal-body">
                 <input type="hidden" name="id" id="id">
                 <input type="hidden" name="act" id="act">
                 <input type="hidden" name="id_donggoi" id="id_donggoi">
@@ -240,7 +247,7 @@ if($users->is_admin()){
                         }
                     }
                     ?>
-                     </select>   
+                     </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -329,7 +336,7 @@ if($users->is_admin()){
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

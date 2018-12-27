@@ -60,14 +60,14 @@ class Users{
 		return $this->_collection->insert($query);
 	}
 	public function push_logs_in(){
-		$query = array('$push' => array('logs' => array('in' => new MongoDate())));
+		$query = array('$push' => array('logs' => array('in' => DBConnect::setDate())));
 		$condition = array('_id' => DBConnect::ObjectId($this->get_userid()));
-		return $this->_collection->update($condition, $query);
+		return $this->_collection->updateOne($condition, $query);
 	}
 	public function push_logs_out(){
 		$query = array('$push' => array('logs' => array('out' => DBConnect::setDate())));
 		$condition = array('_id' => DBConnect::ObjectId($this->get_userid()));
-		return $this->_collection->update($condition, $query);
+		return $this->_collection->updateOne($condition, $query);
 	}
 	public function edit(){
 		$condition = array('_id'=> DBConnect::ObjectId($this->id));
@@ -78,19 +78,19 @@ class Users{
 			'person'=>$this->person,
 			'hinhanh' => $this->hinhanh,
 			'id_congty' => $this->id_congty ? DBConnect::ObjectId($this->id_congty) : ''));
-		return $this->_collection->update($condition, $query);
+		return $this->_collection->updateOne($condition, $query);
 	}
 
 	public function change_password(){
 		$query = array('$set' => array('password' => md5($this->password)));
 		$condition = array('_id' => DBConnect::ObjectId($this->id));
-		return $this->_collection->update($condition, $query);
+		return $this->_collection->updateOne($condition, $query);
 	}
 
 	public function reset_password(){
 		$condition = array('_id' => DBConnect::ObjectId($this->id));
 		$query = array('$set' => array('password' => md5($this->password)));
-		return $this->_collection->update($condition, $query);
+		return $this->_collection->updateOne($condition, $query);
 	}
 
 	public function delete(){

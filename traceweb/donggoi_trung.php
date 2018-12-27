@@ -1,4 +1,20 @@
 <?php
+use \Models\NongTrai;
+use \Models\NhaMay;
+use \Models\DongGoi;
+use \Models\BanLe;
+use \Models\NongTraiTrung;
+use \Models\DongGoiTrung;
+use \Models\BanLeTrung;
+use \Models\NongTraiRauQua;
+use \Models\NhaMayRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucBanLe;
+use \Models\DBConnect;
+
 $danhmucnongtrai = new DanhMucNongTrai();
 $danhmucnhamay = new DanhMucNhaMay();
 $danhmucbanle = new DanhMucBanLe();
@@ -93,7 +109,7 @@ $danhmucnhamay->id = $dg['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Ngày thu hoạch (Date of Harvest)</div>
-		<div class="f-s-16"><?php echo $nt['ngaythuhoach'] ? date("d/m/Y", $nt['ngaythuhoach']->sec) : '' ; ?></div>
+		<div class="f-s-16"><?php echo $nt['ngaythuhoach'] ? DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y") : '' ; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -101,7 +117,7 @@ $danhmucnhamay->id = $dg['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Ngày đóng gói (Date of packing)</div>
-		<div class="f-s-16"><?php echo $dg['ngaydonggoi'] ? date("d/m/Y", $dg['ngaydonggoi']->sec) : '' ; ?></div>
+		<div class="f-s-16"><?php echo $dg['ngaydonggoi'] ? DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y") : '' ; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>

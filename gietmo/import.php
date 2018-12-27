@@ -1,7 +1,8 @@
 <?php
-function __autoload($class_name) {
-    require_once('../cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "../vendor/autoload.php";
+use \Models\Users;
+use \Models\SessionManager;
+use \Models\NongTrai;
 require_once('../inc/functions.inc.php');
 require_once('../inc/config.inc.php');
 $nongtrai = new NongTrai();
@@ -22,7 +23,7 @@ foreach($files as $file => $filename){
 							$ngaygioxuat = get_char($data[13], 1, 10);
 							$gioxuat = intval(get_char($data[13], 12, 13));
 							$phutxuat = intval(get_char($data[13], 15, 16));
-							$ngaygioxuat = new MongoDate(convert_date_yyyy_mm_dd_2($ngaygioxuat, $gioxuat, $phutxuat));
+							$ngaygioxuat = DBConnect::setDate(),//new MongoDate(convert_date_yyyy_mm_dd_2($ngaygioxuat, $gioxuat, $phutxuat));
 							$nongtrai->type = $data[0];
 							$nongtrai->code = $data[2];
 							$nongtrai->filename = $data[7];
@@ -46,7 +47,7 @@ foreach($files as $file => $filename){
 					    $row++;
 					}
 				}
-			}	
+			}
 		}
 	}
 }

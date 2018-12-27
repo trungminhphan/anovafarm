@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5943983411481c5b580dc7bf"},"session_id":"2cd75e745qnf80rebtaubhpqp7","data":"user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"591d6c69c12583e352f65fd6\";roles|i:31;","timedout_at":1497610303,"expired_at":1497638100}
+{"_id":{"$oid":"595d98d6249cb1f8c51f24ec"},"session_id":"17teeiglp14djv1aei0c3hmbd6","data":"user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"591d6c69c12583e352f65fd6\";roles|i:31;","timedout_at":1499312211,"expired_at":1499342198}
+{"_id":{"$oid":"59e816113e66a10ce849f9e5"},"session_id":"fkgp8bdr26lqgujh0bdsudmq50","data":"user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"591d6c69c12583e352f65fd6\";roles|i:31;","timedout_at":1508402155,"expired_at":1508429582}
+{"_id":{"$oid":"5c23251bac27ab21b5b0e928"},"session_id":"o12m1aani173iuqltf4ffits53","data":"user_id|s:24:\"58e3072432341cfc09005d7e\";id_congty|s:24:\"591d6c69c12583e352f65fd6\";roles|i:31;","timedout_at":1545885499,"expired_at":1545907895}

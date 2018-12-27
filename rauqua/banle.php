@@ -1,4 +1,13 @@
 <?php require_once('header.php');
+use \Models\DBConnect;
+use \Models\NhaMayRauQua;
+use \Models\NongTraiRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucBanLe;
+
 check_permis_child($users->is_admin() || $users->is_retail());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();
@@ -43,7 +52,7 @@ if($users->is_admin()){
             <div class="panel-body">
                 <?php if($users->is_admin()): ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
             	<a href="#modal-banle" data-toggle="modal" class="btn btn-primary m-10 thembanle"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=banlerauqua&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -73,7 +82,7 @@ if($users->is_admin()){
                             $check_lock = isset($bl['lock']) ? $bl['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="banle_check[]" value="'.$bl['_id'].'" />';                                
+                            echo '<input type="hidden" name="banle_check[]" value="'.$bl['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="bl_'.$bl['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
@@ -140,7 +149,7 @@ if($users->is_admin()){
                                     $danhmucnhamay->id = $dg['id_dmnhamay']; $nm = $danhmucnhamay->get_one();
                                     $nhamay->id = $dg['id_nhamayrauqua']; $nr = $nhamay->get_one();
                                     $nongtrai->id = $nr['id_nongtrairauqua']; $nt = $nongtrai->get_one();
-                    			    echo '<option value="'.$dg['_id'].'">'.$nm['ten'] .' - '. $dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.date("d/m/Y", $dg['ngaydonggoi']->sec).' - '.$dg['hansudung'] .' - '.$dg['solo'].' - ' .date("d/m/Y",$nt['ngaythuhoach']->sec).' - ' .date("d/m/Y",$nr['ngaysoche']->sec).'</option>';
+                    			    echo '<option value="'.$dg['_id'].'">'.$nm['ten'] .' - '. $dg['tensanpham'].' - '.$dg['quicachdonggoi'].' - '.DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y").' - '.$dg['hansudung'] .' - '.$dg['solo'].' - ' .DBConnect::getDate($nt['ngaythuhoach'],"d/m'Y").' - ' .DBConnect::getDate($nr['ngaysoche'],"d/m/Y").'</option>';
                                 }
                     		}
                     	}
@@ -159,7 +168,7 @@ if($users->is_admin()){
                         }
                     }
                     ?>
-                     </select>   
+                     </select>
                     </div>
                 </div>
             </div>
@@ -224,7 +233,7 @@ if($users->is_admin()){
             sticky:false,
             time:""
         });
-        <?php endif; ?>        
+        <?php endif; ?>
         App.init();FormSliderSwitcher.init();
         <?php if(!$users->is_admin()): ?>
             TableManageDefault.init();

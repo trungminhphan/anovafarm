@@ -1,5 +1,6 @@
 <?php
 require_once('header.php');
+use \Models\DanhMucBanLe;
 check_permis($users->is_admin());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucbanle = new DanhMucBanLe();
@@ -115,7 +116,7 @@ $danhmucbanle_list = $danhmucbanle->get_all_list();
             sticky:false,
             time:""
         });
-        <?php endif; ?>  
+        <?php endif; ?>
         App.init();
     });
 </script>

@@ -1,14 +1,14 @@
 <?php
-function __autoload($class_name) {
-   require_once('../cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "../vendor/autoload.php";
+use \Models\Users;
+use \Models\SessionManager;
 require_once('../inc/functions.inc.php');
 $session = new SessionManager();
 $users = new Users();
 
 if($users->isLoggedIn()){
-    transfers_to('./index.html');   
-} 
+    transfers_to('./index.html');
+}
 require('../inc/config.inc.php');
 $url = isset($_GET['url']) ? $_GET['url'] : '';
 if(isset($_POST['submit'])){
@@ -47,7 +47,7 @@ if(isset($_POST['submit'])){
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="Hệ thống quản lý truy xuất nguồn gốc trang trại ANOVA FARM" />
     <meta content="Hệ thống quản lý truy xuất nguồn gốc trang trại ANOVA FARM" />
-	
+
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -58,7 +58,7 @@ if(isset($_POST['submit'])){
 	<link href="assets/css/style-responsive.min.css" rel="stylesheet" />
 	<link href="assets/css/theme/default.css" rel="stylesheet" id="theme" />
 	<!-- ================== END BASE CSS STYLE ================== -->
-	
+
 	<!-- ================== BEGIN BASE JS ================== -->
     <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 	<script src="assets/plugins/pace/pace.min.js"></script>
@@ -68,7 +68,7 @@ if(isset($_POST['submit'])){
 	<!-- begin #page-loader -->
 	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
 	<!-- end #page-loader -->
-	
+
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade">
 	    <!-- begin login -->
@@ -125,7 +125,7 @@ if(isset($_POST['submit'])){
         <!-- end login -->
 	</div>
 	<!-- end page container -->
-	
+
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
@@ -139,7 +139,7 @@ if(isset($_POST['submit'])){
 	<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
 	<!-- ================== END BASE JS ================== -->
-	
+
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
     <script src="assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="assets/js/apps.min.js"></script>
@@ -155,7 +155,7 @@ if(isset($_POST['submit'])){
                 time:""
             });
 		});
-       
+
 	</script>
 </body>
 </html>

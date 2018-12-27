@@ -1,7 +1,9 @@
 <?php
-function __autoload($class_name) {
-   require_once('cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "vendor/autoload.php";
+use \Models\GridFS;
+use \Models\Config;
+use \Models\SessionManager;
+use \Models\Users;
 $gridfs = new GridFS();$config = new Config();
 $session = new SessionManager();
 $users = new Users();

@@ -7,9 +7,9 @@
 	<!-- end page container -->
     <!-- begin #footer -->
     <div id="footer" class="footer">
-    	<div class="pull-left">&copy; 2017 Bản quyền bởi Anova Corp</div>
+    	<div class="pull-left">&copy; 2017 Bản quyền bởi JAYBranding</div>
     </div>
-    <!-- end #footer -->	
+    <!-- end #footer -->
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="../assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 	<script src="../assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>

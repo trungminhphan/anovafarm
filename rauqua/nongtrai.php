@@ -1,4 +1,9 @@
 <?php require_once('header.php');
+use \Models\DBConnect;
+use \Models\NongTraiRauQua;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucCongTy;
 check_permis_child($users->is_admin() || $users->is_factory() || $users->is_farmer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nongtrai = new NongTraiRauQua();
@@ -42,7 +47,7 @@ $danhmucongty = new DanhMucCongTy();
             <div class="panel-body">
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>    
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-nongtrai" data-toggle="modal" class="btn btn-primary m-10 themnongtrai"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=nongtrairauqua&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -80,21 +85,21 @@ $danhmucongty = new DanhMucCongTy();
                             $check_lock = isset($nt['lock']) ? $nt['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="nongtrai_check[]" value="'.$nt['_id'].'" />';                                
+                            echo '<input type="hidden" name="nongtrai_check[]" value="'.$nt['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="nt_'.$nt['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$ct['ten'].'</td>';
                             echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
-            				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+            				echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
             				echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td>'.$nt['tentaixe'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nt['_id'].'&type=1&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
-                		    echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';              			
+                		    echo '<td class="text-center"><a href="../print_qrcode.html?id='.$nt['_id'].'&type=1&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
                             if($users->is_admin() || $users->is_factory()){
                                 echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themnhamay#modal-nhamay" data-toggle="modal" name="'.$nt['_id'].'" class="themnhamay"><i class="fa fa-gears"></i></a></td>';
-                            } 
+                            }
                             if($users->is_admin() || $users->is_farmer()){
                                 if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
@@ -145,7 +150,7 @@ $danhmucongty = new DanhMucCongTy();
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
@@ -155,7 +160,7 @@ $danhmucongty = new DanhMucCongTy();
                     <div class="col-md-3">
                         <input type="text" name="sochungnhantieuchuan" id="sochungnhantieuchuan" value="" class="form-control" data-parsley-required="true"/>
                     </div>
-                   
+
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Ngày thu hoạch</label>
@@ -239,7 +244,7 @@ $danhmucongty = new DanhMucCongTy();
                         <input type="text" name="sochungnhantieuchuan" id="sochungnhantieuchuan" value="" class="form-control" data-parsley-required="true"/>
                     </div>
             	</div>
-            
+
             	<div class="form-group">
                     <label class="col-md-3 control-label">Mã truy xuất sản phẩm</label>
                     <div class="col-md-3">
@@ -292,7 +297,7 @@ $danhmucongty = new DanhMucCongTy();
     			$("#tieuchuantrai").html(data.tieuchuan);
                 $("#hienthinhamay").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
                 FormSliderSwitcher.init();
-    		});    		
+    		});
     	});
         $(".open_window").click(function(){
           window.open($(this).attr("href"), '_blank', 'toolbar=yes, scrollbars=yes, resizable=yes, top=0, left=100, width=1024, height=800');
@@ -309,7 +314,7 @@ $danhmucongty = new DanhMucCongTy();
             sticky:false,
             time:""
         });
-        <?php endif; ?>  
+        <?php endif; ?>
         $(".themnongtrai").click(function(){
             $("#id").val("");$("#act").val("");
             $("#hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
@@ -334,7 +339,7 @@ $danhmucongty = new DanhMucCongTy();
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

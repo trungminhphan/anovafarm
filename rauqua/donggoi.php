@@ -1,4 +1,11 @@
 <?php require_once('header.php');
+use \Models\DBConnect;
+use \Models\NhaMayRauQua;
+use \Models\NongTraiRauQua;
+use \Models\DongGoiRauQua;
+use \Models\DanhMucBanLe;
+use \Models\DanhMucNhaMay;
+
 check_permis_child($users->is_admin() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$donggoi = new DongGoiRauQua();
@@ -42,10 +49,10 @@ if($users->is_admin()){
             <div class="panel-body">
                 <?php if($users->is_admin()): ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-donggoi" data-toggle="modal" class="btn btn-primary m-10 themdonggoi"><i class="fa fa-plus"></i> Thêm mới</a>
-                <a href="../export_data.html?collect=donggoirauqua&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>                
+                <a href="../export_data.html?collect=donggoirauqua&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
             	<table id="data-table" class="table table-striped table-bordered table-hovered">
             		<thead>
             			<tr>
@@ -83,18 +90,18 @@ if($users->is_admin()){
                             $check_lock = isset($dg['lock']) ? $dg['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';                                
+                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="dg_'.$dg['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
             				echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-                            echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y").'</td>';
                             echo '<td>'.$dg['hansudung'].'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
-                            echo '<td>'.date("d/m/Y", $nt['ngaythuhoach']->sec).'</td>';
-                            echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
+                            echo '<td>'.DBConnect::getDate($nm['ngaysoche'],"d/m/Y").'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '<td class="text-center"><a href="../print_qrcode.html?id='.$dg['_id'].'&type=3&q=rauqua" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
                             if($users->is_admin() || $users->is_retail()){
@@ -133,7 +140,7 @@ if($users->is_admin()){
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Thông tin nơi bán lẻ rau quả</h4>
             </div>
-            <div class="modal-body">        
+            <div class="modal-body">
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tên sản phẩm</label>
                     <div class="col-md-3 p-t-5" id="tensanphambanle"></div>
@@ -163,7 +170,7 @@ if($users->is_admin()){
                         }
                     }
                     ?>
-                     </select>   
+                     </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -224,7 +231,7 @@ if($users->is_admin()){
                         <input type="text" name="solo" id="solo" value="" class="form-control" data-parsley-required="true"/>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
@@ -245,7 +252,7 @@ if($users->is_admin()){
                                 if($users->is_admin() || $nm['id_congty'] == $id_congty){
                                     $danhmucnhamay->id = $nm['id_dmnhamay']; $dmnm = $danhmucnhamay->get_one();
                                     $nongtrai->id = $nm['id_nongtrairauqua']; $nt = $nongtrai->get_one();
-                                    echo '<option value="'.$nm['_id'].'">'.$dmnm['ten'].' - '.$nm['tieuchuan'].' - '.$nm['matruyxuatsanpham']. ' - ' .date("d/m/Y", $nm['ngaysoche']->sec).' - ' .date("d/m/Y", $nt['ngaythuhoach']->sec). ' - '. $nt['soxevanchuyen']. '</option>';
+                                    echo '<option value="'.$nm['_id'].'">'.$dmnm['ten'].' - '.$nm['tieuchuan'].' - '.$nm['matruyxuatsanpham']. ' - ' .DBConnect::getDate($nm['ngaysoche'],"d/m/Y").' - ' .DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y"). ' - '. $nt['soxevanchuyen']. '</option>';
                                 }
                             }
                         }
@@ -352,7 +359,7 @@ if($users->is_admin()){
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

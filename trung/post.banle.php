@@ -1,5 +1,7 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\BanLeTrung;
 $banle = new BanLeTrung();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';

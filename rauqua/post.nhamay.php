@@ -1,5 +1,7 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NhaMayRauQua;
 $nhamay = new NhaMayRauQua();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';
@@ -18,7 +20,7 @@ $nhamay->id_dmnhamay = $id_dmnhamay;
 $nhamay->tieuchuan = $tieuchuan;
 $nhamay->sochungnhantieuchuan = $sochungnhantieuchuan;
 $nhamay->matruyxuatsanpham = $matruyxuatsanpham;
-$nhamay->ngaysoche = $ngaysoche ? new MongoDate(convert_date_yyyy_mm_dd($ngaysoche)) : '';
+$nhamay->ngaysoche = DBConenct::setDate();//$ngaysoche ? new MongoDate(convert_date_yyyy_mm_dd($ngaysoche)) : '';
 $nhamay->hienthi = $hienthi;
 $nhamay->id_user = $id_user;
 $nhamay->id_congty = $id_congty;
@@ -28,7 +30,7 @@ if($act == 'edit'){
 	if($nhamay->edit()){
 		if($url){
 			$l = explode("?", $url);transfers_to($l[0] . '?msg=Chỉnh sửa thành công');
-		} 
+		}
 		else transfers_to('nhamay.html?msg=Chỉnh sửa thành công!');
 	}
 } else {

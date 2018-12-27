@@ -1,6 +1,5 @@
 <?php
 namespace Models;
-
 class SessionManager {
 	//name of collection where sessions will be stored
 	const COLLECTION = 'sessions';
@@ -32,11 +31,11 @@ class SessionManager {
 		ob_start();
 		session_start();
 		ob_clean();
-		session_set_cookie_params(SessionManager::SESSION_LIFESPAN, SessionManager::SESSION_COOKIE_PATH, SessionManager::SESSION_COOKIE_DOMAIN);
+		@session_set_cookie_params(SessionManager::SESSION_LIFESPAN, SessionManager::SESSION_COOKIE_PATH, SessionManager::SESSION_COOKIE_DOMAIN);
 		//Replace 'PHPSESSID' with 'mongosessid' as the
 		//session name
-		session_name(SessionManager::SESSION_NAME);
-		session_cache_limiter('nocache');
+		@session_name(SessionManager::SESSION_NAME);
+		@session_cache_limiter('nocache');
 	}
 
 	public function open($path, $name) {

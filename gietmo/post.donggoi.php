@@ -1,5 +1,7 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\DongGoi;
 $donggoi = new DongGoi();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';
@@ -21,8 +23,8 @@ $donggoi->quicachdonggoi = $quicachdonggoi;
 $donggoi->solo = $solo;
 $donggoi->tieuchuan = $tieuchuan;
 $donggoi->sochungnhantieuchuan = $sochungnhantieuchuan;
-$donggoi->ngaygiogietmo = $ngaygiogietmo ? new MongoDate(convert_date_yyyy_mm_dd($ngaygiogietmo)) : '';
-$donggoi->ngaygiodonggoi = $ngaygiodonggoi ? new MongoDate(convert_date_yyyy_mm_dd($ngaygiodonggoi)) : '';
+$donggoi->ngaygiogietmo = DBConnect::setDate();//$ngaygiogietmo ? new MongoDate(convert_date_yyyy_mm_dd($ngaygiogietmo)) : '';
+$donggoi->ngaygiodonggoi = DBConnect::setDate();//$ngaygiodonggoi ? new MongoDate(convert_date_yyyy_mm_dd($ngaygiodonggoi)) : '';
 $donggoi->hansudung = $hansudung;
 $donggoi->hienthi = intval($hienthi);
 $donggoi->id_user = $id_user;

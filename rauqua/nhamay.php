@@ -1,10 +1,17 @@
 <?php require_once('header.php');
 check_permis_child($users->is_admin() || $users->is_factory());
+use \Models\NhaMayRauQua;
+use \Models\NongTraiRauQua;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+use \Models\DBConnect;
+
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();
 $danhmucnhamay = new DanhMucNhaMay(); $danhmucnongtrai = new DanhMucNongTrai();
 $nongtrai_list = $nongtrai->get_all_list();
-$danhmucnhamay_list = $danhmucnhamay->get_all_list();
+$danhmucnhamay_list = iterator_to_array($danhmucnhamay->get_all_list());
+
 if(isset($_POST['submit'])){
     $nhamay_check = isset($_POST['nhamay_check']) ? $_POST['nhamay_check'] : '';
     if($nhamay_check){
@@ -15,7 +22,7 @@ if(isset($_POST['submit'])){
     }
 }
 if($users->is_admin()){
-    $nhamay_list = $nhamay->get_all_list();    
+    $nhamay_list = $nhamay->get_all_list();
 } else {
     $nhamay->id_congty = $id_congty;
     $nhamay_list = $nhamay->get_list_by_congty();
@@ -42,7 +49,7 @@ if($users->is_admin()){
             	<?php if($users->is_admin() || $users->is_factory()): ?>
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-nhamay" data-toggle="modal" class="btn btn-primary m-10 themnhamay"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=nhamayrauqua&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -82,15 +89,15 @@ if($users->is_admin()){
                             $check_lock = isset($nm['lock']) ? $nm['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="nhamay_check[]" value="'.$nm['_id'].'" />';                                
+                            echo '<input type="hidden" name="nhamay_check[]" value="'.$nm['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="nm_'.$nm['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nm['tieuchuan'].'</td>';
                             echo '<td>'.$nm['matruyxuatsanpham'].'</td>';
-            				echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
-                            echo '<td>'.date("d/m/Y", $nt['ngaythuhoach']->sec).'</td>';
+            				echo '<td>'.DBConnect::getDate($nm['ngaysoche'],"d/m/Y").'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
                             echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
@@ -167,7 +174,7 @@ if($users->is_admin()){
                             foreach($nongtrai_list as $nt){
                                 if($users->is_admin() || $nt['id_congty'] == $id_congty){
                                     $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one();
-                                    echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['matruyxuatsanpham'].' - '.date("d/m/Y", $nt['ngaythuhoach']->sec). ' - ' .$nt['soluong'] .' - '. $nt['soxevanchuyen'].' - '. $nt['tentaixe'].'</option>';
+                                    echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['matruyxuatsanpham'].' - '.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y"). ' - ' .$nt['soluong'] .' - '. $nt['soxevanchuyen'].' - '. $nt['tentaixe'].'</option>';
                                 }
                             }
                         }
@@ -356,7 +363,7 @@ if($users->is_admin()){
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

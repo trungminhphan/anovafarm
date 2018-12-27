@@ -1,5 +1,12 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NhaMayRauQua;
+use \Models\NongTraiRauQua;
+use \Models\DongGoiRauQua;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+
 $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$donggoi = new DongGoiRauQua();
 $danhmucnhamay = new DanhMucNhaMay();$danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -21,7 +28,7 @@ if($act == 'edit' || $act == 'themdonggoi'){
 		'matruyxuatsanpham' => $nm['matruyxuatsanpham'],
 		'tieuchuan' => $nm['tieuchuan'],
 		'sochungnhantieuchuan' => $nm['sochungnhantieuchuan'],
-		'ngaysoche' => date("d/m/Y", $nm['ngaysoche']->sec),
+		'ngaysoche' => DBConnect::getDate($nm['ngaysoche'],"d/m/Y"),
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($nm['hienthi'] == 1 ? ' checked' : '').'/>'
 	);
 	echo json_encode($arr);

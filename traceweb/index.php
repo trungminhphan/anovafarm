@@ -1,7 +1,22 @@
 <?php
-function __autoload($class_name) {
-    require_once('../cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "../vendor/autoload.php";
+use \Models\HienThi;
+use \Models\NongTrai;
+use \Models\NhaMay;
+use \Models\DongGoi;
+use \Models\BanLe;
+use \Models\NongTraiTrung;
+use \Models\DongGoiTrung;
+use \Models\BanLeTrung;
+use \Models\NongTraiRauQua;
+use \Models\NhaMayRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucBanLe;
+use \Models\DBConnect;
+
 require_once('../inc/functions.inc.php');
 require_once('../inc/config.inc.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -42,18 +57,18 @@ $hienthi = new HienThi();
 			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'banle'.$q));
 			echo '<div class="row">
 				<div class="col-md-12 text-center">
-					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+					<img src="../images/logocoopnova.png" height="100px"/>
 				</div>
 			</div>';
 			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
 			require_once('banle_'.$q.'.php');
-		} else if($type == 3){	
+		} else if($type == 3){
 			//echo '<h4 class="text-center">GIAI ĐOẠN ĐÓNG GÓI</h4>';
 			if($q == 'gietmo') $ht = $hienthi->get_one_condition(array('giaidoan' => 'donggoi'));
 			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'donggoi'.$q));
 			echo '<div class="row">
 				<div class="col-md-12 text-center">
-					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+					<img src="../images/logocoopnova.png" height="100px"/>
 				</div>
 			</div>';
 			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
@@ -64,7 +79,7 @@ $hienthi = new HienThi();
 			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'nhamay'.$q));
 			echo '<div class="row">
 				<div class="col-md-12 text-center">
-					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+					<img src="../images/logocoopnova.png" height="100px"/>
 				</div>
 			</div>';
 			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
@@ -77,14 +92,14 @@ $hienthi = new HienThi();
 			else $ht = $hienthi->get_one_condition(array('giaidoan' => 'nongtrai'.$q));
 			echo '<div class="row">
 				<div class="col-md-12 text-center">
-					<img src="'.($ht['hinhanh'] ? '../image.html?id='.$ht['hinhanh'] : '../images/logocoopnova.png').'" height="100px"/>
+					<img src="../images/logocoopnova.png" height="100px"/>
 				</div>
 			</div>';
 			echo '<h1 class="page-header text-center">'.$ht['title'].'</h1>';
 			echo '<h4 class="text-center">'.$ht['tengiaidoan'].'</h4>';
 			require_once('nongtrai_'.$q.'.php');
 		} else {
-			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';	
+			echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';
 		}
 	} else {
 		echo '<h3 class="text-center">Xin lỗi! Sản phẩm không tồn tại</h3>';
@@ -96,12 +111,12 @@ $hienthi = new HienThi();
 <!-- begin #footer -->
 	<div class="row p-10">
 		<div class="col-md-3"></div>
-		<div class="col-md-6 text-center">&copy; 2017 Bản quyền bởi Anova Corp</div>
+		<div class="col-md-6 text-center">&copy; 2017 Bản quyền bởi JAYBranding</div>
 		<!--<div class="col-md-3 text-center">Giải pháp bởi: <a href="http://JAYbranding.com" target="_blank">JAYbranding.com</a></div>-->
 		<div class="col-md-3"></div>
 	</div>
 
-<!-- end #footer -->	
+<!-- end #footer -->
 <!-- ================== BEGIN BASE JS ================== -->
 <script src="../assets/plugins/jquery/jquery-1.9.1.min.js"></script>
 <script src="../assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>

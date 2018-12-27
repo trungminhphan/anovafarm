@@ -1,4 +1,9 @@
 <?php require_once('header.php');
+use \Models\DBConnect;
+use \Models\NhaMay;
+use \Models\NongTrai;
+use \Models\DanhMucNhaMay;
+
 check_permis($users->is_admin() || $users->is_factory() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMay();$nongtrai = new NongTrai();$danhmucnhamay = new DanhMucNhaMay();
@@ -6,7 +11,7 @@ $danhmucnongtrai = new DanhMucNongTrai();
 $nongtrai_list = $nongtrai->get_all_list();
 $danhmucnhamay_list = $danhmucnhamay->get_all_list();
 if($users->is_admin()){
-    $nhamay_list = $nhamay->get_all_list();    
+    $nhamay_list = $nhamay->get_all_list();
 } else {
     $nhamay->id_congty = $id_congty;
     $nhamay_list = $nhamay->get_list_by_congty();
@@ -131,7 +136,7 @@ if($users->is_admin()){
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-9">

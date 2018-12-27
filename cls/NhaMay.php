@@ -137,20 +137,20 @@ class NhaMay {
 		$start_date = $date1 ? DBConnect::setDate($date1) : DBConnect::setDate();
 		$end_date = $date2 ? DBConnect::setDate($date2) : DBConnect::setDate();
 		$query = array( '$or' => array(
-			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
-			array('solo' => new MongoRegex('/' . $search . '/i')),
+			array('tieuchuan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('solo' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('soluong' => intval($search)),
 			array('$and' => array(
 				array('ngaygiogietmo' => array('$gte' => $start_date)),
 				array('ngaygiogietmo' => array('$lte' => $end_date)),
 				)),
-			array('giaychungnhan' => new MongoRegex('/' . $search . '/i')),
-			array('nhanvienkiemsoat' => new MongoRegex('/' . $search . '/i')),
-			array('sogiaykiemdichthusong' => new MongoRegex('/' . $search . '/i')),
+			array('giaychungnhan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('nhanvienkiemsoat' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('sogiaykiemdichthusong' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('id_dmnhamay' => array('$in' => $arr_list))
 		));
 		$sort = array('date_post' => -1);
-		$result = $this->_collection->find($query)->sort($sort);
+		$result = $this->_collection->find($query, array('sort' => $sort));
 		return iterator_to_array($result);
 	}
 
@@ -167,16 +167,16 @@ class NhaMay {
 		$start_date = $date1 ? DBConnect::setDate($date1) : DBConnect::setDate();
 		$end_date = $date2 ? DBConnect::setDate($date2) : DBConnect::setDate();
 		$query = array( '$or' => array(
-			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
-			array('solo' => new MongoRegex('/' . $search . '/i')),
+			array('tieuchuan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('solo' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('soluong' => intval($search)),
 			array('$and' => array(
 				array('ngaygiogietmo' => array('$gte' => $start_date)),
 				array('ngaygiogietmo' => array('$lte' => $end_date)),
 				)),
-			array('giaychungnhan' => new MongoRegex('/' . $search . '/i')),
-			array('nhanvienkiemsoat' => new MongoRegex('/' . $search . '/i')),
-			array('sogiaykiemdichthusong' => new MongoRegex('/' . $search . '/i')),
+			array('giaychungnhan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('nhanvienkiemsoat' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('sogiaykiemdichthusong' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('id_dmnhamay' => array('$in' => $arr_list))
 		));
 		$q = array('$and' => array(

@@ -54,11 +54,9 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
 				<div class="navbar-header">
 					<a href="index.html" class="navbar-brand">
 					<?php
-					if(isset($user_default['hinhanh']) && $user_default['hinhanh']){
-						echo '<img src="image.html?id='.$user_default['hinhanh'].'" height="30px;" align="left">';
-					} else {
+
 						echo '<img src="images/default_logo.png" alt="" height="30" align="left"/>';
-					}
+
 					?>&nbsp;&nbsp;&nbsp;<?php echo isset($ct['title']) ? $ct['title'] : ''; ?>
 					</a>
 					<button type="button" class="navbar-toggle" data-click="top-menu-toggled">
@@ -155,7 +153,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                         <span>XUẤT DỮ LIỆU</span>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="hienthi.html">
                         <i class="fa fa-qrcode"></i>
                         <span>HIỂN THỊ</span>
@@ -166,7 +164,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                         <i class="fa fa-cog"></i>
                         <span>CẤU HÌNH</span>
                     </a>
-                </li>
+                </li>-->
             	<?php endif; ?>
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>

@@ -1,5 +1,8 @@
 <?php
 require_once('header_none.php');
+use \Models\NongTraiTrung;
+use \Models\BanLeTrung;
+use \Models\DBConnect;
 $nongtrai = new NongTraiTrung();$banle = new BanLeTrung();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';

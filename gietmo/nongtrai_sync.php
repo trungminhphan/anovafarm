@@ -1,8 +1,12 @@
 <?php
 require_once('header_sync.php');
+use \Models\DBConnect;
+use \Models\NongTrai;
+use \Models\DanhMucCongTy;
 $id_congty = $users->get_id_congty();
 $id_user = $users->get_userid();
 $nongtrai = new NongTrai();
+
 $danhmucnongtrai = new DanhMucNongTrai();$danhmuccongty = new DanhMucCongTy();
 $dir = '../../uploads/';
 $files = scandir($dir);
@@ -24,7 +28,7 @@ foreach($files as $file => $filename){
 								$danhmucnongtrai->ten = trim($data[10]);
 								$id_dmnongtrai = $danhmucnongtrai->get_id_by_ten();
 								if(!$id_dmnongtrai){
-									$id_dmnongtrai = new MongoId();
+									$id_dmnongtrai = DBConnect::ObjectId();//new MongoId();
 									$danhmucnongtrai->id = $id_dmnongtrai;
 									$danhmucnongtrai->diachi = $data[11];
 									$danhmucnongtrai->id_congty = $id_dmcongty;
@@ -38,7 +42,7 @@ foreach($files as $file => $filename){
 								$nongtrai->CREATED_BY=$data[9];//9
 								$nongtrai->id_dmnongtrai = $id_dmnongtrai;
 								$nongtrai->tieuchuan = $data[12];
-								$nongtrai->ngaygioxuat = new MongoDate(convert_date_yyyy_mm_dd(substr($data[13],0,10)));
+								$nongtrai->ngaygioxuat = DBConnect::setDate(),//new MongoDate(convert_date_yyyy_mm_dd(substr($data[13],0,10)));
 								$nongtrai->ngaygioxuat_1 = $data[13];
 								$nongtrai->madan = $data[14];
 								$nongtrai->soluong = intval($data[15]);
@@ -54,7 +58,7 @@ foreach($files as $file => $filename){
 						            //$nongtrai->delete_by_code();
 						            $_id = $nongtrai->get_id_by_code();$nongtrai->id = $_id;$nongtrai->edit_sync();
 						        } else {
-						        	$nongtrai->sync();	
+						        	$nongtrai->sync();
 						        }
 								echo 'Tên trại: '. $data[10] .'<br />';
 								echo 'Địa chỉ: '. $data[11] .'<br />';
@@ -75,7 +79,7 @@ foreach($files as $file => $filename){
 					    $row++;
 					}
 				}
-			}	
+			}
 		}
 	}
 }

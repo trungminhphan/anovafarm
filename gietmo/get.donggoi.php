@@ -1,5 +1,12 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NhaMay;
+use \Models\NongTrai;
+use \Models\BanLe;
+use \Models\DongGoi;
+use \Models\DanhMucNhaMay;
+
 $nhamay = new NhaMay();$nongtrai = new NongTrai();$banle = new BanLe();
 $donggoi = new DongGoi();$danhmucnhamay = new DanhMucNhaMay();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -23,8 +30,8 @@ if($act == 'edit' || $act == 'thembanle'){
 		'solo' => $dg['solo'],
 		'tieuchuan' => $dg['tieuchuan'],
 		'sochungnhantieuchuan' => $dg['sochungnhantieuchuan'],
-		'ngaygiogietmo' => date("d/m/Y", $dg['ngaygiogietmo']->sec),
-		'ngaygiodonggoi' => date("d/m/Y", $dg['ngaygiodonggoi']->sec),
+		'ngaygiogietmo' => DBConnect::getDate($dg['ngaygiogietmo'],"d/m/Y"),
+		'ngaygiodonggoi' => DBConnect::getDate($dg['ngaygiodonggoi'],"d/m/Y"),
 		'hansudung' => $dg['hansudung'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($dg['hienthi'] == 1 ? ' checked' : '').'/>'
 		);

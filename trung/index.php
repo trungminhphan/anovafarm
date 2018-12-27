@@ -10,7 +10,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
             <div class="stats-icon"><i class="fa fa-th"></i></div>
             <div class="stats-info">
                 <h4>QUẢN LÝ</h4>
-                <p>NÔNG TRẠI</p>    
+                <p>NÔNG TRẠI</p>
             </div>
             <div class="stats-link">
                 <a href="nongtrai.html">Quản lý <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -24,7 +24,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
             <div class="stats-icon"><i class="fa fa-dropbox"></i></div>
             <div class="stats-info">
                 <h4>QUẢN LÝ</h4>
-                <p>XỬ LÝ ĐÓNG GÓI SẢN PHẨM</p>   
+                <p>XỬ LÝ ĐÓNG GÓI SẢN PHẨM</p>
             </div>
             <div class="stats-link">
                 <a href="donggoi.html">Quản lý <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -38,7 +38,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
             <div class="stats-icon"><i class="fa fa-shopping-cart"></i></div>
             <div class="stats-info">
                 <h4>QUẢN LÝ</h4>
-                <p>NƠI BÁN LẺ</p>    
+                <p>NƠI BÁN LẺ</p>
             </div>
             <div class="stats-link">
                 <a href="banle.html">Quản lý <i class="fa fa-arrow-circle-o-right"></i></a>

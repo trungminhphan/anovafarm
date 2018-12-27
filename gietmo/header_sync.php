@@ -1,7 +1,7 @@
 <?php
-function __autoload($class_name) {
-    require_once('../cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "../vendor/autoload.php";
+use \Models\Users;
+use \Models\SessionManager;
 $session = new SessionManager();
 $users = new Users();
 require_once('../inc/functions.inc.php');
@@ -69,7 +69,7 @@ $id_congty = $users->get_id_congty();
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-user"></i> 
+							<i class="fa fa-user"></i>
 							<span class="hidden-xs">Phan Minh Trung</span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
@@ -116,7 +116,7 @@ $id_congty = $users->get_id_congty();
                 <?php if($users->is_admin() || $users->is_factory() || $users->is_packer()): ?>
                 <li>
                     <a href="nhamay.html">
-                        <i class="fa fa-gears "></i> 
+                        <i class="fa fa-gears "></i>
                         <span>GIẾT MỔ</span>
                     </a>
                 </li>
@@ -124,7 +124,7 @@ $id_congty = $users->get_id_congty();
             	<?php if($users->is_admin() || $users->is_retail() || $users->is_packer()): ?>
                 <li>
                     <a href="donggoi.html">
-                        <i class="fa fa-dropbox "></i> 
+                        <i class="fa fa-dropbox "></i>
                         <span>ĐÓNG GÓI</span>
                     </a>
                 </li>
@@ -137,7 +137,7 @@ $id_congty = $users->get_id_congty();
                     </a>
                 </li>
                 <?php endif; ?>
-                
+
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>
                 </li>

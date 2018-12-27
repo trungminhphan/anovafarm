@@ -1,5 +1,22 @@
 <?php
 require_once('header_none.php');
+use Models\NongTrai;
+use Models\NhaMay;
+use Models\DongGoi;
+use Models\BanLe;
+use Models\NongTraiTrung;
+use Models\DongGoiTrung;
+use Models\BanLeTrung;
+use Models\NongTraiRauQua;
+use Models\NhaMayRauQua;
+use Models\DongGoiRauQua;
+use Models\BanLeRauQua;
+use Models\DanhMucNongTrai;
+use Models\DanhMucNhaMay;
+use Models\DanhMucBanLe;
+use \Models\DBConnect;
+
+
 $id_user = $users->get_userid();
 $id_congty = $users->get_id_congty();
 $nongtrai = new NongTrai();$nhamay = new NhaMay(); $donggoi = new DongGoi(); $banle = new BanLe();
@@ -19,7 +36,7 @@ if(isset($_GET['submit'])){
     }
     if($collect == 'nhamay'){
     	if($users->is_admin()){
-		    $list = $nhamay->get_all_list();    
+		    $list = $nhamay->get_all_list();
 		} else {
 		    $nhamay->id_congty = $id_congty;
 		    $list = $nhamay->get_list_by_congty();
@@ -75,7 +92,7 @@ if(isset($_GET['submit'])){
     }
     if($collect == 'nhamayrauqua'){
     	if($users->is_admin()){
-		    $list = $nhamayrauqua->get_all_list();    
+		    $list = $nhamayrauqua->get_all_list();
 		} else {
 		    $nhamayrauqua->id_congty = $id_congty;
 		    $list = $nhamayrauqua->get_list_by_congty();
@@ -118,7 +135,7 @@ if($collect == 'nongtrai' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['madan']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, date("d/m/Y",$nt['ngaygioxuat']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, DBConnect::getDate($nt['ngaygioxuat'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, $nt['soluong']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, isset($nt['CODE']) ? $nt['CODE'] : '');
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['soxevanchuyen']);
@@ -153,7 +170,7 @@ if($collect == 'nhamay' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nm['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $nt['madan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, $nm['solo']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, date("d/m/Y", $nm['ngaygiogietmo']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, DBConnect::getDate($nm['ngaygiogietmo'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['sogiaykiemdichthusong']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, isset($nt['CODE']) ? $nt['CODE'] : '');
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nt['soxevanchuyen']);
@@ -187,12 +204,12 @@ if($collect == 'donggoi' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $dg['tensanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, $dg['solo']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, $dg['quicachdonggoi']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, date("d/m/Y",$dg['ngaygiodonggoi']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, DBConnect::getDate($dg['ngaygiodonggoi'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, isset($nt['CODE']) ? $nt['CODE'] : '');
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nt['soxevanchuyen']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $dg['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $dg['sochungnhantieuchuan']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, date("d/m/Y", $dg['ngaygiogietmo']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, DBConnect::getDate($dg['ngaygiogietmo'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$i, $dg['hansudung']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$i, $url);
 		$i++; $stt++;
@@ -248,7 +265,7 @@ if($collect == 'nongtraitrung' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['madan']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, date("d/m/Y",$nt['ngaythuhoach']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, $nt['soluong']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, $nt['soxevanchuyen']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['tentaixe']);
@@ -282,9 +299,9 @@ if($collect == 'donggoitrung' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['madan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $dg['tensanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, $dg['quicachdonggoi']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, date("d/m/Y",$dg['ngaydonggoi']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $dg['solo']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, date("d/m/Y",$nt['ngaythuhoach']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $dmnt['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $dg['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $dg['sochungnhantieuchuan']);
@@ -343,7 +360,7 @@ if($collect == 'nongtrairauqua' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$i, $stt);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nt['matruyxuatsanpham']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, date("d/m/Y",$nt['ngaythuhoach']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, DBConnect::getDate("d/m/Y",$nt['ngaythuhoach'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, $nt['soluong']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, $nt['soxevanchuyen']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['tentaixe']);
@@ -374,8 +391,8 @@ if($collect == 'nhamayrauqua' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $nm['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $nm['matruyxuatsanpham']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, date("d/m/Y", $nm['ngaysoche']->sec));
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, date("d/m/Y", $nt['ngaythuhoach']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, DBConnect::getDate($nm['ngaysoche'],"d/m/Y"));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $nt['soluong']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, $nt['soxevanchuyen']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, $nm['sochungnhantieuchuan']);
@@ -406,11 +423,11 @@ if($collect == 'donggoirauqua' && $list){
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$i, $dm['ten']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$i, $dg['tensanpham']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$i, $dg['quicachdonggoi']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, date("d/m/Y",$dg['ngaydonggoi']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$i, DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$i, $dg['hansudung']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$i, $dg['solo']);
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, date("d/m/Y",$nt['ngaythuhoach']->sec));
-		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, date("d/m/Y", $nm['ngaysoche']->sec));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$i, DBConnect::getDate("d/m/Y",$nt['ngaythuhoach'],"d/m/Y"));
+		$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$i, DBConnect::getDate("d/m/Y", $nm['ngaysoche'],"d/m/Y"));
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$i, $dg['tieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$i, $dg['sochungnhantieuchuan']);
 		$objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$i, $url);

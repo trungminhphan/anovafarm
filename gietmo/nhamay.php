@@ -1,5 +1,11 @@
-\<?php require_once('header.php');
+<?php require_once('header.php');
 check_permis_child($users->is_admin() || $users->is_factory());
+use \Models\DBConnect;
+use \Models\NhaMay;
+use \Models\NongTrai;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nhamay = new NhaMay();$nongtrai = new NongTrai();$danhmucnhamay = new DanhMucNhaMay();
 $danhmucnongtrai = new DanhMucNongTrai();
@@ -15,7 +21,7 @@ if(isset($_POST['submit'])){
     }
 }
 if($users->is_admin()){
-    $nhamay_list = $nhamay->get_all_list();    
+    $nhamay_list = $nhamay->get_all_list();
 } else {
     $nhamay->id_congty = $id_congty;
     $nhamay_list = $nhamay->get_list_by_congty();
@@ -41,7 +47,7 @@ if($users->is_admin()){
             <div class="panel-body">
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button> 
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-nhamay" data-toggle="modal" class="btn btn-primary m-10 themnhamay"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=nhamay&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -81,7 +87,7 @@ if($users->is_admin()){
                             $check_lock = isset($nm['lock']) ? $nm['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="nhamay_check[]" value="'.$nm['_id'].'" />';                                
+                            echo '<input type="hidden" name="nhamay_check[]" value="'.$nm['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="nm_'.$nm['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
@@ -89,7 +95,7 @@ if($users->is_admin()){
             				echo '<td>'.$nm['tieuchuan'].'</td>';
                             echo '<td>'.$nt['madan'].'</td>';
             				echo '<td>'.$nm['solo'].'</td>';
-                            echo '<td>'.date("d/m/Y", $nm['ngaygiogietmo']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nm['ngaygiogietmo'],"d/m/Y").'</td>';
                             echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
@@ -151,7 +157,7 @@ if($users->is_admin()){
                             foreach($nongtrai_list as $nt){
                                 if($users->is_admin() || $nt['id_congty'] == $id_congty){
                                     $danhmucnongtrai->id = $nt['id_dmnongtrai'];$dmnt = $danhmucnongtrai->get_one();
-                                    echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['madan'].' - '.date("d/m/Y",$nt['ngaygioxuat']->sec).' - '.$nt['soluong'].(isset($nt['CODE']) ? ' - '.$nt['CODE'] : '').' - '.$nt['soxevanchuyen'].' - '.$nt['tentaixe']. ' - '.$nt['sogiaykiemdichthusong'].'</option>';
+                                    echo '<option value="'.$nt['_id'].'">'.$dmnt['ten'].' - '.$nt['madan'].' - '.DBConnect::getDate($nt['ngaygioxuat'],"d/m/Y").' - '.$nt['soluong'].(isset($nt['CODE']) ? ' - '.$nt['CODE'] : '').' - '.$nt['soxevanchuyen'].' - '.$nt['tentaixe']. ' - '.$nt['sogiaykiemdichthusong'].'</option>';
 
                                 }
                             }
@@ -176,7 +182,7 @@ if($users->is_admin()){
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-9">
@@ -371,7 +377,7 @@ if($users->is_admin()){
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

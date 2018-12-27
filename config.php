@@ -1,5 +1,7 @@
 <?php
 require_once('header.php');
+use \Models\GridFS;
+use \Models\Config;
 $gridfs = new GridFS();
 $config = new Config(); $ht = $config->get_one();
 if(isset($_POST['submit'])){
@@ -52,7 +54,7 @@ if(isset($_POST['submit'])){
             <div class="panel-body">
             	<div class="form-group">
             		<div class="col-md-4">
-            			<input type="text" name="title" id="title" value="<?php echo $ht['title']; ?>" class="form-control" data-parsley-required="true" placeholder="ANOVA FARM" />            			
+            			<input type="text" name="title" id="title" value="<?php echo $ht['title']; ?>" class="form-control" data-parsley-required="true" placeholder="ANOVA FARM" />
             		</div>
             		<div class="col-md-4">
             			<input type="text" name="text" id="text" value="<?php echo $ht['text']; ?>" class="form-control" data-parsley-required="true" placeholder="ANOVA FARM" />

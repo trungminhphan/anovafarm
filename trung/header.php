@@ -1,7 +1,8 @@
 <?php
-function __autoload($class_name) {
-    require_once('../cls/class.' . strtolower($class_name) . '.php');
-}
+require_once "../vendor/autoload.php";
+use \Models\Users;
+use \Models\SessionManager;
+use \Models\DanhMucCongTy;
 $session = new SessionManager();
 $users = new Users();
 require_once('../inc/functions.inc.php');
@@ -53,11 +54,9 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
 				<div class="navbar-header">
 					<a href="index.html" class="navbar-brand">
 					<?php
-					if(isset($user_default['hinhanh']) && $user_default['hinhanh']){
-						echo '<img src="image.html?id='.$user_default['hinhanh'].'" height="30px;" align="left">';
-					} else {
+
 						echo '<img src="../images/default_logo.png" alt="" height="30" align="left"/>';
-					}
+
 					?>&nbsp;&nbsp;&nbsp;<?php echo isset($ct['title']) ? $ct['title'] : ''; ?>
 					</a>
 					<button type="button" class="navbar-toggle" data-click="top-menu-toggled">
@@ -71,7 +70,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-user"></i> 
+							<i class="fa fa-user"></i>
 							<span class="hidden-xs">
 								<?php echo $user_default['person']; ?>
 							</span> <b class="caret"></b>
@@ -120,7 +119,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
             	<?php if($users->is_admin() || $users->is_packer()): ?>
                 <li>
                     <a href="donggoi.html">
-                        <i class="fa fa-dropbox "></i> 
+                        <i class="fa fa-dropbox "></i>
                         <span>XỬ LÝ ĐÓNG GÓI</span>
                     </a>
                 </li>
@@ -133,7 +132,7 @@ $danhmuccongty = new DanhMucCongTy(); $danhmuccongty->id = $id_congty; $ct = $da
                     </a>
                 </li>
                 <?php endif; ?>
-                
+
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>
                 </li>

@@ -1,4 +1,20 @@
 <?php
+use \Models\NongTrai;
+use \Models\NhaMay;
+use \Models\DongGoi;
+use \Models\BanLe;
+use \Models\NongTraiTrung;
+use \Models\DongGoiTrung;
+use \Models\BanLeTrung;
+use \Models\NongTraiRauQua;
+use \Models\NhaMayRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucBanLe;
+use \Models\DBConnect;
+
 $danhmucnongtrai = new DanhMucNongTrai();
 $nongtrai = new NongTrai();
 $nongtrai->id = $id; $nt = $nongtrai->get_one();
@@ -41,7 +57,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Ngày xuất (Date of delivery)</div>
-		<div class="f-s-16"><?php echo $nt['ngaygioxuat'] ? date("d/m/Y", $nt['ngaygioxuat']->sec) : ''; ?></div>
+		<div class="f-s-16"><?php echo $nt['ngaygioxuat'] ? DBConnect::getDate($nt['ngaygioxuat'],"d/m/Y") : ''; ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>

@@ -1,5 +1,21 @@
 <?php
 require_once('header.php');
+use \Models\NongTrai;
+use \Models\NhaMay;
+use \Models\DongGoi;
+use \Models\BanLe;
+use \Models\NongTraiTrung;
+use \Models\DongGoiTrung;
+use \Models\BanLeTrung;
+use \Models\NongTraiRauQua;
+use \Models\NhaMayRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucBanLe;
+use \Models\DBConnect;
+
 $nongtrai = new NongTrai();$nhamay = new NhaMay(); $donggoi = new DongGoi(); $banle = new BanLe();
 $nongtraitrung = new NongTraiTrung();$donggoitrung = new DongGoiTrung(); $banletrung = new BanLeTrung();
 $nongtrairauqua = new NongTraiRauQua();$nhamayrauqua = new NhaMayRauQua(); $donggoirauqua = new DongGoiRauQua(); $banlerauqua = new BanLeRauQua();
@@ -11,15 +27,15 @@ if(isset($_GET['submit'])){
         if($users->is_admin()) {
     		$nongtrai_list = $nongtrai->search($search);
     		$nhamay_list = $nhamay->search($search);
-    		$donggoi_list = $donggoi->search($search);
-    		$banle_list = $banle->search($search);
-    		$nongtraitrung_list = $nongtraitrung->search($search);
-    		$donggoitrung_list = $donggoitrung->search($search);
-    		$banletrung_list = $banletrung->search($search);
-    		$nongtrairauqua_list = $nongtrairauqua->search($search);
-    		$nhamayrauqua_list = $nhamayrauqua->search($search);
-    		$donggoirauqua_list = $donggoirauqua->search($search);
-    		$banlerauqua_list = $banlerauqua->search($search);
+    		//$donggoi_list = $donggoi->search($search);
+    		//$banle_list = $banle->search($search);
+    		//$nongtraitrung_list = $nongtraitrung->search($search);
+    		//$donggoitrung_list = $donggoitrung->search($search);
+    		//$banletrung_list = $banletrung->search($search);
+    		//$nongtrairauqua_list = $nongtrairauqua->search($search);
+    		//$nhamayrauqua_list = $nhamayrauqua->search($search);
+    		//$donggoirauqua_list = $donggoirauqua->search($search);
+    		//$banlerauqua_list = $banlerauqua->search($search);
         } else {
             if($users->is_farmer()){
                 $nongtrai->id_congty = $id_congty;
@@ -103,7 +119,7 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
                             echo '<td>'.$nt['madan'].'</td>';
-                            echo '<td>'.date("d/m/Y",$nt['ngaygioxuat']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaygioxuat'], "d/m/Y").'</td>';
                             echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
@@ -161,7 +177,7 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$nm['tieuchuan'].'</td>';
                             echo '<td>'.$nt['madan'].'</td>';
                             echo '<td>'.$nm['solo'].'</td>';
-                            echo '<td>'.date("d/m/Y", $nm['ngaygiogietmo']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nm['ngaygiogietmo'],"d/m/Y").'</td>';
                             echo '<td>'.$nt['sogiaykiemdichthusong'].'</td>';
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
@@ -219,7 +235,7 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$dg['tensanpham'].'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
                             echo '<td>'.$dg['quicachdonggoi'].'</td>';
-                            echo '<td>'.date("d/m/Y",$dg['ngaygiodonggoi']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($dg['ngaygiodonggoi'],"d/m/Y").'</td>';
                             echo '<td>'.(isset($nt['CODE']) ? $nt['CODE'] : '').'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=gietmo" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
@@ -320,7 +336,7 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
                             echo '<td>'.$nt['madan'].'</td>';
-                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
                             echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td>'.$nt['tentaixe'].'</td>';
@@ -379,7 +395,7 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$dg['quicachdonggoi'].'</td>';
                             echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
-                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
                             echo '<td>'.$dmnt['ten'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '</tr>'; $i++;
@@ -438,7 +454,7 @@ if(isset($_GET['submit'])){
             		?>
             		</tbody>
             	</table>
-            
+
             </div>
         </div>
     </div>
@@ -480,7 +496,7 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
                             echo '<td>'.$nt['matruyxuatsanpham'].'</td>';
-                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
                             echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td>'.$nt['tentaixe'].'</td>';
@@ -534,8 +550,8 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$dm['ten'].'</td>';
                             echo '<td>'.$nm['tieuchuan'].'</td>';
                             echo '<td>'.$nm['matruyxuatsanpham'].'</td>';
-                            echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
-                            echo '<td>'.date("d/m/Y", $nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nm['ngaysoche'],"d/m/Y").'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
                             echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$nm['_id'].'&type=2&q=rauqua" target="_blank" class="sethienthi"><i class="fa fa-eye text-primary"></i></a></td>';
@@ -590,11 +606,11 @@ if(isset($_GET['submit'])){
                             echo '<td>'.$dm['ten'].'</td>';
                             echo '<td>'.$dg['tensanpham'].'</td>';
                             echo '<td>'.$dg['quicachdonggoi'].'</td>';
-                            echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y").'</td>';
                             echo '<td>'.$dg['hansudung'].'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
-                            echo '<td>'.date("d/m/Y", $nt['ngaythuhoach']->sec).'</td>';
-                            echo '<td>'.date("d/m/Y", $nm['ngaysoche']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
+                            echo '<td>'.DBConnect::getDate("d/m/Y", $nm['ngaysoche'],"d/m/Y").'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=rauqua" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '</tr>'; $i++;
                         }
@@ -625,7 +641,7 @@ if(isset($_GET['submit'])){
             				<th>STT</th>
             				<th>Tên sản phẩm</th>
             				<th>Nơi bán lẻ</th>
-            				<th class="text-center">Hiển thị</th>            				
+            				<th class="text-center">Hiển thị</th>
             			</tr>
             		</thead>
             		<tbody>

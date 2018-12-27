@@ -6,6 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Requests' => array($vendorDir . '/rmccue/requests/library'),
-    'BaconQrCode' => array($vendorDir . '/bacon/bacon-qr-code/src'),
 );

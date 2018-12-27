@@ -1,5 +1,7 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NongTrai;
 $nongtrai = new NongTrai();
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $act = isset($_POST['act']) ? $_POST['act'] : '';
@@ -22,7 +24,7 @@ $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : 0;
 //$nongtrai->diachi = $diachi;
 $nongtrai->id_dmnongtrai = $id_dmnongtrai;
 $nongtrai->tieuchuan = $tieuchuan;
-$nongtrai->ngaygioxuat = $ngaygioxuat ? new MongoDate(convert_date_yyyy_mm_dd($ngaygioxuat)) : '';
+$nongtrai->ngaygioxuat = DBConnect::setDate();//$ngaygioxuat ? new MongoDate(convert_date_yyyy_mm_dd($ngaygioxuat)) : '';
 $nongtrai->madan = $madan;
 $nongtrai->soluong = $soluong;
 $nongtrai->nhamaycungcapthucan = $nhamaycungcapthucan;

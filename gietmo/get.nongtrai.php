@@ -1,5 +1,10 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NongTrai;
+use \Models\DanhMucNongTrai;
+use \Models\NhaMay;
+
 $nongtrai = new NongTrai();$danhmucnongtrai = new DanhMucNongTrai();
 $nhamay = new NhaMay();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -23,7 +28,7 @@ if($act == 'edit' && $id){
 		//'diachi' => $nt['diachi'],
 		'id_dmnongtrai' => strval($nt['id_dmnongtrai']),
 		'tieuchuan' => $nt['tieuchuan'],
-		'ngaygioxuat' => date("d/m/Y",$nt['ngaygioxuat']->sec),
+		'ngaygioxuat' => DBConnect::getDate($nt['ngaygioxuat'],"d/m/Y"),
 		'madan' => $nt['madan'],
 		'soluong' => $nt['soluong'],
 		'nhamaycungcapthucan' => $nt['nhamaycungcapthucan'],

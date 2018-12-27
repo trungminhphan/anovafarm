@@ -1,5 +1,14 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NhaMayRauQua;
+use \Models\NongTraiRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucBanLe;
+use \Models\DanhMucNongTrai;
+
 $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();
 $donggoi = new DongGoiRauQua();$banle = new BanLeRauQua();
 $danhmucnhamay = new DanhMucNhaMay();$danhmucbanle = new DanhMucBanLe();$danhmucnongtrai = new DanhMucNongTrai();
@@ -23,8 +32,8 @@ if($act == 'edit' || $act == 'thembanle'){
 		'tieuchuan' => $dg['tieuchuan'],
 		'sochungnhantieuchuan' => $dg['sochungnhantieuchuan'],
 		'id_nhamayrauqua' => strval($dg['id_nhamayrauqua']),
-		'ngaydonggoi' => date("d/m/Y", $dg['ngaydonggoi']->sec),
-		'hansudung' => $dg['hansudung'],	
+		'ngaydonggoi' => DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y"),
+		'hansudung' => $dg['hansudung'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($dg['hienthi'] == 1 ? ' checked' : '').'/>',
 		'tentrai' => $dmnt['ten'],
 		'diachitrai' => $dmnt['diachi'],

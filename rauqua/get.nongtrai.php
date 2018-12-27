@@ -1,5 +1,10 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NongTraiRauQua;
+use \Models\NhaMayRauQua;
+use \Models\DanhMucNongTrai;
+
 $nongtrai = new NongTraiRauQua();$nhamay = new NhaMayRauQua();
 $danhmucnongtrai = new DanhMucNongTrai();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -28,7 +33,7 @@ if($act == 'edit' || $act == 'themnhamay'){
 		'sochungnhantieuchuan' => $nt['sochungnhantieuchuan'],
 		'matruyxuatsanpham' => $nt['matruyxuatsanpham'],
 		'soluong' => $nt['soluong'],
-		'ngaythuhoach' => date("d/m/Y",$nt['ngaythuhoach']->sec),
+		'ngaythuhoach' => DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y"),
 		'soxevanchuyen' => $nt['soxevanchuyen'],
 		'tentaixe' => $nt['tentaixe'],
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($nt['hienthi'] == 1 ? ' checked' : '').'/>'

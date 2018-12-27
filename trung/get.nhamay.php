@@ -1,5 +1,11 @@
 <?php
 require_once('header_none.php');
+use \Models\NhaMay;
+use \Models\NongTrai;
+use \Models\DongGoi;
+use \Models\DanhMucNhaMay;
+use \Models\DBConnect;
+
 $nhamay = new NhaMay();$nongtrai = new NongTrai();$donggoi = new DongGoi();
 $danhmucnhamay = new DanhMucNhaMay();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -22,9 +28,9 @@ if($act == 'edit' || $act == 'themdonggoi'){
 		'sogiaykiemdichthusong' => $nm['sogiaykiemdichthusong'],
 		'giaychungnhan' => $nm['giaychungnhan'],
 		'nhanvienkiemsoat' => $nm['nhanvienkiemsoat'],
-		'ngaygiogietmo' => date("d/m/Y", $nm['ngaygiogietmo']->sec),
-		'gio' => intval(date("H", $nm['ngaygiogietmo']->sec)),
-		'phut' => intval(date("i", $nm['ngaygiogietmo']->sec)),
+		'ngaygiogietmo' => DBConnect::getDate($nm['ngaygiogietmo'],"d/m/Y"),
+		'gio' => intval(DBConnect::getDate($nm['ngaygiogietmo'],"H")),
+		'phut' => intval(DBConnect::getDate($nm['ngaygiogietmo'],"i")),
 		'hienthi' => '<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" '.($nm['hienthi'] == 1 ? ' checked' : '').'/>'
 	);
 	echo json_encode($arr);

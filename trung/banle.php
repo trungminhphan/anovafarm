@@ -1,4 +1,11 @@
 <?php require_once('header.php');
+use \Models\NongTraiTrung;
+use \Models\BanLeTrung;
+use \Models\DongGoiTrung;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucBanLe;
+
 check_permis_child($users->is_admin() || $users->is_retail());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nongtrai = new NongTraiTrung();$banle = new BanLeTrung();$donggoi = new DongGoiTrung();
@@ -43,7 +50,7 @@ if($users->is_admin()){
             <div class="panel-body">
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>    
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
             	<a href="#modal-banle" data-toggle="modal" class="btn btn-primary m-10 thembanle"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=banletrung&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -74,7 +81,7 @@ if($users->is_admin()){
             				echo '<tr>';
                             echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="banle_check[]" value="'.$bl['_id'].'" />';                                
+                            echo '<input type="hidden" name="banle_check[]" value="'.$bl['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="bl_'.$bl['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
@@ -159,7 +166,7 @@ if($users->is_admin()){
                         }
                     }
                     ?>
-                     </select>   
+                     </select>
                     </div>
                 </div>
             </div>
@@ -206,7 +213,7 @@ if($users->is_admin()){
                 $("#id").val(data.id); $("#act").val(data.act);
                 $("#id_donggoitrung").val(data.id_donggoitrung);$("#id_donggoitrung").select2();
                 $("#id_dmbanle").val(data.id_dmbanle); $("#id_dmbanle").select2();
-                $("#hienthi").html(data.hienthi); FormSliderSwitcher.init();           
+                $("#hienthi").html(data.hienthi); FormSliderSwitcher.init();
             });
         });
         $(".open_window").click(function(){
@@ -224,11 +231,11 @@ if($users->is_admin()){
             sticky:false,
             time:""
         });
-        <?php endif; ?>        
+        <?php endif; ?>
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

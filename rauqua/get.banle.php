@@ -1,5 +1,9 @@
 <?php
 require_once('header_none.php');
+use \Models\DBConnect;
+use \Models\NhaMayRauQua;
+use \Models\NongTraiRauQua;
+use \Models\BanLeRauQua;
 $nhamay = new NhaMayRauQua();$nongtrai = new NongTraiRauQua();$banle = new BanLeRauQua();
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';

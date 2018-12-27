@@ -1,4 +1,11 @@
 <?php require_once('header.php');
+use \Models\DanhMucNhaMay;
+use \Models\NongTraiTrung;
+use \Models\DanhMucNongTrai;
+use \Models\DongGoiTrung;
+use \Models\DanhMucBanLe;
+use \Models\DBConnect;
+
 check_permis_child($users->is_admin() || $users->is_packer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $danhmucnhamay = new DanhMucNhaMay();$nongtrai = new NongTraiTrung();$danhmucnongtrai = new DanhMucNongTrai();
@@ -29,7 +36,7 @@ if($users->is_admin()){
 <link href="../assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="../assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
-<?php if($donggoi_list && $donggoi_list->count() > 0) : ?>
+<?php if($donggoi_list) : ?>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -44,7 +51,7 @@ if($users->is_admin()){
             	<?php if($users->is_admin() || $users->is_packer()): ?>
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>    
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-donggoi" data-toggle="modal" class="btn btn-primary m-10 themdonggoi"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=donggoitrung&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -86,7 +93,7 @@ if($users->is_admin()){
                             $check_lock = isset($dg['lock']) ? $dg['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';                                
+                            echo '<input type="hidden" name="donggoi_check[]" value="'.$dg['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="dg_'.$dg['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
@@ -94,9 +101,9 @@ if($users->is_admin()){
             				echo '<td>'.$nt['madan'].'</td>';
             				echo '<td>'.$dg['tensanpham'].'</td>';
             				echo '<td>'.$dg['quicachdonggoi'].'</td>';
-            				echo '<td>'.date("d/m/Y",$dg['ngaydonggoi']->sec).'</td>';
+            				echo '<td>'.DBConnect::getDate($dg['ngaydonggoi'],"d/m/Y").'</td>';
                             echo '<td>'.$dg['solo'].'</td>';
-                            echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+                            echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
                             echo '<td>'.$dmnt['ten'].'</td>';
                             echo '<td class="text-center link_hienthi"><a href="'.$link_frontend.'/?id='.$dg['_id'].'&type=3&q=trung" class="sethienthi" target="_blank"><i class="fa fa-eye text-primary"></i></a></td>';
                             echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$dg['_id'].'&type=3&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
@@ -136,7 +143,7 @@ if($users->is_admin()){
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Thông tin nơi bán lẻ</h4>
             </div>
-            <div class="modal-body">        
+            <div class="modal-body">
                 <input type="hidden" name="id_donggoitrung" id="id_donggoitrung">
                 <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
                 <div class="form-group">
@@ -168,7 +175,7 @@ if($users->is_admin()){
                         }
                     }
                     ?>
-                     </select>   
+                     </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -223,7 +230,7 @@ if($users->is_admin()){
                                 if($users->is_admin() || $nt['id_congty'] == $id_congty){
                                     $danhmucnongtrai->id = $nt['id_dmnongtrai'];
                                     $dm = $danhmucnongtrai->get_one();
-                                    echo '<option value="'.$nt['_id'].'">'.$dm['ten'] .' - '. $nt['madan'] .' - '.date("d/m/Y",$nt['ngaythuhoach']->sec) . ' - ' .$nt['soluong'].' - '. $nt['soxevanchuyen'].' - '. $nt['tentaixe'].'</option>';
+                                    echo '<option value="'.$nt['_id'].'">'.$dm['ten'] .' - '. $nt['madan'] .' - '.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y") . ' - ' .$nt['soluong'].' - '. $nt['soxevanchuyen'].' - '. $nt['tentaixe'].'</option>';
                                 }
                             }
                         }
@@ -357,7 +364,7 @@ if($users->is_admin()){
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });

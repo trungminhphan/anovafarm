@@ -215,22 +215,22 @@ class NongTrai {
 		$start_date = $date1 ? DBConnect::setDate($date1) : DBConnect::setDate();
 		$end_date = $date2 ? DBConnect::setDate($date2) : DBConnect::setDate();
 		$query = array( '$or' => array(
-			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
-			array('madan' => new MongoRegex('/' . $search . '/i')),
+			array('tieuchuan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('madan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('soluong' => intval($search)),
 			array('$and' => array(
 				array('ngaygioxuat' => array('$gte' => $start_date)),
 				array('ngaygioxuat' => array('$lte' => $end_date)),
 				)),
-			array('soxevanchuyen' => new MongoRegex('/' . $search . '/i')),
-			array('tentaixe' => new MongoRegex('/' . $search . '/i')),
-			array('sogiaykiemdichthusong' => new MongoRegex('/' . $search . '/i')),
-			array('nhanvienkiemdich' => new MongoRegex('/' . $search . '/i')),
+			array('soxevanchuyen' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('tentaixe' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('sogiaykiemdichthusong' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('nhanvienkiemdich' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('id_dmnongtrai' => array('$in' => $arr_list)),
 		));
 		$sort = array('date_post' => -1);
 		$result = array();
-		$result1 = $this->_collection->find($query)->sort($sort);
+		$result1 = $this->_collection->find($query, array('sort' => $sort));
 		$result2 = $this->_collection->find(array('$text' => array('$search' => $search)));
 		if($result1){
 			foreach ($result1 as $r1) {
@@ -262,17 +262,17 @@ class NongTrai {
 		$start_date = $date1 ? DBConnect::setDate($date1) : DBConnect::setDate();
 		$end_date = $date2 ? DBConnect::setDate($date2) : DBConnect::setDate();
 		$query = array( '$or' => array(
-			array('tieuchuan' => new MongoRegex('/' . $search . '/i')),
-			array('madan' => new MongoRegex('/' . $search . '/i')),
+			array('tieuchuan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('madan' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('soluong' => intval($search)),
 			array('$and' => array(
 				array('ngaygioxuat' => array('$gte' => $start_date)),
 				array('ngaygioxuat' => array('$lte' => $end_date)),
 				)),
-			array('soxevanchuyen' => new MongoRegex('/' . $search . '/i')),
-			array('tentaixe' => new MongoRegex('/' . $search . '/i')),
-			array('sogiaykiemdichthusong' => new MongoRegex('/' . $search . '/i')),
-			array('nhanvienkiemdich' => new MongoRegex('/' . $search . '/i')),
+			array('soxevanchuyen' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('tentaixe' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('sogiaykiemdichthusong' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
+			array('nhanvienkiemdich' => new \MongoDB\BSON\Regex('/' . $search . '/i')),
 			array('id_dmnongtrai' => array('$in' => $arr_list)),
 		));
 		$q = array('$and' => array(

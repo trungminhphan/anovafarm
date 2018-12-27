@@ -1,4 +1,19 @@
 <?php
+use \Models\NongTrai;
+use \Models\NhaMay;
+use \Models\DongGoi;
+use \Models\BanLe;
+use \Models\NongTraiTrung;
+use \Models\DongGoiTrung;
+use \Models\BanLeTrung;
+use \Models\NongTraiRauQua;
+use \Models\NhaMayRauQua;
+use \Models\DongGoiRauQua;
+use \Models\BanLeRauQua;
+use \Models\DanhMucNongTrai;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucBanLe;
+use \Models\DBConnect;
 $danhmucnongtrai = new DanhMucNongTrai();
 $danhmucnhamay = new DanhMucNhaMay();
 $danhmucbanle = new DanhMucBanLe();
@@ -88,7 +103,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Ngày giết mổ (Date of Slaughter)</div>
-		<div class="f-s-16"><?php echo date("d/m/Y", $nm['ngaygiogietmo']->sec); ?></div>
+		<div class="f-s-16"><?php echo DBConnect::getDate($nm['ngaygiogietmo'],"d/m/Y"); ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -96,7 +111,7 @@ $danhmucnongtrai->id = $nt['id_dmnongtrai']; $dmnt = $danhmucnongtrai->get_one()
 	<div class="col-md-3"></div>
 	<div class="col-md-6 p-b-5" style="border-bottom: 1px solid #bbb;">
 		<div>Ngày đóng gói (Date of Packing)</div>
-		<div class="f-s-16"><?php echo date("d/m/Y", $dg['ngaygiodonggoi']->sec); ?></div>
+		<div class="f-s-16"><?php echo DBConnect::getDate($dg['ngaygiodonggoi'],"d/m/Y"); ?></div>
 	</div>
 	<div class="col-md-3"></div>
 </div>

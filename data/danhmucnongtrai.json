@@ -1,0 +1,11 @@
+{"_id":{"$oid":"58f081fcd89398440b00002c"},"ten":"TRẠI GÀ ĐẺ BA HUÂN, BÌNH DƯƠNG","diachi":"Bình Dương","id_congty":{"$oid":"591d6c69c12583e352f65fd6"}}
+{"_id":{"$oid":"58f0820ad89398440b00002d"},"ten":"Hợp tác xã Nông nghiệp tổng hợp Anh Đào CO-OP","diachi":"32 C Nguyễn Công Trứ - Phường 2 - Tp Đà Lạt - Lâm Đồng","id_congty":{"$oid":"58f0801dd89398440b00002b"}}
+{"_id":{"$oid":"58fd6e9e835e6fdc6e1ef937"},"ten":"Cty CP Anova Farm, Trại chăn nuôi Bảo Huy","diachi":"Ấp 2, Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa – Vũng Tàu","id_congty":{"$oid":"58fd6e23835e6f186f1ef936"}}
+{"_id":{"$oid":"58fef103835e6f027c3869f9"},"ten":"ĐỒNG XANH FARM","diachi":"P.7, Tp. Đà Lạt, Tỉnh Lâm Đồng","id_congty":{"$oid":"58f074f8d893983c0b000029"}}
+{"_id":{"$oid":"591d6c69c12583e352f65fd5"},"ten":"Trại Bưng Riềng","diachi":"xã Bưng Riềng, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu, Việt Nam","id_congty":{"$oid":"591d6c69c12583e352f65fd6"}}
+{"_id":{"$oid":"591d6c69c12583e352f65fd9"},"ten":"Trại Tân Thắng","diachi":"Thôn Hàm Thắng, xã Tân Thắng, huyện Hàm Tân, tỉnh Bình Thuận, Viêt Nam","id_congty":{"$oid":"591d6c69c12583e352f65fd6"}}
+{"_id":{"$oid":"591d6c69c12583e352f6608a"},"ten":"Bưng Riềng","diachi":"Bình Thuận","id_congty":{"$oid":"591d6c69c12583e352f6608b"}}
+{"_id":{"$oid":"591d6c6ac12583e352f6608d"},"ten":"Trại chăn nuôi Bảo Huy, Cty CP Anova Farm","diachi":"Ấp 2, Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa – Vũng Tàu","id_congty":{"$oid":"591d6c69c12583e352f65fd6"}}
+{"_id":{"$oid":"591d6c6ac12583e352f6609f"},"ten":"Trại chăn nuôi Ngọc Minh Anh, Cty CP Anova Farm","diachi":"Tổ 5, Thôn Hàm Thắng, Xã Tân Thắng, Huyện Hàm Tân, Tỉnh Bình Thuận","id_congty":{"$oid":"591d6c69c12583e352f65fd6"}}
+{"_id":{"$oid":"591ed31cc12583ab4d3ae568"},"ten":"TRẠI GÀ THANH ĐỨC","diachi":"Tổ 3, Ấp Bình Hòa, Xã Xuân Phú, Xuân Lộc, Đồng Nai","id_congty":{"$oid":"591ed2f4c12583ae4b3ae568"}}
+{"_id":{"$oid":"591ed7a1c1258380523ae568"},"ten":"Nông Trại Long Thành","diachi":"Tổ 3, Ấp Bình Hòa, Xã Xuân Phú, Xuân Lộc, Đồng Nai","id_congty":{"$oid":"591ed2f4c12583ae4b3ae568"}}

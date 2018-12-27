@@ -1,4 +1,8 @@
 <?php require_once('header.php');
+use \Models\NongTraiTrung;
+use \Models\DanhMucNhaMay;
+use \Models\DanhMucNongTrai;
+use \Models\DBConnect;
 check_permis_child($users->is_admin() || $users->is_farmer());
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $nongtrai = new NongTraiTrung();
@@ -41,7 +45,7 @@ if($users->is_admin()){
             <div class="panel-body">
                 <?php if($users->is_admin()) : ?>
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>    
+                <button type="submit" name="submit" id="submit" value="OK" class="btn btn-success"><i class="fa fa-lock"></i> Cập nhật khóa dữ liệu</button>
                 <?php endif; ?>
                 <a href="#modal-nongtrai" data-toggle="modal" class="btn btn-primary m-10 themnongtrai"><i class="fa fa-plus"></i> Thêm mới</a>
                 <a href="../export_data.html?collect=nongtraitrung&submit=OK" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Xuất Excel</a>
@@ -78,13 +82,13 @@ if($users->is_admin()){
                             $check_lock = isset($nt['lock']) ? $nt['lock'] : 0;
             				echo '<tr>';
                             if($users->is_admin()) :
-                            echo '<input type="hidden" name="nongtrai_check[]" value="'.$nt['_id'].'" />';                                
+                            echo '<input type="hidden" name="nongtrai_check[]" value="'.$nt['_id'].'" />';
                             echo '<td><input type="checkbox" value="1" name="nt_'.$nt['_id'].'" class="check" '.($check_lock == 1 ? ' checked' : '').'/></td>';
                             endif;
             				echo '<td>'.$i.'</td>';
                             echo '<td>'.$dm['ten'].'</td>';
             				echo '<td>'.$nt['madan'].'</td>';
-            				echo '<td>'.date("d/m/Y",$nt['ngaythuhoach']->sec).'</td>';
+            				echo '<td>'.DBConnect::getDate($nt['ngaythuhoach'],"d/m/Y").'</td>';
             				echo '<td>'.$nt['soluong'].'</td>';
                             echo '<td>'.$nt['soxevanchuyen'].'</td>';
                             echo '<td>'.$nt['tentaixe'].'</td>';
@@ -92,7 +96,7 @@ if($users->is_admin()){
                             echo '<td class="text-center"><a href="../print_qrcode_trung.html?id='.$nt['_id'].'&type=1&q=trung" class="open_window"><i class="fa fa-qrcode"></i></a></td>';
                             if($users->is_admin() || $users->is_packer()){
                                echo '<td class="text-center"><a href="get.nongtrai.html?id='.$nt['_id'].'&act=themdonggoi#modal-donggoi" data-toggle="modal" name="'.$nt['_id'].'" class="themdonggoi"><i class="fa fa-dropbox"></i></a></td>';
-                            }  
+                            }
                             if($users->is_admin() || $users->is_farmer()){
                                 if($check_lock == 1){
                                     echo '<td class="text-center"><i class="fa fa-lock text-danger"></i></td>';
@@ -143,7 +147,7 @@ if($users->is_admin()){
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tiêu chuẩn</label>
                     <div class="col-md-3">
@@ -153,7 +157,7 @@ if($users->is_admin()){
                     <div class="col-md-3">
                         <input type="text" name="sochungnhantieuchuan" id="sochungnhantieuchuan" value="" class="form-control" data-parsley-required="true"/>
                     </div>
-                   
+
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Mã đàn</label>
@@ -314,7 +318,7 @@ if($users->is_admin()){
     			$("#tieuchuantrai").html(data.tieuchuan);
                 $("#hienthidonggoi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
                 FormSliderSwitcher.init();
-    		});    		
+    		});
     	});
         $(".open_window").click(function(){
           window.open($(this).attr("href"), '_blank', 'toolbar=yes, scrollbars=yes, resizable=yes, top=0, left=100, width=1024, height=800');
@@ -331,7 +335,7 @@ if($users->is_admin()){
             sticky:false,
             time:""
         });
-        <?php endif; ?>  
+        <?php endif; ?>
         $(".themnongtrai").click(function(){
             $("#id").val("");$("#act").val("");
             $("#hienthi").html('<input type="checkbox" data-render="switchery" data-theme="default" name="hienthi" value="1" checked/>');
@@ -344,7 +348,7 @@ if($users->is_admin()){
                 $("#id_dmnongtrai").val(data.id_dmnongtrai);$("#id_dmnongtrai").select2();
                 $("#tieuchuannongtrai").val(data.tieuchuan);
                 $("#sochungnhantieuchuan").val(data.sochungnhantieuchuan);
-                $("#ngaythuhoach").val(data.ngaythuhoach);              
+                $("#ngaythuhoach").val(data.ngaythuhoach);
                 $("#madannongtrai").val(data.madan);
                 $("#soluong").val(data.soluong);
                 $("#nhamaycungcapthucan").val(data.nhamaycungcapthucan);
@@ -357,7 +361,7 @@ if($users->is_admin()){
         $("#check_all").click(function(){
             if($(this).prop("checked")){
                 $(".check").prop("checked", true);
-            } else {   
+            } else {
                 $(".check").prop("checked", false);
             }
         });
